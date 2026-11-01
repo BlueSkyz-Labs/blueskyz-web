@@ -801,6 +801,22 @@ const roleHeading = (role: Step["role"]) => {
     color: var(--surface-primary);
   }
 
+  /* Forced colors drop the fills and turn every underline on, so the
+     chosen step and the current chapter need system colours of their own. */
+  @media (forced-colors: active) {
+    .guide__switch-btn[aria-pressed="true"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+    .guide__localnav-links a {
+      border-bottom: 2px solid Canvas;
+    }
+    .guide__localnav-links a[aria-current="true"] {
+      border-bottom-color: CanvasText;
+    }
+  }
+
   .guide__footer {
     margin: 9rem auto 0;
     max-width: 48rem;

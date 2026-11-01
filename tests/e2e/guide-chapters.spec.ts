@@ -142,3 +142,40 @@ test.describe("without JavaScript", () => {
     await expect(page.locator(".guide__step h3")).toHaveCount(8);
   });
 });
+
+test.describe("forced colors", () => {
+  test.use({ forcedColors: "active", viewport: { width: 1440, height: 900 } });
+  test("the chosen step and current chapter stay distinguishable", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto(PATH("en"));
+    const sw = page.locator("#chapter-2 [data-gallery-switch] button");
+    await sw.nth(1).click();
+    await expect(sw.nth(1)).toHaveAttribute("aria-pressed", "true");
+    const bg = (i: number) =>
+      sw.nth(i).evaluate((b) => getComputedStyle(b).backgroundColor);
+    expect(await bg(1)).not.toBe(await bg(0));
+    // Under forced colours a transparent fill and the Canvas fill look
+    // the same, so the pressed fill must not be Canvas either.
+    const canvas = await page.evaluate(() => {
+      const probe = document.createElement("div");
+      probe.style.background = "Canvas";
+      document.body.append(probe);
+      const c = getComputedStyle(probe).backgroundColor;
+      probe.remove();
+      return c;
+    });
+    expect(await bg(1)).not.toBe(canvas);
+
+    await page.evaluate(() => window.scrollTo(0, 1800));
+    const current = page.locator('[data-chapter-link][aria-current="true"]');
+    await expect(current).toHaveCount(1);
+    const other = page.locator(
+      '[data-chapter-link]:not([aria-current="true"])',
+    );
+    const line = (l: typeof current) =>
+      l.evaluate((a) => getComputedStyle(a).borderBottomColor);
+    expect(await line(current)).not.toBe(await line(other.first()));
+  });
+});
