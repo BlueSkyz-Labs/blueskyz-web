@@ -14,6 +14,11 @@ overrides:
   lighthouse: 13.4.1
   uuid: 11.1.1
   qs: 6.16.1
+  # Issue #715: pin the advisory's fixed release across the tool graph.
+  minimatch: 11.0.1
+  # LHCI's old launcher requires glob@7 internals that minimatch 11 removed.
+  # Match it to the launcher version already used by Lighthouse.
+  "@lhci/cli>chrome-launcher": 1.2.1
   sharp: 0.35.5
   unifont>undici: 8.12.2
   miniflare>undici: 7.30.1
