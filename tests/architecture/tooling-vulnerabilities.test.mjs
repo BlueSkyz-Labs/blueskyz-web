@@ -32,4 +32,8 @@ test("tooling graph excludes known traversal and resource-exhaustion advisories"
   assertAllLockedAt("uuid", "11.1.1");
   assertAllLockedAt("qs", "6.16.1");
   assertAllLockedAt("sharp", "0.35.5");
+  // Issue #715: CVE-2026-118764 fixed from minimatch 11.0.1 onward.
+  assert.match(workspace, /\n\s+minimatch: 11\.0\.1/);
+  assertAllLockedAt("minimatch", "11.0.1");
+  assert.match(lockfile, /'@isaacs\/nonrecursive-glob-match@1\.0\.3'/);
 });
