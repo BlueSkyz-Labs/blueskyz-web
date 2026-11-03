@@ -14,15 +14,15 @@ Keep `main` unchanged while work is in Draft PR. Do not introduce another design
 
 ## Current truth, not historical assumptions
 
-| Surface | 2026-10-31 observed source truth | Boundary |
-|---|---|---|
-| Source | `main@21875916`; repository ruleset `main-promotion-governance` active | Requires PR, `Quality Gates`, `Browser Assurance`; approving review count configured 0, so independence cannot be inferred |
-| In-flight | #710 open, 3 changed files, 10/10 latest workflow jobs successful | Human viewport, motion, native-language and no-JS assessment **NOT VERIFIED** |
-| Public product registry | Sổ Trọ Preview; Sổ Tâm In development; Vững Tay Lái In development | No marketing-triggered public sign-in, payment, native store or public APK |
-| Existing editorial | Five bilingual EN/VI Journal posts on source `main` | No mass-generated publishing and no claim inflation |
-| Analytics | Cloudflare Web Analytics; client taxonomy emits DOM-only custom events | Do not silently enable new network telemetry, user identifiers, paid pixels or attribution |
-| External verification | #566, #523, #522 remain open | Cloudflare served version, owner DNS/Search Console and M365 mailbox/operational evidence are not source-derived PASS |
-| Inherited backlog | #451, #290, #638 open | Reuse their existing owners/plans; signed APK landing waits for product-side artifact |
+| Surface                 | 2026-10-31 observed source truth                                       | Boundary                                                                                                                   |
+| ----------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Source                  | `main@21875916`; repository ruleset `main-promotion-governance` active | Requires PR, `Quality Gates`, `Browser Assurance`; approving review count configured 0, so independence cannot be inferred |
+| In-flight               | #710 open, 3 changed files, 10/10 latest workflow jobs successful      | Human viewport, motion, native-language and no-JS assessment **NOT VERIFIED**                                              |
+| Public product registry | Sổ Trọ Preview; Sổ Tâm In development; Vững Tay Lái In development     | No marketing-triggered public sign-in, payment, native store or public APK                                                 |
+| Existing editorial      | Five bilingual EN/VI Journal posts on source `main`                    | No mass-generated publishing and no claim inflation                                                                        |
+| Analytics               | Cloudflare Web Analytics; client taxonomy emits DOM-only custom events | Do not silently enable new network telemetry, user identifiers, paid pixels or attribution                                 |
+| External verification   | #566, #523, #522 remain open                                           | Cloudflare served version, owner DNS/Search Console and M365 mailbox/operational evidence are not source-derived PASS      |
+| Inherited backlog       | #451, #290, #638 open                                                  | Reuse their existing owners/plans; signed APK landing waits for product-side artifact                                      |
 
 The 2026-10-27 `docs/current-work.json` note “No PR is open” is **historically dated** and is superseded by this 2026-10-31 live checkpoint. Never rewrite past evidence into a false current state.
 
@@ -35,6 +35,7 @@ On 2026-10-31 the first source-only Draft PR [#714](https://github.com/BlueSkyz-
 ## Wave 0 — close current work before adding features
 
 ### W0.1 — #710 exact-head review and disposition
+
 - **Owner:** PR coding agent for remediations; independent reviewer or Owner for visual/human verification.
 - **Read first:** #710 patch + screenshots, `src/components/product/ProductGuide.astro`, `tests/e2e/guide-chapters.spec.ts`, `docs/QA_STRATEGY.md`, Brand Kit v4.
 - **Matrix:** EN/VI/zh-Hans/zh-Hant; 320/390/1440px; light/dark; real Chromium/Firefox/WebKit/mobile; keyboard focus, accessible names and current/pressed state; no-JS, 200% zoom, reduced motion, forced colors, long localized strings, snap/carousel active step versus visually centered card, hero/screenshot readability and cross-product truth.
@@ -42,6 +43,7 @@ On 2026-10-31 the first source-only Draft PR [#714](https://github.com/BlueSkyz-
 - **Exit:** `READY_FOR_OWNER_MERGE_REVIEW` only after checklist and evidence; merge remains Owner/governance mediated. Until then `HUMAN_REVIEW_NOT_VERIFIED`.
 
 ### W0.2 — live current-work router reconciliation
+
 - **Owner:** orchestration / governance agent.
 - Add this active handoff and update the top-level `updatedAt`. Keep historical notes but label outdated “no open PR” explicitly as historical.
 - Maintain exactly one `IN_PROGRESS` wave per `tests/architecture/current-work-router.test.mjs`. Do not set `MERGED` until actual merged evidence exists.
@@ -49,20 +51,21 @@ On 2026-10-31 the first source-only Draft PR [#714](https://github.com/BlueSkyz-
 - **Exit:** current-work JSON parses and native router tests pass at exact candidate head; Draft PR with no hidden runtime change.
 
 ### W0.3 — guard against redundant new work
+
 - **Owner:** coordinator.
 - Map open issues and existing plans; no duplicate #566/#523/#522/#451/#290/#638, no new parallel SEO or visual baseline registries.
 - Keep the current `docs/superpowers/plans/2026-10-24-seo-ads-marketing-readiness.md` and `2026-10-21-next-waves.md` as the active growth/backlog inputs, not a second product roadmap.
 
 ## Wave 1 — trust, provider assurance and operational evidence
 
-| ID / existing issue | Task | Evidence required for closure | Owner / stop condition |
-|---|---|---|---|
-| W1.1 [#566](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/566) | Cloudflare Worker release readback, provider control plane, exact candidate vs served revision, preview isolation, rollback and anonymous routes | Provider deployment ID + deployed Worker version + unambiguous source SHA bind; security headers/CSP, 404, cache and negative preview→production proof, captured at a known time | Owner Cloudflare access; **PROVIDER_NOT_VERIFIED** without authenticated readback; no production mutation to manufacture proof |
-| W1.2 [#523](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/523) | Independent company verification / SEO ownership | Search Console Domain verification, submit absolute `https://blueskyzlabs.com/sitemap.xml`, URL Inspection live test, Bing ownership, truthful visible About/Contact/Organization structured data | Owner DNS / GSC / Bing. No legal incorporation/trademark inference; historical site publication is not verification |
-| W1.3 [#522](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/522) | SGPS-DEC-038 email & identity convergence | M365 redacted tenant proof EI-03/04/11/13/14, role mailbox owners, restricted forwarding, continuity/recovery, independent send–receive–reply round trip | Owner M365; no DNS/MX changes or mailbox secrets; keep `ADOPTION_MAPPED` while blocked |
-| W1.4 [#451](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/451) | Experience Performance & Friction acceptance | Reconcile 2026-10-20 RUM beacon sample with live provider dashboard and tested negative identifier guard; collect actual field CWV over time, not inferred from Lighthouse | Existing SGPS gate owners; do not weaken no-new-tracking/privacy model or substitute synthetic field INP |
-| W1.5 [#290](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/290) | Test Intelligence evidence keeper | Refresh mapped ledger and source coverage, preserve unique negative tests; canonical SGPS promotion before `ADOPTED` | Local test owner; do not install referenced external skill or prune tests without independent proof |
-| W1.6 [#638](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/638) | Signed APK download landing planning only | Official HTTPS host, signed manifest, SHA-256/versionCode/signing fingerprint, release/update/revocation proof, Sổ Trọ upstream approval | **DEPENDENCY_WAIT**; no upload or publication of APK |
+| ID / existing issue                                                   | Task                                                                                                                                             | Evidence required for closure                                                                                                                                                                     | Owner / stop condition                                                                                                         |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| W1.1 [#566](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/566) | Cloudflare Worker release readback, provider control plane, exact candidate vs served revision, preview isolation, rollback and anonymous routes | Provider deployment ID + deployed Worker version + unambiguous source SHA bind; security headers/CSP, 404, cache and negative preview→production proof, captured at a known time                  | Owner Cloudflare access; **PROVIDER_NOT_VERIFIED** without authenticated readback; no production mutation to manufacture proof |
+| W1.2 [#523](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/523) | Independent company verification / SEO ownership                                                                                                 | Search Console Domain verification, submit absolute `https://blueskyzlabs.com/sitemap.xml`, URL Inspection live test, Bing ownership, truthful visible About/Contact/Organization structured data | Owner DNS / GSC / Bing. No legal incorporation/trademark inference; historical site publication is not verification            |
+| W1.3 [#522](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/522) | SGPS-DEC-038 email & identity convergence                                                                                                        | M365 redacted tenant proof EI-03/04/11/13/14, role mailbox owners, restricted forwarding, continuity/recovery, independent send–receive–reply round trip                                          | Owner M365; no DNS/MX changes or mailbox secrets; keep `ADOPTION_MAPPED` while blocked                                         |
+| W1.4 [#451](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/451) | Experience Performance & Friction acceptance                                                                                                     | Reconcile 2026-10-20 RUM beacon sample with live provider dashboard and tested negative identifier guard; collect actual field CWV over time, not inferred from Lighthouse                        | Existing SGPS gate owners; do not weaken no-new-tracking/privacy model or substitute synthetic field INP                       |
+| W1.5 [#290](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/290) | Test Intelligence evidence keeper                                                                                                                | Refresh mapped ledger and source coverage, preserve unique negative tests; canonical SGPS promotion before `ADOPTED`                                                                              | Local test owner; do not install referenced external skill or prune tests without independent proof                            |
+| W1.6 [#638](https://github.com/BlueSkyz-Labs/blueskyz-web/issues/638) | Signed APK download landing planning only                                                                                                        | Official HTTPS host, signed manifest, SHA-256/versionCode/signing fingerprint, release/update/revocation proof, Sổ Trọ upstream approval                                                          | **DEPENDENCY_WAIT**; no upload or publication of APK                                                                           |
 
 ### W1 special: search and AI crawler source/edge drift
 

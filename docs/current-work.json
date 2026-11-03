@@ -382,9 +382,7 @@
     {
       "id": "human-review-governance",
       "question": "Enable stronger human review rules only if a real independent reviewer path exists; otherwise retain HUMAN_REVIEW_UNAVAILABLE semantics.",
-      "blocks": [
-        "branch-protection-independent-review"
-      ]
+      "blocks": ["branch-protection-independent-review"]
     },
     {
       "id": "rum-provider",
@@ -394,37 +392,27 @@
     {
       "id": "c3-concierge-runtime-privacy-provider",
       "question": "C3 direction is approved, but remote Concierge/model provider, retrieval runtime, log retention/privacy, abuse controls and cost ceiling require a dedicated architecture/privacy/security decision plus owner approval before implementation.",
-      "blocks": [
-        "c3-e-concierge-runtime"
-      ]
+      "blocks": ["c3-e-concierge-runtime"]
     },
     {
       "id": "c3-spatial-webgl-go-gate",
       "question": "C3 spatial concept is approved as an experiment. WebGL/3D remains conditional on native 2.5D evidence, measured value, performance/accessibility budget and a separate owner GO decision.",
-      "blocks": [
-        "c3-g-webgl-runtime"
-      ]
+      "blocks": ["c3-g-webgl-runtime"]
     },
     {
       "id": "p2-6-display-tier",
       "question": "UX P2-6: move inner short-title H1s to the display step (--size-9, 64px desktop) while the home H1 stays capped at --size-7, or close P2-6 as is.",
-      "blocks": [
-        "ux-p2-6"
-      ]
+      "blocks": ["ux-p2-6"]
     },
     {
       "id": "tru-12-privacy-source",
       "question": "TRU-12: dropping privacy as a source of the security claim leaves the claim citing only itself. Add a second independent source, or set a rule that a self-only chain is acceptable for this claim.",
-      "blocks": [
-        "tru-12-source-fit"
-      ]
+      "blocks": ["tru-12-source-fit"]
     },
     {
       "id": "vungtaylai-listing-copy",
       "question": "Vững Tay Lái listing (#681): keep featuredTier featured or move to ecosystem; approve or rewrite the VI phrase 'câu trả lời ưu tiên độ tự tin' (confidence-first answers); decide whether the home hero sentence and PRODUCT_META get Vững Tay Lái copy (new copy in four locales, none invented by agents); confirm no app, sign-in or store link until the VungTayLai Product Truth LOCK is lifted.",
-      "blocks": [
-        "vungtaylai-listing-publication"
-      ]
+      "blocks": ["vungtaylai-listing-publication"]
     }
   ],
   "residualExternal": [
