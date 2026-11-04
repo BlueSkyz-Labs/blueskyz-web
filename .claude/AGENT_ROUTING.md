@@ -9,6 +9,25 @@ The orchestrator (the main session) plans, decides and edits Vietnamese. It dele
 | `implementer` | Sonnet         | one v8 wave: components, CSS, behaviour, tests and a PR                     | review of its own PR             |
 | `reviewer`    | Opus           | W11 verification, VI review, truth/security review, red team                | implementation                   |
 
+## Worker lane: OpenCode Go and the free pool (Owner 2026-11-05)
+
+Same mechanism as Sổ Trọ. Grunt work goes to the cheap lane before any
+Claude agent: drafts of code, tests, refactors, data transforms and technical
+docs that a gate can check (complexity up to 3 of 5).
+
+1. `node scripts/opencode-free-worker.mjs --fallback-go` for one task: the
+   free pool first, then DeepSeek Flash on OpenCode Go.
+2. `node scripts/opencode-fanout.mjs --split --fallback-go` for a task with
+   independent parts: DeepSeek Flash splits it, up to 5 subtasks run in
+   parallel on the free pool.
+3. Only if the worker exits non-zero (no quota, network blocked, refused),
+   use `mechanic` or `implementer` and say why in the PR or checkpoint.
+
+The lead reads every worker diff and runs the gates; the worker never
+certifies itself. Never send secrets, visitor data, public copy, product
+claims, design decisions or security/release verdicts. Setup, limits and
+evidence: `docs/runbooks/opencode-go-worker.md`.
+
 ## Token rules
 
 1. **Mandatory first read:** active plan `docs/superpowers/plans/2026-10-02-v9-completion-golive.md` §8 (agent execution contract) and your §9 task card. Then read only the files your card names. v8 plan §5 still supplies ports, the glossary (§5.3) and PR conventions. Do not read the whole plan or the deck.
