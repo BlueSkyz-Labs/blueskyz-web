@@ -2,6 +2,8 @@
 
 > **2026-10-21 OPERATING RULES (durable):** Read `.claude/OPERATING_RULES.md` every session: Owner comms in Vietnamese with GMT+7 12h times, flow/merge discipline, local hygiene, harness/multi-agent lanes, FinOps and the weekly learning loop.
 
+> **2026-11-05 OPENCODE GO WORKER LANE:** Grunt engineering drafts go to `node scripts/opencode-free-worker.mjs --fallback-go` (free pool, then DeepSeek Flash on OpenCode Go; reuses `blackangelz/blueskyz-studio` `go_first.py`) before any Claude agent, per `.claude/AGENT_ROUTING.md`. The lead reviews and runs gates. Never send secrets, visitor data, public copy, claims or security/release verdicts. Runbook: `docs/runbooks/opencode-go-worker.md`.
+
 > **2026-10-18 APP DOWNLOAD & STORE CLAIMS:** Before adding a signed-APK landing, app store badges, seller information or localized marketplace claims, read `docs/sgps/2026-10-18-mobile-store-distribution-owner-adoption.md`. This site is not payment/signer/Store authority; require exact approved Product release, signing identity, checksum, verified endpoint and publication gate first.
 
 > **2026-10-09 PORTFOLIO OWNER WORK WAVE — AI Factory + Experience:** Before dev/UX/PR promotion read `docs/sgps/2026-10-09-AI_FACTORY_EXPERIENCE_ADOPTION.md` after refreshing live truth. Continue safe approved work autonomously; require independent exact-head, real rendered UX proof and keep existing project Owner/brand/security/instruction protections. The SGPS Core #293 candidate does NOT change pins or grant merge/release authority. Do not self-apply `owner-approved`.
