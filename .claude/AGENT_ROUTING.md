@@ -9,23 +9,33 @@ The orchestrator (the main session) plans, decides and edits Vietnamese. It dele
 | `implementer` | Sonnet         | one v8 wave: components, CSS, behaviour, tests and a PR                     | review of its own PR             |
 | `reviewer`    | Opus           | W11 verification, VI review, truth/security review, red team                | implementation                   |
 
-## Worker lane: OpenCode Go and the free pool (Owner 2026-11-05)
+## Worker lanes: Lead -> Sublead -> subagents (Owner 2026-11-05, 2026-11-08)
 
-Same mechanism as Sổ Trọ. Grunt work goes to the cheap lane before any
-Claude agent: drafts of code, tests, refactors, data transforms and technical
-docs that a gate can check (complexity up to 3 of 5).
+Owner 2026-11-08: "Áp dụng FINOPS triệt để Lead -> Sublead điều phối multi
+subagent harness (opencode go, escalate claude api, claude sub) tối đa an
+toàn, tăng tốc độ xử lý."
 
-1. `node scripts/opencode-free-worker.mjs --fallback-go` for one task: the
-   free pool first, then DeepSeek Flash on OpenCode Go.
-2. `node scripts/opencode-fanout.mjs --split --fallback-go` for a task with
-   independent parts: DeepSeek Flash splits it, up to 5 subtasks run in
-   parallel on the free pool.
-3. Only if the worker exits non-zero (no quota, network blocked, refused),
-   use `mechanic` or `implementer` and say why in the PR or checkpoint.
+| Role     | Who                                                                                     | Does                                                                                                |
+| -------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| Lead     | Main session (Opus)                                                                     | Plans, splits, reviews every diff, runs gates, merges; keeps copy, design, security, release.       |
+| Sublead  | DeepSeek Flash on Go (`opencode-fanout.mjs --split`), Sonnet 5.5 API if Go cannot split | Splits a grunt task into at most 8 self-contained subtasks.                                         |
+| Workers  | `lane-dispatch.mjs` per subtask, up to 5 in parallel                                    | Free pool -> Go -> Claude API (Haiku 5.5 for complexity 1-2, Sonnet 5.5 for 3-4, capped) -> exit 4. |
+| Fallback | Claude subscription: `mechanic` / `implementer` subagents                               | Only subtasks that exit 4 (no cheap lane answered, cap reached, complexity 5, personal data).       |
 
-The lead reads every worker diff and runs the gates; the worker never
-certifies itself. Never send secrets, visitor data, public copy, product
-claims, design decisions or security/release verdicts. Setup, limits and
+1. One task: `node scripts/lane-dispatch.mjs --thread <lane>` with a task
+   JSON (`id`, `task`, `complexity` 1-5, `data_class`, `prompt`).
+2. Several independent parts:
+   `node scripts/opencode-fanout.mjs --thread <lane> --split --escalate`
+   (or a JSON task list without `--split`).
+3. No paid call wanted: add `--max-lane go`.
+4. Exit 4 means the Claude subscription does it: brief `mechanic` or
+   `implementer` and say why in the PR or checkpoint.
+
+Delegable tasks: `coding`, `code_review`, `code_test`, `debug`,
+`integration`, `technical_docs`. The lead reads every worker diff and runs
+the gates; no worker certifies itself, and the maker never judges its own
+PR. Never send secrets, visitor data, public copy, product claims, design
+decisions or security/release verdicts to any worker lane. Setup, caps and
 evidence: `docs/runbooks/opencode-go-worker.md`.
 
 ## Token rules

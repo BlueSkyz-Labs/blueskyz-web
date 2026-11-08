@@ -11,6 +11,10 @@
  * on different free models, with a 90 s per-model timeout (settled calls measured 11-20 s on
  * 2026-11-04; override with FREE_ATTEMPT_TIMEOUT_S). Prints JSON {results:[{id, exit, output}]}; the lead reviews and runs gates.
  * Exit 0 when every subtask settled, 1 when any failed, 2 on usage/refusal.
+ *
+ * --escalate [--complexity N] [--max-lane go|claude_api]: each subtask runs scripts/lane-dispatch.mjs
+ * instead (free -> Go -> capped Claude API); a subtask that exits 4 goes back to the lead's Claude
+ * subscription. With --escalate the split falls back to the Claude API (Sonnet) when Go cannot split.
  */
 import { spawn, spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
@@ -35,11 +39,20 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "..");
 
 function parse(argv) {
-  const o = { task: "coding", dataClass: "synthetic", concurrency: 3 };
+  const o = {
+    task: "coding",
+    dataClass: "synthetic",
+    concurrency: 3,
+    complexity: 2,
+    maxLane: "claude_api",
+  };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === "--split") o.split = true;
     else if (a === "--fallback-go") o.fallbackGo = true;
+    else if (a === "--escalate") o.escalate = true;
+    else if (a === "--complexity") o.complexity = Number(argv[++i]);
+    else if (a === "--max-lane") o.maxLane = argv[++i];
     else if (a === "--thread") o.thread = argv[++i];
     else if (a === "--task") o.task = argv[++i];
     else if (a === "--data-class") o.dataClass = argv[++i];
@@ -56,6 +69,10 @@ function parse(argv) {
     o.concurrency > MAX_CONCURRENCY
   )
     throw new Error(`--concurrency must be 1-${MAX_CONCURRENCY}`);
+  if (!Number.isInteger(o.complexity) || o.complexity < 1 || o.complexity > 4)
+    throw new Error("--complexity must be 1-4 (5 stays with the lead)");
+  if (!["go", "claude_api"].includes(o.maxLane))
+    throw new Error("--max-lane must be go or claude_api");
   return o;
 }
 
@@ -78,13 +95,51 @@ function subLeadSplit(o, task) {
       stdio: ["pipe", "pipe", "inherit"],
     },
   );
-  if (r.status !== 0)
+  if (r.status === 0) return parseSplit(r.stdout);
+  if (!o.escalate || o.maxLane !== "claude_api")
     throw new Error(`sub-lead split failed (exit ${r.status})`);
-  return parseSplit(r.stdout);
+  console.error(
+    `sub-lead split on Go failed (exit ${r.status}); escalating split to Claude API`,
+  );
+  const a = spawnSync(
+    process.execPath,
+    [
+      join(here, "claude-api-worker.mjs"),
+      "--thread",
+      `${o.thread}.split`,
+      "--task",
+      "technical_docs",
+      "--data-class",
+      o.dataClass,
+      "--complexity",
+      "3",
+    ],
+    {
+      input: splitPrompt(task),
+      encoding: "utf8",
+      maxBuffer: 1 << 26,
+      stdio: ["pipe", "pipe", "inherit"],
+    },
+  );
+  if (a.status !== 0)
+    throw new Error(
+      `sub-lead split failed on Go and Claude API (exit ${a.status})`,
+    );
+  return parseSplit(a.stdout);
 }
 
-function runSub(o, t, i) {
-  const args = [
+function subArgs(o, t, i) {
+  if (o.escalate)
+    return [
+      join(here, "lane-dispatch.mjs"),
+      "--thread",
+      o.thread,
+      "--max-lane",
+      o.maxLane,
+      "--start",
+      String(i),
+    ];
+  return [
     join(here, "opencode-free-worker.mjs"),
     "--thread",
     `${o.thread}.${t.id}`,
@@ -95,7 +150,20 @@ function runSub(o, t, i) {
     "--start",
     String(i),
   ];
-  if (o.fallbackGo) args.push("--fallback-go");
+}
+
+function runSub(o, t, i) {
+  const args = subArgs(o, t, i);
+  if (!o.escalate && o.fallbackGo) args.push("--fallback-go");
+  const input = o.escalate
+    ? JSON.stringify({
+        id: t.id,
+        task: o.task,
+        complexity: o.complexity,
+        data_class: o.dataClass,
+        prompt: t.prompt,
+      })
+    : t.prompt;
   return new Promise((done) => {
     const env = {
       ...process.env,
@@ -122,9 +190,16 @@ function runSub(o, t, i) {
           .map((l) => `[${t.id}] ${l}\n`)
           .join(""),
       );
-      done({ id: t.id, exit: code ?? 2, output: unwrapGo(out) });
+      if (o.escalate) {
+        try {
+          const r = JSON.parse(out);
+          done({ id: t.id, exit: code ?? 2, lane: r.lane, output: r.output });
+        } catch {
+          done({ id: t.id, exit: code ?? 2, lane: "error", output: "" });
+        }
+      } else done({ id: t.id, exit: code ?? 2, output: unwrapGo(out) });
     });
-    c.stdin.end(t.prompt);
+    c.stdin.end(input);
   });
 }
 

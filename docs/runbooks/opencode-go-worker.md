@@ -1,4 +1,4 @@
-# OpenCode Go worker lane
+# Worker lanes: OpenCode Go, free pool, Claude API
 
 Owner request (Tony, 2026-11-05 6:47 AM GMT+7): learn how Sổ Trọ uses OpenCode
 Go and bring the same mechanism into this repository's harness and
@@ -14,6 +14,17 @@ orchestration flow. Source of the mechanism:
   machine-checkable engineering work and splits multi-part grunt tasks.
 - **Free OpenCode Zen pool** (sub-agents): runs the split subtasks in
   parallel before Go is used.
+
+- **Claude API** (paid escalation, capped): Haiku 5.5 for complexity 1-2,
+  Sonnet 5.5 for 3-4 (with server-side refusal fallbacks), only after the
+  free pool and Go produced nothing.
+- **Claude subscription** (last): the lead or its `mechanic` / `implementer`
+  subagents, for anything a cheaper lane could not or may not do.
+
+Owner request 2026-11-08 12:27 PM GMT+7 ("Áp dụng FINOPS triệt để Lead ->
+Sublead điều phối multi subagent harness (opencode go, escalate claude api,
+claude sub) tối đa an toàn, tăng tốc độ xử lý") added the Claude API step,
+`scripts/lane-dispatch.mjs` and `opencode-fanout.mjs --escalate`.
 
 A worker never certifies its own output. The lead reads the diff and runs
 the repository gates before anything is committed.
@@ -70,6 +81,12 @@ also blocks purposes containing `publish`, `release`, `customer`, `final` or
    https://code.claude.com/docs/en/cloud-environments#network-access
 3. OpenCode console: Privacy › Regions set to Global (required for DeepSeek);
    Extra Usage off.
+4. Claude API: `CLAUDE_API_KEY` (present 2026-11-08, value not read). The
+   key is not scoped to one workspace, so the API also needs
+   `CLAUDE_API_WORKSPACE_ID` (a `wrkspc_…` id, not a secret) for the
+   workspace this project may bill. Caps (USD, ledger estimate) default to
+   0.5 per call, 5 per day, 50 per month; change them with
+   `BLUESKYZ_WEB_CLAUDE_API_{CALL,DAY,MONTH}_USD`.
 
 ## Use (agent)
 
@@ -103,6 +120,35 @@ delegated task with `tools/sgps_model_router.py route` and record the gated
 outcome with `record --gate-cmd`, as Sổ Trọ does. The router is a source
 overlay and does not change this project's SGPS pin.
 
+## Escalation chain (agent)
+
+```bash
+# One task, cheapest lane first; exit 4 = do it on the Claude subscription
+echo '{"id":"links-test","task":"code_test","complexity":2,"data_class":"internal_non_sensitive","prompt":"..."}' \
+  | node scripts/lane-dispatch.mjs --thread lane-links
+
+# Many parts in parallel: Go splits (Sonnet API if Go cannot), each part runs the chain
+node scripts/opencode-fanout.mjs --thread lane-x --split --escalate --complexity 2 < task.txt > out.json
+
+# Never pay: stop after Go
+node scripts/lane-dispatch.mjs --thread lane-x --max-lane go < task.json
+```
+
+| Exit | Meaning                                                                                                                 |
+| ---- | ----------------------------------------------------------------------------------------------------------------------- |
+| 0    | A cheap lane returned a draft (JSON `lane` says which).                                                                 |
+| 4    | Hand to the Claude subscription: no lane answered, cap reached, complexity 5, personal data or a task outside the list. |
+| 5    | Blocked: `data_class` `secret` or `unknown`.                                                                            |
+| 2    | Refused (secret, key value or personal data in the prompt) or bad input.                                                |
+
+Routing rules: complexity 1-3 starts on the free pool, 4 starts on Go;
+complexity 5 and personal data skip straight to the lead. The Claude API
+worker reserves the worst-case cost under a lock before each call, so
+parallel subtasks cannot overshoot a cap, then writes the settled cost from
+the response usage. Ledgers in `/mnt/project-files/BLUESKYZ_WEB_FINOPS/`:
+`claude-api-calls.jsonl` (cost, tokens, no prompt or output) and
+`route-log.jsonl` (lanes tried per task).
+
 ## Status
 
 `SOURCE_REUSED`. Measured 2026-11-05 6:55 AM GMT+7 in this cloud environment
@@ -113,5 +159,12 @@ with studio `main@69ef9f5`:
   policy blocks `opencode.ai` (proxy `connect_rejected`). The worker failed
   closed without any paid call.
 
-`NOT VERIFIED`: a successful Go or free-pool call from this project. It needs
-the network change in Setup step 2.
+Claude API, 2026-11-08 12:33 PM GMT+7: the key authenticates, but the API
+returned 400 "This API key is not scoped to a workspace, so this request
+must include the anthropic-workspace-id header". The worker failed closed
+and kept the reservation ($0.008) in the ledger. Offline tests
+(`tests/architecture/lane-dispatch.test.mjs`) prove the chain, caps,
+workspace header and fan-out against a local fake API.
+
+`NOT VERIFIED`: a successful Go or free-pool call (needs Setup step 2) and a
+successful Claude API call (needs Setup step 4).

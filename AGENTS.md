@@ -2,7 +2,7 @@
 
 > **2026-10-21 OPERATING RULES (durable):** Read `.claude/OPERATING_RULES.md` every session: Owner comms in Vietnamese with GMT+7 12h times, flow/merge discipline, local hygiene, harness/multi-agent lanes, FinOps and the weekly learning loop.
 
-> **2026-11-05 OPENCODE GO WORKER LANE:** Grunt engineering drafts go to `node scripts/opencode-free-worker.mjs --fallback-go` (free pool, then DeepSeek Flash on OpenCode Go; reuses `blackangelz/blueskyz-studio` `go_first.py`) before any Claude agent, per `.claude/AGENT_ROUTING.md`. The lead reviews and runs gates. Never send secrets, visitor data, public copy, claims or security/release verdicts. Runbook: `docs/runbooks/opencode-go-worker.md`.
+> **2026-11-08 FINOPS WORKER LANES:** The lead delegates grunt engineering drafts through `scripts/lane-dispatch.mjs` / `scripts/opencode-fanout.mjs --escalate`: free pool, then DeepSeek Flash on OpenCode Go (reuses `blackangelz/blueskyz-studio` `go_first.py`), then the capped Claude API (Haiku 5.5 / Sonnet 5.5), and only then Claude subscription subagents, per `.claude/AGENT_ROUTING.md`. The lead reviews and runs gates. Never send secrets, visitor data, public copy, claims or security/release verdicts. Runbook: `docs/runbooks/opencode-go-worker.md`.
 
 > **2026-10-18 APP DOWNLOAD & STORE CLAIMS:** Before adding a signed-APK landing, app store badges, seller information or localized marketplace claims, read `docs/sgps/2026-10-18-mobile-store-distribution-owner-adoption.md`. This site is not payment/signer/Store authority; require exact approved Product release, signing identity, checksum, verified endpoint and publication gate first.
 
