@@ -41,6 +41,4 @@ overrides:
 
 # Dependency-audit exceptions: each one is justified, guarded and time-boxed in
 # docs/security/audit-exceptions.json (tests/architecture/audit-exceptions.test.mjs).
-auditConfig:
-  ignoreGhsas:
-    - GHSA-hp3w-g68c-fv3c
+# None are open; add an auditConfig.ignoreGhsas list only with a registry entry.
