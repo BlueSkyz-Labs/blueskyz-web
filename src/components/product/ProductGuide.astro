@@ -11,6 +11,16 @@ import { desktopSmallSrc, phoneSmallSrc } from "./story-copy";
  * GOLIVE W5 — onboarding guide built only from the product's recorded real
  * screens. Each step names who does it (owner on a computer, or a family
  * member on a paired phone) and shows the exact screen it refers to.
+ *
+ * Layout (Owner 2026-10-29, reference: Apple's "Mac làm được đó" switcher
+ * guide): a sticky local nav, a centred large-type opener, then one chapter
+ * per run of consecutive steps by the same role. Each chapter is a big
+ * statement heading over a centred snap carousel of rounded step cards with
+ * a segmented step switcher underneath. Chapters are derived from the
+ * record, never authored, so every product with a guide gets the same
+ * pattern without new copy. No autoplay: a guide is read at the reader's
+ * pace. Without JS every card is a full-opacity item in a native scroll
+ * area; the script only adds the switcher and the focus on the centred card.
  */
 interface Props {
   product: CollectionEntry<"products">;
@@ -21,11 +31,11 @@ interface Props {
 const { product, showcase, lang } = Astro.props;
 const guide = showcase.guide!;
 const screens = new Map(showcase.screens.map((item) => [item.id, item]));
-// Phone shots are capped at 19rem; desktop shots fill one column of the
-// two-column step from 48rem, the full container below it. Phones then fetch
-// the 480/768 px derivatives instead of the 780/1920 px masters.
-const PHONE_SIZES = "19rem";
-const DESKTOP_SIZES = "(min-width: 48rem) 36rem, calc(100vw - 2.5rem)";
+// Phone shots render 17rem wide (21rem from 64rem); desktop shots fill a card of at most
+// 61.25rem minus padding (86vw on phones). Phones fetch the 480/768 px
+// derivatives instead of the 780/1920 px masters.
+const PHONE_SIZES = "(min-width: 64rem) 21rem, 17rem";
+const DESKTOP_SIZES = "(min-width: 64rem) 56rem, 80vw";
 const productHref = `/${lang}/products/${product.data.slug}/`;
 
 const COPY = {
@@ -37,6 +47,8 @@ const COPY = {
     owner: "Owner · computer",
     family: "Family · phone",
     step: "Step",
+    steps: "Steps",
+    chapters: "Guide sections",
     done: "That’s the daily loop. Questions or feedback?",
     contact: "Contact",
   },
@@ -49,7 +61,9 @@ const COPY = {
     owner: "Chủ trọ · máy tính",
     family: "Người nhà · điện thoại",
     step: "Bước",
-    done: "Vậy là xong vòng việc hằng ngày. Cần hỏi thêm hoặc góp ý?",
+    steps: "Bước",
+    chapters: "Các phần hướng dẫn",
+    done: "Vậy là xong các bước hằng ngày. Bạn có câu hỏi hoặc góp ý gì không?",
     contact: "Liên hệ",
   },
   zh: {
@@ -60,6 +74,8 @@ const COPY = {
     owner: "房东 · 电脑",
     family: "家人 · 手机",
     step: "步骤",
+    steps: "步骤",
+    chapters: "指南章节",
     done: "日常流程就是这样。有问题或建议？",
     contact: "联系我们",
   },
@@ -71,113 +87,425 @@ const COPY = {
     owner: "房東 · 電腦",
     family: "家人 · 手機",
     step: "步驟",
+    steps: "步驟",
+    chapters: "指南章節",
     done: "日常流程就是這樣。有問題或建議？",
     contact: "聯絡我們",
   },
 } as const satisfies Record<Language, Record<string, string>>;
 const t = COPY[lang];
+
+type Step = (typeof guide.steps)[number];
+interface Chapter {
+  id: string;
+  role: Step["role"];
+  /** 1-based number of the chapter's first step. */
+  start: number;
+  steps: Step[];
+}
+const chapters: Chapter[] = [];
+guide.steps.forEach((step, index) => {
+  const last = chapters.at(-1);
+  if (last && last.role === step.role) last.steps.push(step);
+  else
+    chapters.push({
+      id: `chapter-${chapters.length + 1}`,
+      role: step.role,
+      start: index + 1,
+      steps: [step],
+    });
+});
+const range = (c: Chapter) =>
+  c.steps.length === 1
+    ? `${t.step} ${c.start}`
+    : `${t.steps} ${c.start}–${c.start + c.steps.length - 1}`;
+const roleLabel = (role: Step["role"]) =>
+  role === "owner" ? t.owner : t.family;
+// "Owner · computer" -> ["Owner", "computer"]: the device half is set in a
+// quieter tone; on phones it takes its own line and drops the separator.
+const roleHeading = (role: Step["role"]) => {
+  const [who, ...rest] = roleLabel(role).split(" · ");
+  return [who, rest.join(" · ")] as const;
+};
 ---
 
-<article class="guide py-12 sm:py-16" data-product-guide={product.data.slug}>
+<article class="guide" data-product-guide={product.data.slug}>
+  <nav class="guide__localnav" aria-label={t.chapters}>
+    <div class="guide__localnav-inner">
+      <a class="guide__back" href={productHref} title={t.back}>
+        <span class="guide__back-name">{product.data.name}</span>
+        <span class="guide__back-sub">{guide.title[lang]}</span>
+      </a>
+      <ol class="guide__localnav-links" role="list">
+        {chapters.map((chapter) => (
+          <li>
+            <a href={`#${chapter.id}`} data-chapter-link={chapter.id}>
+              {range(chapter)}
+            </a>
+          </li>
+        ))}
+      </ol>
+      <a class="guide__localnav-cta" href={`/${lang}/contact/`}>
+        {t.contact}
+      </a>
+    </div>
+  </nav>
+
   <Container>
-    <a class="guide__back" href={productHref}>
-      <span aria-hidden="true">←</span>
-      {t.back}
-    </a>
-    <header class="mt-6 max-w-3xl">
+    <header class="guide__hero">
       <p class="guide__status">
         {webPreviewOpen(product.data) ? t.statusPreview : t.status}
       </p>
-      <h1 class="type-d2 guide__title mt-3 text-[var(--text-primary)]">
+      <h1 class="type-d1 guide__title text-[var(--text-primary)]">
         {guide.title[lang]}
       </h1>
-      <p class="mt-5 text-lg leading-relaxed text-[var(--text-secondary)]">
-        {guide.intro[lang]}
-      </p>
+      <p class="guide__intro">{guide.intro[lang]}</p>
       <p
-        class="mt-3 text-sm text-[var(--text-muted)]"
+        class="guide__disclosure"
         data-showcase-disclosure
         data-capture-revision={showcase.capture.sourceRevision}
       >
         {t.disclosure}
       </p>
     </header>
+  </Container>
 
-    <ol class="guide__steps" role="list">
-      {guide.steps.map((step, index) => {
-        const shot = screens.get(step.screen)!;
-        return (
-          <li
-            class="guide__step"
-            data-surface={shot.surface}
-            id={`step-${step.id}`}
+  {chapters.map((chapter) => {
+    const headingId = `${chapter.id}-title`;
+    const rangeId = `${chapter.id}-range`;
+    return (
+      <section class="guide__chapter" id={chapter.id} data-guide-chapter>
+        <Container>
+          <p id={rangeId} class="guide__eyebrow">
+            {range(chapter)}
+          </p>
+          <h2 id={headingId} class="type-d2 guide__chapter-title">
+            {roleHeading(chapter.role)[0]}{" "}
+            {roleHeading(chapter.role)[1] ? (
+              <span class="guide__chapter-sub">
+                <span class="guide__chapter-dot">· </span>
+                {roleHeading(chapter.role)[1]}
+              </span>
+            ) : null}
+          </h2>
+        </Container>
+        <div
+          class="guide__gallery"
+          role="region"
+          aria-labelledby={`${rangeId} ${headingId}`}
+          tabindex="0"
+          data-gallery
+        >
+          <ol class="guide__steps" role="list" start={chapter.start}>
+            {chapter.steps.map((step, offset) => {
+              const shot = screens.get(step.screen)!;
+              const number = chapter.start + offset;
+              return (
+                <li
+                  class="guide__step"
+                  data-surface={shot.surface}
+                  id={`step-${step.id}`}
+                >
+                  <div class="guide__text">
+                    <p class="guide__meta">
+                      <span class="guide__num">
+                        {t.step} {number}
+                      </span>
+                    </p>
+                    <h3 class="guide__step-title">
+                      <span class="guide__mark">{step.title[lang]}</span>
+                    </h3>
+                    <p class="guide__body">{step.body[lang]}</p>
+                  </div>
+                  <figure class="guide__shot m-0">
+                    <img
+                      src={shot.src}
+                      srcset={
+                        shot.surface === "phone"
+                          ? `${phoneSmallSrc(shot.src)} 480w, ${shot.src} ${shot.width}w`
+                          : `${desktopSmallSrc(shot.src)} 768w, ${shot.src} ${shot.width}w`
+                      }
+                      sizes={
+                        shot.surface === "phone" ? PHONE_SIZES : DESKTOP_SIZES
+                      }
+                      alt={shot.alt[lang]}
+                      width={shot.width}
+                      height={shot.height}
+                      loading={number === 1 ? "eager" : "lazy"}
+                      decoding="async"
+                    />
+                  </figure>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+        {chapter.steps.length > 1 ? (
+          <div
+            class="guide__switch"
+            role="group"
+            aria-label={range(chapter)}
+            data-gallery-switch
+            hidden
           >
-            <div class="guide__text">
-              <p class="guide__meta">
-                <span class="guide__num">
-                  {t.step} {index + 1}
-                </span>
-                <span class="guide__role" data-role={step.role}>
-                  {step.role === "owner" ? t.owner : t.family}
-                </span>
-              </p>
-              <h2 class="mt-3 text-xl sm:text-2xl font-semibold tracking-tight text-[var(--text-primary)]">
-                {step.title[lang]}
-              </h2>
-              <p class="mt-3 text-base leading-relaxed text-[var(--text-secondary)]">
-                {step.body[lang]}
-              </p>
-            </div>
-            <figure class="guide__shot view-rise m-0">
-              <img
-                src={shot.src}
-                srcset={
-                  shot.surface === "phone"
-                    ? `${phoneSmallSrc(shot.src)} 480w, ${shot.src} ${shot.width}w`
-                    : `${desktopSmallSrc(shot.src)} 768w, ${shot.src} ${shot.width}w`
-                }
-                sizes={shot.surface === "phone" ? PHONE_SIZES : DESKTOP_SIZES}
-                alt={shot.alt[lang]}
-                width={shot.width}
-                height={shot.height}
-                loading={index < 1 ? "eager" : "lazy"}
-                decoding="async"
-              />
-            </figure>
-          </li>
-        );
-      })}
-    </ol>
+            {chapter.steps.map((step, offset) => (
+              <button
+                type="button"
+                class="guide__switch-btn"
+                data-target={`step-${step.id}`}
+                aria-label={`${t.step} ${chapter.start + offset}: ${step.title[lang]}`}
+              >
+                {t.step} {chapter.start + offset}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </section>
+    );
+  })}
 
+  <Container>
     <footer class="guide__footer">
-      <p class="text-lg font-semibold text-[var(--text-primary)]">{t.done}</p>
-      <div class="mt-5 flex flex-wrap gap-3">
+      <p class="guide__done">{t.done}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
         <ButtonLink href={`/${lang}/contact/`}>{t.contact}</ButtonLink>
       </div>
     </footer>
   </Container>
 </article>
 
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  for (const chapter of document.querySelectorAll<HTMLElement>(
+    "[data-guide-chapter]",
+  )) {
+    const gallery = chapter.querySelector<HTMLElement>("[data-gallery]");
+    const sw = chapter.querySelector<HTMLElement>("[data-gallery-switch]");
+    if (!gallery || !sw) continue;
+    const cards = [...gallery.querySelectorAll<HTMLElement>(".guide__step")];
+    const buttons = [...sw.querySelectorAll<HTMLButtonElement>("button")];
+
+    const activate = (id: string) => {
+      for (const card of cards)
+        card.toggleAttribute("data-active", card.id === id);
+      for (const b of buttons) {
+        b.setAttribute("aria-pressed", String(b.dataset.target === id));
+      }
+    };
+    // The card whose centre is nearest the gallery's centre is the active one.
+    const sync = () => {
+      const box = gallery.getBoundingClientRect();
+      const mid = box.left + box.width / 2;
+      let best = cards[0];
+      if (!best) return;
+      let gap = Infinity;
+      for (const card of cards) {
+        const r = card.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width / 2 - mid);
+        if (d < gap) [best, gap] = [card, d];
+      }
+      activate(best.id);
+    };
+    for (const b of buttons) {
+      b.addEventListener("click", () => {
+        const card = cards.find((c) => c.id === b.dataset.target)!;
+        const box = gallery.getBoundingClientRect();
+        const r = card.getBoundingClientRect();
+        gallery.scrollBy({
+          left: r.left + r.width / 2 - (box.left + box.width / 2),
+          behavior: reduce.matches ? "auto" : "smooth",
+        });
+        activate(card.id);
+      });
+    }
+    let frame = 0;
+    gallery.addEventListener(
+      "scroll",
+      () => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(sync);
+      },
+      { passive: true },
+    );
+    sw.hidden = false;
+    gallery.setAttribute("data-enhanced", "");
+    sync();
+  }
+
+  // Dock the local nav under the sticky site header at its real height.
+  const header = document.querySelector<HTMLElement>(".header-glass");
+  if (header) {
+    new ResizeObserver(() => {
+      document.documentElement.style.setProperty(
+        "--guide-header-h",
+        `${header.offsetHeight}px`,
+      );
+    }).observe(header);
+  }
+
+  // Current-chapter cue in the local nav: the last chapter whose top has
+  // passed 40% of the viewport, until the reader scrolls past the last one.
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>("[data-chapter-link]"),
+  ];
+  const sections = [
+    ...document.querySelectorAll<HTMLElement>("[data-guide-chapter]"),
+  ];
+  const cue = () => {
+    const line = window.innerHeight * 0.4;
+    let current: HTMLElement | undefined;
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= line) current = section;
+    }
+    if (current && current.getBoundingClientRect().bottom < line / 2) {
+      current = undefined;
+    }
+    for (const link of links) {
+      if (link.dataset.chapterLink === current?.id) {
+        link.setAttribute("aria-current", "true");
+      } else link.removeAttribute("aria-current");
+    }
+  };
+  let cueFrame = 0;
+  window.addEventListener(
+    "scroll",
+    () => {
+      cancelAnimationFrame(cueFrame);
+      cueFrame = requestAnimationFrame(cue);
+    },
+    { passive: true },
+  );
+  cue();
+</script>
+
 <style>
-  /* F3: the guide H1 steps up to the d1 size from 768 px so it outranks the
-     step headings; phones keep 32 px. */
-  @media (min-width: 768px) {
-    .guide__title {
-      font-size: var(--size-8);
+  .guide {
+    padding-bottom: 5rem;
+  }
+
+  /* Local nav: product name left, chapter links and one action right,
+     frosted and pinned while the guide scrolls. */
+  .guide__localnav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--surface-primary-glass);
+    backdrop-filter: saturate(1.8) blur(20px);
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--border-subtle) 70%, transparent);
+  }
+  /* From 768 px the site header is sticky too (c3-craft.css); the nav docks
+     under it. The script replaces the fallback with the measured height. */
+  @media (min-width: 768px) and (min-height: 560px) {
+    .guide__localnav {
+      top: var(--guide-header-h, 4.75rem);
+    }
+    .guide .guide__chapter {
+      scroll-margin-top: calc(var(--guide-header-h, 4.75rem) + 4rem);
     }
   }
+  .guide__localnav-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: var(--site-max);
+    min-height: 3.25rem;
+    margin-inline: auto;
+    padding-inline: var(--site-gutter);
+  }
   .guide__back {
+    display: flex;
+    min-width: 0;
+    min-height: 2.75rem;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: auto;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .guide__back-name {
+    font-size: var(--size-5);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  .guide__back-sub {
+    overflow: hidden;
+    font-size: var(--size-1);
+    color: var(--text-muted);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .guide__back:hover .guide__back-name {
+    text-decoration: underline;
+  }
+  .guide__localnav-links {
+    display: none;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 48rem) {
+    .guide__localnav-links {
+      display: flex;
+    }
+  }
+  .guide__localnav-links a {
     display: inline-flex;
     min-height: 2.75rem;
     align-items: center;
-    gap: 0.5rem;
-    font-size: var(--size-2);
-    font-weight: 600;
+    border-bottom: 1px solid transparent;
+    font-size: var(--size-1);
+    color: var(--text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .guide__localnav-links a:hover {
     color: var(--action-primary);
+  }
+  .guide__localnav-links a[aria-current="true"] {
+    border-bottom-color: var(--text-primary);
+    color: var(--text-primary);
+  }
+  .guide__localnav-cta {
+    display: inline-flex;
+    flex: none;
+    min-height: 1.75rem;
+    align-items: center;
+    border-radius: var(--radius-pill);
+    background: var(--action-fill);
+    padding: 0.25rem 0.875rem;
+    font-size: var(--size-1);
+    font-weight: 500;
+    color: #ffffff;
     text-decoration: none;
   }
-  .guide__back:hover {
-    text-decoration: underline;
+  /* 24 px target floor (WCAG 2.5.8) with a 44 px hit area around it. */
+  .guide__localnav-cta {
+    position: relative;
+  }
+  .guide__localnav-cta::after {
+    content: "";
+    position: absolute;
+    inset: -0.5rem -0.25rem;
+  }
+  .guide__localnav-cta:hover {
+    background: var(--action-primary-hover);
+  }
+
+  /* Opener: centred, the largest type on the page, intro in quiet grey. */
+  .guide__hero {
+    margin: 5rem auto 0;
+    max-width: 52rem;
+    text-align: center;
+  }
+  @media (min-width: 48rem) {
+    .guide__hero {
+      margin-top: 7.5rem;
+    }
   }
   .guide__status {
     display: inline-block;
@@ -189,30 +517,167 @@ const t = COPY[lang];
     font-weight: 600;
     color: var(--text-secondary);
   }
+  .guide__title {
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 48rem) {
+    .guide__title {
+      font-size: var(--size-9);
+    }
+  }
+  .guide__intro {
+    margin: 1.75rem auto 0;
+    max-width: 40rem;
+    font-size: var(--size-5);
+    font-weight: 600;
+    line-height: var(--lh-5);
+    color: var(--text-muted);
+    text-wrap: pretty;
+  }
+  @media (min-width: 48rem) {
+    .guide__intro {
+      font-size: var(--size-6);
+    }
+  }
+  .guide__disclosure {
+    margin-top: 1.25rem;
+    font-size: var(--size-2);
+    color: var(--text-muted);
+  }
+
+  /* Chapter: statement heading, then the carousel. */
+  .guide__chapter {
+    margin-top: 6rem;
+    scroll-margin-top: 4rem;
+  }
+  @media (min-width: 48rem) {
+    .guide__chapter {
+      margin-top: 9rem;
+      text-align: center;
+    }
+  }
+  .guide__eyebrow {
+    font-size: var(--size-4);
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .guide__chapter-title {
+    margin-top: 0.5rem;
+    font-size: var(--size-8);
+    line-height: 1.1;
+    color: var(--text-primary);
+  }
+  .guide__chapter-sub {
+    display: block;
+    color: var(--text-muted);
+  }
+  .guide__chapter-dot {
+    display: none;
+  }
+  @media (min-width: 48rem) {
+    .guide__chapter-sub {
+      display: inline;
+      white-space: nowrap;
+    }
+    .guide__chapter-dot {
+      display: inline;
+    }
+  }
+  :lang(vi) .guide__chapter-title {
+    line-height: 1.18;
+  }
+  @media (min-width: 48rem) {
+    .guide__chapter-title {
+      font-size: var(--size-9);
+    }
+  }
+
+  /* Carousel: cards snap to the centre and the neighbours peek in. */
+  .guide__gallery {
+    --card-w: min(61.25rem, 86vw);
+    margin-top: 2.5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    text-align: left;
+  }
+  @media (min-width: 48rem) {
+    .guide__gallery {
+      margin-top: 3.5rem;
+    }
+  }
+  .guide__gallery::-webkit-scrollbar {
+    display: none;
+  }
+  .guide__gallery:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: -3px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .guide__gallery {
+      scroll-behavior: smooth;
+    }
+  }
   .guide__steps {
-    margin: 3.5rem 0 0;
-    padding: 0;
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    margin: 0;
+    padding: 0 calc((100% - var(--card-w)) / 2) 0.5rem;
     list-style: none;
-    display: grid;
-    gap: 4rem;
-    counter-reset: none;
   }
   .guide__step {
     display: grid;
-    gap: 1.5rem;
-    align-items: center;
+    grid-template-rows: auto 1fr;
+    gap: 1.75rem;
+    width: var(--card-w);
+    scroll-snap-align: center;
+    overflow: hidden;
+    border-radius: var(--bsl-radius-lg);
+    background: var(--surface-raised);
+    border: 1px solid color-mix(in srgb, var(--border-subtle) 60%, transparent);
+    padding: 2rem 1.5rem 0;
   }
-  @media (min-width: 48rem) {
+  @media (min-width: 64rem) {
     .guide__step {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 3rem;
+      height: 42rem;
+      padding: 3.5rem 3.5rem 0;
+    }
+    .guide__shot {
+      min-height: 0;
+    }
+    .guide__shot img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .guide .guide__step[data-surface="phone"] .guide__shot {
+      height: auto;
+    }
+    .guide .guide__step[data-surface="phone"] .guide__shot img {
+      left: 50%;
+      width: 21rem;
+      transform: translateX(-50%);
     }
     .guide__step[data-surface="phone"] {
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr) 21rem;
+      grid-template-rows: none;
+      gap: 3.5rem;
     }
-    .guide__step:nth-child(even) .guide__text {
-      order: 2;
+  }
+  /* Neighbour cards recede by dimming their screen only: the text keeps
+     full contrast (WCAG 1.4.3), so a peeking card stays readable. */
+  @media (prefers-reduced-motion: no-preference) {
+    .guide__shot {
+      transition: opacity 0.4s var(--brand-ease-standard);
     }
+  }
+  .guide__gallery[data-enhanced] .guide__step:not([data-active]) .guide__shot {
+    opacity: 0.35;
+  }
+  .guide__text {
+    max-width: 34rem;
   }
   .guide__meta {
     display: flex;
@@ -233,39 +698,141 @@ const t = COPY[lang];
   .guide__num {
     color: var(--badge-ink, var(--text-secondary));
   }
-  .guide__role {
-    border-radius: var(--radius-pill);
-    padding: 0.125rem 0.625rem;
-    border: 1px solid var(--border-subtle);
-    color: var(--text-secondary);
+  /* The step title is the card's headline, set as a highlighter stroke in
+     the brand colour (the reference's marker treatment). */
+  .guide__step-title {
+    margin-top: 1rem;
+    font-size: var(--size-6);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
   }
-  .guide__role[data-role="owner"] {
-    border-color: color-mix(
-      in srgb,
-      var(--brand-cobalt) 45%,
-      var(--border-subtle)
-    );
+  .guide__step-title {
+    text-wrap: balance;
+  }
+  .guide__mark {
+    background: var(--brand-cobalt);
+    color: #ffffff;
+    padding: 0 0.2em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  @media (min-width: 64rem) {
+    .guide__step-title {
+      font-size: var(--size-7);
+    }
+  }
+  .guide__body {
+    margin-top: 1rem;
+    font-size: var(--size-3);
+    line-height: var(--lh-3);
+    color: var(--text-secondary);
+    text-wrap: pretty;
+  }
+  @media (min-width: 64rem) {
+    .guide__body {
+      font-size: var(--size-4);
+      line-height: var(--lh-4);
+    }
+  }
+
+  /* The screen rises from the card's bottom edge and is cropped there
+     (phones: phone shots only; from 64 rem every card has a fixed height). */
+  .guide__shot {
+    position: relative;
+    overflow: hidden;
+  }
+  .guide__step[data-surface="phone"] .guide__shot {
+    height: 24rem;
   }
   .guide__shot img {
     display: block;
     width: 100%;
     height: auto;
     border-radius: var(--radius-card);
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
     border: 1px solid var(--border-subtle);
-    box-shadow: 0 24px 48px -28px color-mix(in srgb, #0b1020 50%, transparent);
-  }
-  .guide__step[data-surface="phone"] .guide__shot {
-    max-width: 19rem;
-    justify-self: center;
+    border-bottom: 0;
   }
   .guide__step[data-surface="phone"] .guide__shot img {
-    border-radius: var(--radius-media);
+    width: 17rem;
+    max-width: 100%;
+    margin-inline: auto;
+    border-radius: var(--radius-media) var(--radius-media) 0 0;
     border-width: 6px;
     border-color: color-mix(in srgb, var(--text-primary) 12%, transparent);
   }
+
+  /* Segmented step switcher under each carousel. */
+  .guide__switch {
+    display: flex;
+    width: fit-content;
+    max-width: calc(100% - 2 * var(--site-gutter));
+    margin: 2rem auto 0;
+    gap: 0.25rem;
+    overflow-x: auto;
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--text-primary) 7%, transparent);
+    padding: 0.25rem;
+    scrollbar-width: none;
+  }
+  .guide__switch[hidden] {
+    display: none;
+  }
+  .guide__switch-btn {
+    flex: none;
+    min-height: 2.75rem;
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    padding: 0 1.125rem;
+    font-size: var(--size-3);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .guide__switch-btn:hover {
+    color: var(--text-primary);
+  }
+  .guide__switch-btn[aria-pressed="true"] {
+    background: var(--text-primary);
+    color: var(--surface-primary);
+  }
+
+  /* Forced colors drop the fills and turn every underline on, so the
+     chosen step and the current chapter need system colours of their own. */
+  @media (forced-colors: active) {
+    .guide__switch-btn[aria-pressed="true"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+    .guide__localnav-links a {
+      border-bottom: 2px solid Canvas;
+    }
+    .guide__localnav-links a[aria-current="true"] {
+      border-bottom-color: CanvasText;
+    }
+  }
+
   .guide__footer {
-    margin-top: 5rem;
-    border-top: 1px solid var(--border-subtle);
-    padding-top: 2.5rem;
+    margin: 9rem auto 0;
+    max-width: 48rem;
+    text-align: center;
+  }
+  .guide__done {
+    font-size: var(--size-7);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+    text-wrap: balance;
+  }
+  @media (min-width: 48rem) {
+    .guide__done {
+      font-size: var(--size-8);
+    }
   }
 </style>

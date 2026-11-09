@@ -1,0 +1,25 @@
+{
+  "captured_at": "2026-10-29T03:10:00Z",
+  "class": "design-from-unseen-reference",
+  "guard": {
+    "kind": "checklist",
+    "level": "G1",
+    "negative_proof": "Not a code invariant, so there is no failing test. The checklist step is checked by the PR body: a design PR that cites a reference must name how the reference was observed (rendered screenshots, date, viewports). This PR's body does; a body that only names the URL fails the step.",
+    "path": "Project memory design-reference-first plus this lesson; the design PR body lists the rendered reference evidence (desktop 1440 and mobile 390 screenshots taken with Playwright)."
+  },
+  "id": "LSN-marketing-008",
+  "project": "marketing",
+  "recurrences": [],
+  "reuse_boundary": "Any design or UX change made against a reference the Owner provides (URL, screenshot, competitor page). Copy, claims and assets from the reference are never reused; only layout, rhythm and interaction patterns are.",
+  "root_cause": "The cloud environment's network policy blocked www.apple.com, and the first draft of the guide was started from a remembered idea of Apple's style instead of waiting for access. The Owner can open a host in minutes, so building first and checking later only produced work to redo.",
+  "rule": "Open and render a design reference before designing from it (Playwright screenshots at desktop and mobile widths, not text extraction). If the host is blocked, tell the Owner which host and wait for access or screenshots; only non-design prep may proceed meanwhile. Retry after the Owner changes the network setting: it reached the running session within about two minutes.",
+  "source": {
+    "commit": "74842431f4018adb6edcb000eb231f9a2d9daebb",
+    "pr": 710,
+    "repo": "blueskyz-web"
+  },
+  "state": "CANDIDATE",
+  "tags": ["process", "design", "reference", "network-policy"],
+  "title": "Render a design reference before designing from it",
+  "trigger": "2026-10-29: the Owner asked for the product guide to follow Apple's \"Mac làm được đó\" page; the first layout was drafted while apple.com was blocked. The Owner opened the host and said: \"lần sau không có làm mù\" (next time, do not work blind)."
+}
