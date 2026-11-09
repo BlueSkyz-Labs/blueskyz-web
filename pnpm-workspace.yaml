@@ -38,9 +38,11 @@ overrides:
   # vulnerable range (<=4.2.0): the GHSA-ch52-4w7c-c8xp exception's own
   # removeWhen condition is satisfied, so it closes via override.
   http-cache-semantics: 4.3.0
+  # GHSA-hp3w-g68c-fv3c (sprintf-js <=1.0.3) exception expired 2026-11-05.
+  # sprintf-js 1.1.3 is outside the vulnerable range and keeps the sprintf()
+  # API argparse 1.x uses, so the exception closes via override.
+  sprintf-js: 1.1.3
 
 # Dependency-audit exceptions: each one is justified, guarded and time-boxed in
 # docs/security/audit-exceptions.json (tests/architecture/audit-exceptions.test.mjs).
-auditConfig:
-  ignoreGhsas:
-    - GHSA-hp3w-g68c-fv3c
+# None are open.
