@@ -63,7 +63,10 @@ time median 3.5 h, p90 43 h (dominated by the `owner-approved` wait).
 
 ## O5. FinOps
 
-- Use the cheapest sufficient model per lane (AGENT_ROUTING.md).
+- Use the cheapest sufficient model per lane (AGENT_ROUTING.md). Grunt work
+  goes free pool -> OpenCode Go -> capped Claude API -> Claude subscription
+  (`scripts/lane-dispatch.mjs`, `docs/runbooks/opencode-go-worker.md`). The
+  Claude API lane stops at its day/month caps and hands back to the lead.
 - The repository is public: standard GitHub-hosted runners are free, so
   optimise wall time and parallelism, not minutes. Larger runners are always
   billed and need the Owner, as does any new paid service. Sources:
