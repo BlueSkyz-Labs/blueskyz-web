@@ -25,6 +25,10 @@ async function settle(page: Page): Promise<void> {
       if (target instanceof Element && target.matches(".horizon-field__halo")) {
         return true;
       }
+      // A scroll-driven animation has no clock: it holds still until the
+      // page scrolls and never reports "finished", so it cannot be waited on
+      // and does not move a target under a resting pointer.
+      if (!(animation.timeline instanceof DocumentTimeline)) return true;
       const iterations = animation.effect?.getTiming?.().iterations;
       return iterations === Infinity || animation.playState !== "running";
     }),

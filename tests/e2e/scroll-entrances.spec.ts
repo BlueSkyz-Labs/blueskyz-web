@@ -53,7 +53,7 @@ test.describe("motion welcome", () => {
       !(await supportsViewTimeline(page)),
       "this browser has no scroll-driven animations",
     );
-    expect(await animationOf(page, ".story__text")).toBe("view-rise");
+    expect(await animationOf(page, ".story__text")).toBe("view-rise-text");
 
     // Once a chapter is well inside the viewport it is at its final state.
     const chapter = page.locator(".story__text").first();
