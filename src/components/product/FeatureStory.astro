@@ -151,7 +151,11 @@ const DESKTOP_SIZES = "(min-width: 64rem) 64rem, calc(100vw - 2.5rem)";
           <span aria-hidden="true">↗</span>
         </a>
       </div>
-      <figure class="story__browser" data-story-screen={story.coda.id}>
+      <figure
+        class="story__browser"
+        data-story-screen={story.coda.id}
+        data-depth-light="2"
+      >
         <span class="story__browser-bar" aria-hidden="true">
           <i />
           <i />
@@ -363,8 +367,8 @@ const DESKTOP_SIZES = "(min-width: 64rem) 64rem, calc(100vw - 2.5rem)";
     @supports (animation-timeline: view()) {
       .story__text,
       .story__coda {
-        animation: view-rise linear both;
-        animation-timeline: view();
+        animation: view-rise-text linear both;
+        animation-timeline: var(--view-timeline);
         animation-range: entry 0% cover 28%;
       }
     }

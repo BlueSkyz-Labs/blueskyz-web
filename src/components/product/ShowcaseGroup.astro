@@ -54,7 +54,10 @@ const desktopSmallSrc = (src: string) => src.replace(/\.webp$/, "-768.webp");
       aria-label={labels.phoneRail}
     >
       {phones.map((item, index) => (
-        <li class="showcase__phone view-rise" style={`--i:${index}`}>
+        <li
+          class="showcase__phone view-rise view-rise--text"
+          style={`--i:${index}`}
+        >
           <figure class="m-0">
             <div class="showcase__device">
               <img
@@ -104,7 +107,7 @@ const desktopSmallSrc = (src: string) => src.replace(/\.webp$/, "-768.webp");
       role="list"
     >
       {desktops.map((item, index) => (
-        <li class="view-rise">
+        <li class="view-rise view-rise--text">
           <figure class="m-0">
             <div class="showcase__browser">
               <span class="showcase__browser-bar" aria-hidden="true">

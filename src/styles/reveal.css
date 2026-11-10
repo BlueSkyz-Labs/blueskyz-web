@@ -212,3 +212,16 @@
     display: none;
   }
 }
+
+/* `view-rise` (global.css) for blocks that hold text and links: no scale, so a
+   44px target never measures 43px while the block is still on its way in. */
+@keyframes view-rise-text {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

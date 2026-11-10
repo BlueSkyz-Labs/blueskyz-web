@@ -55,6 +55,11 @@
 }
 
 :root {
+  /* The anonymous view timeline, named once. Written as a custom property on
+     purpose: the CSS minifier folds a literal `animation-timeline: view()`
+     into the `animation` shorthand, which Chromium rejects, so the whole
+     declaration was dropped and no scroll-driven entrance ran. */
+  --view-timeline: view();
   --brand-ink: #0b1020;
   --brand-porcelain: #f7f8fa;
   --brand-cobalt: #2564ff;
@@ -460,8 +465,8 @@ body {
   @supports (animation-timeline: view()) {
     .hero-plane--ink > .hero-atmosphere {
       animation: hero-parallax linear both;
-      animation-timeline: view();
-      animation-range: entry 0% exit 100%;
+      animation-timeline: var(--view-timeline);
+      animation-range: cover;
     }
   }
 
@@ -1744,8 +1749,13 @@ h3 {
   @supports (animation-timeline: view()) {
     .view-rise {
       animation: view-rise linear both;
-      animation-timeline: view();
+      animation-timeline: var(--view-timeline);
       animation-range: entry 0% entry 55%;
+    }
+    /* An item that holds a link rises without the scale (`view-rise-text` in
+       reveal.css): a 44px target must not measure 43px on its way in. */
+    .view-rise--text {
+      animation-name: view-rise-text;
     }
   }
 }

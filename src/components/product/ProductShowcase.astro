@@ -518,7 +518,7 @@ const defaultTrack = wanted
     @supports (animation-timeline: view()) {
       .showcase__rail--stage > .showcase__phone {
         animation: stage-fan linear both;
-        animation-timeline: view();
+        animation-timeline: var(--view-timeline);
         animation-range: entry 15% cover 42%;
       }
       /* Centre phone on top of the hand; outer phones offset by most of one
@@ -537,12 +537,12 @@ const defaultTrack = wanted
       }
       .showcase__rail--stage > .showcase__phone .showcase__caption {
         animation: stage-caption linear both;
-        animation-timeline: view();
+        animation-timeline: var(--view-timeline);
         animation-range: cover 30% cover 46%;
       }
       .showcase__desktops--stage > li:first-child {
-        animation: view-rise linear both;
-        animation-timeline: view();
+        animation: view-rise-text linear both;
+        animation-timeline: var(--view-timeline);
         animation-range: entry 0% cover 30%;
       }
     }
