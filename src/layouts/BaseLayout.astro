@@ -299,10 +299,12 @@ const robotsContent =
       import { initAnalyticsBridge } from "@/scripts/analytics-bridge";
       import { initFidelityEngine } from "@/scripts/fidelity-engine";
       import { initFragmentAnchor } from "@/scripts/fragment-anchor";
+      import { initDepthLight } from "@/scripts/depth-light";
 
       initAnalyticsBridge();
       initFidelityEngine();
       initFragmentAnchor();
+      initDepthLight();
     </script>
     <main id="main-content" class="flex-1" tabindex="-1">
       <slot />

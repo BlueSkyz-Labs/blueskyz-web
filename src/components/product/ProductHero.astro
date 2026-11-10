@@ -11,7 +11,9 @@ import { phoneSmallSrc } from "@/components/product/story-copy";
  * With a recorded capture, wide screens put it beside the copy; below 64rem it
  * follows the status block, capped at 60vh, with the same soft bottom fade.
  * The capture is decorative here (alt=""): the Feature Story below carries the
- * same screen with its description. Static HTML and CSS only, no script.
+ * same screen with its description. Static HTML and CSS only, no script of
+ * its own: on a fine pointer the shared depth light (`depth-light.ts`) lets
+ * the capture lean toward the pointer.
  */
 interface Props {
   art?: { src: string; width: number; height: number } | null;
@@ -39,7 +41,7 @@ const SIZES = "(min-width: 64rem) 18rem, min(78vw, 17rem)";
   </div>
   {art ? (
     <div class="phero__stage" data-hero-art-stage>
-      <figure class="phero__art">
+      <figure class="phero__art" data-depth-light="5">
         <img
           src={art.src}
           srcset={`${phoneSmallSrc(art.src)} 480w, ${art.src} ${art.width}w`}
