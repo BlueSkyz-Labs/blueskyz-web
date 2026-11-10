@@ -47,3 +47,35 @@ test("self-hosted Inter subsets are licensed, subsetted and discovered once", ()
   assert.match(bootstrap, /rel = "preload"/);
   assert.match(bootstrap, /inter-\$\{subset\}-wght-v5\.3\.0\.woff2/);
 });
+
+test("the Brand Kit v5 display face is self-hosted, licensed and metric-matched", () => {
+  const latin = "public/fonts/noto-serif-display-latin-300-v2.003.woff2";
+  const vietnamese =
+    "public/fonts/noto-serif-display-vietnamese-300-v2.003.woff2";
+  assert.ok(statSync(latin).size + statSync(vietnamese).size <= 24_000);
+  assert.match(
+    readFileSync(
+      "brand/blueskyz-brand-kit-v5/03_Type/OFL-NotoSerifDisplay.txt",
+      "utf8",
+    ),
+    /SIL OPEN FONT LICENSE Version 1\.1/i,
+  );
+  for (const subset of ["latin", "vietnamese"]) {
+    assert.ok(
+      fontFaces.some(
+        (face) =>
+          face.includes(`noto-serif-display-${subset}-300-v2.003.woff2`) &&
+          /unicode-range\s*:/.test(face),
+      ),
+      `${subset} display face must be subsetted by unicode range`,
+    );
+  }
+  // Calibrated against Liberation Serif (metric-compatible with Times New
+  // Roman): the display face runs 11-14 % wider on the site's headings.
+  const fallback = fontFaces.find((face) =>
+    face.includes("Noto Serif Display Fallback"),
+  );
+  assert.ok(fallback, "display fallback face");
+  assert.match(fallback, /size-adjust\s*:\s*113%/);
+  assert.doesNotMatch(layout, /noto-serif-display-/);
+});

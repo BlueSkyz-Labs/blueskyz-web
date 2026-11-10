@@ -10,6 +10,7 @@ coverage/
 
 # Production v4 source and token projections are checksum-sensitive.
 brand/blueskyz-production-v4/
+brand/blueskyz-brand-kit-v5/
 public/brand/blueskyz/v4/tokens/
 
 # Published web manifests must stay byte-identical to their source projection.

@@ -1,0 +1,13 @@
+:root{
+  --bsz-night: #05070b;
+  --bsz-ink: #0b1020;
+  --bsz-porcelain: #f7f8fa;
+  --bsz-mist: #cbd5e1;
+  --bsz-cobalt: #2564ff;
+  --bsz-cobalt-sky: #8ea8ff;
+  --bsz-champagne: #d9c08c;
+  --bsz-serif: "Noto Serif Display", Georgia, serif;
+  --bsz-sans: Inter, system-ui, sans-serif;
+  --bsz-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --bsz-ease: cubic-bezier(.2,.7,.2,1);
+}

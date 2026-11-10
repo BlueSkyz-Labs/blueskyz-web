@@ -1,8 +1,9 @@
 export const brandAssets = {
   logos: {
-    flatDark: "/brand/blueskyz/v4/logos/horizontal-flat-dark.svg",
-    flatLight: "/brand/blueskyz/v4/logos/horizontal-flat-light.svg",
-    reverseWhite: "/brand/blueskyz/v4/logos/horizontal-reverse-white.svg",
+    lockupPaper: "/brand/blueskyz/v5/logos/lockup-labs-paper.svg",
+    lockupNight: "/brand/blueskyz/v5/logos/lockup-labs-night.svg",
+    compactPaper: "/brand/blueskyz/v5/logos/lockup-compact-labs-paper.svg",
+    compactNight: "/brand/blueskyz/v5/logos/lockup-compact-labs-night.svg",
   },
   hero: {
     png: "/brand/blueskyz/v4/hero/website_hero_1920x1080.png",

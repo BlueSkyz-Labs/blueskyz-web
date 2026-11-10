@@ -23,12 +23,25 @@ exceed the 100 KB page font budget. Other locales request a subset
 only when their text needs it. Give updated files new versioned URLs and
 recompute these hashes.
 
-## Display headings (calm-chrome round, 2026-10-04)
+## Display headings (Brand Kit v5, 2026-11-10)
 
 Display headings (`.type-d1`, `.type-d2`, `.hero-headline` on h1/h2; never
-body, never CJK) use this same Inter Variable face at `--display-weight`
-(520) with tight tracking. The Plus Jakarta Sans 700 display face from
-Experience v6 S4 was retired by the Owner on 2026-10-04 ("calm chrome"); its
-three subsets (about 26 KB) and `OFL-PlusJakartaSans.txt` were removed, so
-display headings add no font bytes. Guard:
-`tests/architecture/display-typeface-contract.test.mjs`.
+body, never CJK) use Noto Serif Display at one static weight, 300, the Brand
+Kit v5 display face. This replaces the calm-chrome setting of 2026-10-04
+(Inter at 520, no second face). The files are instanced from the kit masters
+in `brand/blueskyz-brand-kit-v5/03_Type/` by
+`tools/instance-noto-serif-display.py` (wght pinned to 300, hinting and
+gasp/STAT/MVAR dropped, cmap and layout features unchanged). SIL Open Font
+License 1.1 in `brand/blueskyz-brand-kit-v5/03_Type/OFL-NotoSerifDisplay.txt`.
+
+| File                                             | Subset     |  Bytes | SHA-256                                                            |
+| ------------------------------------------------ | ---------- | -----: | ------------------------------------------------------------------ |
+| `noto-serif-display-latin-300-v2.003.woff2`      | Latin      | 14,320 | `80c6ef98d9e4f1f5ddb39cbb059efe8bd33e8f804dff1d740cb31ef7b7f4e6a9` |
+| `noto-serif-display-vietnamese-300-v2.003.woff2` | Vietnamese |  5,476 | `e053e76e1ac34733888b2f9e43acc46e11fddebfc5d7d9ab5ad7f86a559bbb93` |
+
+`public/theme-init.js` preloads the display face before Inter on every locale
+except Chinese (Chinese display headings use the system CJK stack). The
+"Noto Serif Display Fallback" face in `src/styles/global.css` is a local serif
+with `size-adjust: 113%`, so the swap does not move the heading. Guards:
+`tests/architecture/display-typeface-contract.test.mjs` and
+`tests/architecture/self-hosted-font-contract.test.mjs`.
