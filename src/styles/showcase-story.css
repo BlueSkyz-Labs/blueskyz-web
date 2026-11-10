@@ -1,0 +1,925 @@
+/* Showcase story (Owner 2026-11-10). Styles for
+   src/components/showcase/ShowcaseStory.astro; loaded only by that page.
+   Colour grounds are fixed per story (each product's own world), type comes
+   from the nine-step scale, UI radii from the radius tokens. */
+.sc {
+  /* Device drawing geometry (not UI radii): the frames scale with their
+     own width, so their corners are container-relative. */
+  --sc-r-phone: 15.6cqi;
+  --sc-r-screen: 13.9cqi;
+  --sc-r-key: 0.7cqi;
+  --sc-rf: 5.6cqi;
+  --sc-rp: 4.3cqi;
+  --sc-rh: 0.5cqi;
+  --sc-r0: 0;
+  --sc-ink: var(--brand-ink);
+  --sc-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Kept as a variable so the minifier cannot fold the timeline into the
+     `animation` shorthand, which browsers then reject. */
+  --sc-view: view();
+  overflow-x: clip;
+}
+.sc .sc-eyebrow {
+  color: #9db8ff;
+}
+
+/* ---------- Hero ---------- */
+.sc-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  color: #f4f6fb;
+  background: var(--sc-ink);
+  padding-block: 3.5rem 0;
+}
+.sc-hero__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(
+      46rem 30rem at 78% 58%,
+      rgba(37, 100, 255, 0.34),
+      transparent 68%
+    ),
+    radial-gradient(
+      30rem 22rem at 12% 8%,
+      rgba(126, 238, 222, 0.1),
+      transparent 70%
+    ),
+    radial-gradient(
+      34rem 22rem at 60% 110%,
+      rgba(242, 183, 102, 0.16),
+      transparent 70%
+    );
+}
+.sc-hero__grid {
+  display: grid;
+  gap: 2.5rem;
+}
+.sc-hero__title {
+  margin-top: 1rem;
+  font-size: var(--size-7);
+  line-height: 1.06;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  max-width: 26rem;
+}
+.sc-hero__lede {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  font-size: var(--size-3);
+  line-height: 1.65;
+  color: #cdd6ea;
+}
+.sc-hero__note {
+  margin-top: 1.25rem;
+  max-width: 34rem;
+  font-size: var(--size-2);
+  line-height: 1.55;
+  color: #a9b6d2;
+}
+.sc-jump ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1.75rem;
+}
+.sc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.375rem 0.875rem 0.375rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f4f6fb;
+  font-size: var(--size-3);
+  font-weight: 600;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+.sc-chip img {
+  border-radius: 0.5rem;
+}
+.sc-chip:hover {
+  background: rgba(255, 255, 255, 0.13);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* The device: a slim metal-edged phone drawn in CSS around the real
+   capture. All sizes are in cqi, so the frame scales with its width. */
+.sc-device {
+  container-type: inline-size;
+  width: 100%;
+}
+.sc-phone {
+  position: relative;
+  padding: 1.7cqi;
+  border-radius: var(--sc-r-phone);
+  background: linear-gradient(
+    140deg,
+    #8a8f9a 0%,
+    #3a3d46 14%,
+    #14151a 46%,
+    #2c2f37 78%,
+    #777c87 100%
+  );
+  box-shadow:
+    inset 0 0 0 0.22cqi rgba(255, 255, 255, 0.34),
+    0 30px 60px -28px rgba(0, 0, 0, 0.75),
+    0 60px 120px -50px var(--sc-halo, rgba(37, 100, 255, 0.55));
+}
+/* Side keys. */
+.sc-phone::before,
+.sc-phone::after {
+  content: "";
+  position: absolute;
+  width: 0.9cqi;
+  background: linear-gradient(90deg, #2a2c33, #6b707b);
+}
+.sc-phone::before {
+  left: -0.6cqi;
+  top: 27cqi;
+  height: 9cqi;
+  border-radius: var(--sc-r-key);
+  box-shadow: 0 12.5cqi 0 #4a4d57;
+}
+.sc-phone::after {
+  right: -0.6cqi;
+  top: 38cqi;
+  height: 15cqi;
+  border-radius: var(--sc-r-key);
+  background: linear-gradient(270deg, #2a2c33, #6b707b);
+}
+.sc-phone__screen {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: var(--sc-r-screen);
+  background: var(--status, #fff);
+  box-shadow: 0 0 0 0.95cqi #05060a;
+}
+.sc-phone__screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    118deg,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(255, 255, 255, 0) 24%
+  );
+  pointer-events: none;
+}
+.sc-phone__status {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 11cqi;
+  padding: 1.4cqi 8.4cqi 0;
+  background: var(--status, #fff);
+  color: var(--status-ink, #111);
+}
+.sc-phone__island {
+  position: absolute;
+  left: 50%;
+  top: 2.7cqi;
+  width: 27cqi;
+  height: 7.6cqi;
+  margin-left: -13.5cqi;
+  border-radius: var(--radius-pill);
+  background:
+    radial-gradient(
+      circle at 82% 50%,
+      #232b4a 0 0.9cqi,
+      #0b0d14 1cqi 1.5cqi,
+      transparent 1.6cqi
+    ),
+    #05060a;
+}
+.sc-phone__signal {
+  width: 5cqi;
+  height: 3.1cqi;
+  background:
+    linear-gradient(currentColor, currentColor) 0 100% / 0.9cqi 35% no-repeat,
+    linear-gradient(currentColor, currentColor) 1.35cqi 100% / 0.9cqi 56%
+      no-repeat,
+    linear-gradient(currentColor, currentColor) 2.7cqi 100% / 0.9cqi 78%
+      no-repeat,
+    linear-gradient(currentColor, currentColor) 4.05cqi 100% / 0.9cqi 100%
+      no-repeat;
+  opacity: 0.85;
+}
+.sc-phone__batt {
+  width: 6.4cqi;
+  height: 3.1cqi;
+  border: 0.3cqi solid currentColor;
+  border-radius: var(--sc-r-key);
+  background: linear-gradient(currentColor, currentColor) no-repeat 0.45cqi
+    center / 3.9cqi 1.6cqi;
+  opacity: 0.85;
+}
+.sc-phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--crop, auto);
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Three opening screens, fanned in perspective. */
+.sc-fan {
+  --w: clamp(8.25rem, 36vw, 13.5rem);
+  position: relative;
+  height: calc(var(--w) * 1.82);
+  margin-inline: auto;
+  width: 100%;
+  max-width: 44rem;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--lean-x, 0deg)) rotateY(var(--lean-y, 0deg));
+  transition: transform 500ms var(--sc-ease);
+}
+.sc-fan__phone {
+  position: absolute;
+  left: 50%;
+  top: 0.5rem;
+  width: var(--w);
+  margin-left: calc(var(--w) / -2);
+  z-index: calc(2 - var(--slot) * var(--slot));
+  transform: translateX(calc(var(--slot) * 84%))
+    translateZ(calc(var(--slot) * var(--slot) * -110px))
+    rotateY(calc(var(--slot) * -24deg));
+}
+.sc-fan__phone .sc-phone {
+  --crop: 780 / 1340;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sc-fan__phone {
+    animation: sc-fan-in 1100ms var(--sc-ease) both;
+    animation-delay: calc(140ms + var(--slot) * var(--slot) * 160ms);
+  }
+}
+@keyframes sc-fan-in {
+  from {
+    opacity: 0;
+    transform: translateX(0) translateY(2.5rem) translateZ(-160px) rotateY(0deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sc-fan {
+      animation: sc-fan-leave linear both;
+      animation-timeline: var(--sc-view);
+      animation-range: exit 0% exit 100%;
+    }
+    @keyframes sc-fan-leave {
+      to {
+        transform: rotateX(14deg) scale(0.92);
+        opacity: 0.4;
+      }
+    }
+  }
+}
+
+/* ---------- Acts ---------- */
+.sc-act {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-block: 4.5rem;
+  background: var(--act-ground);
+  color: var(--act-text);
+  scroll-margin-top: 4rem;
+}
+.sc-act--sotro {
+  --act-ground: #170d0a;
+  --act-text: #eadccf;
+  --act-strong: #fff6ec;
+  --act-accent: #f2b766;
+  --act-line: rgba(242, 183, 102, 0.28);
+  --act-glow: rgba(214, 92, 44, 0.3);
+  --sc-halo: rgba(242, 150, 70, 0.5);
+}
+.sc-act--sotam {
+  --act-ground: #eeece6;
+  --act-text: #45433d;
+  --act-strong: #1d1c19;
+  --act-accent: #3f5646;
+  --act-line: rgba(29, 28, 25, 0.2);
+  --act-glow: rgba(160, 150, 120, 0.3);
+  --sc-halo: rgba(60, 56, 44, 0.45);
+}
+.sc-act--vungtaylai {
+  --act-ground: #04292a;
+  --act-text: #cfe6e2;
+  --act-strong: #f3fffc;
+  --act-accent: #7eeede;
+  --act-line: rgba(126, 238, 222, 0.28);
+  --act-glow: rgba(20, 170, 160, 0.3);
+  --sc-halo: rgba(40, 200, 185, 0.45);
+}
+.sc-act__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40rem 30rem at 85% 40%, var(--act-glow), transparent 70%),
+    radial-gradient(30rem 22rem at 0% 100%, var(--act-glow), transparent 72%);
+  opacity: 0.8;
+}
+.sc-act__head {
+  position: relative;
+}
+.sc-act__numeral {
+  position: absolute;
+  right: -0.5rem;
+  top: -4rem;
+  z-index: -1;
+  font-size: 6.5em;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--act-line);
+  user-select: none;
+}
+.sc-act__kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: var(--size-3);
+  font-weight: 600;
+  color: var(--act-accent);
+}
+.sc-act__kicker img {
+  border-radius: var(--radius-sm);
+}
+.sc-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.625rem;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-card);
+  font-size: var(--size-1);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--act-text, #cdd6ea);
+}
+.sc-act__title {
+  margin-top: 1rem;
+  font-size: var(--size-7);
+  line-height: 1.1;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  max-width: 44rem;
+  color: var(--act-strong);
+}
+.sc-act__intro {
+  margin-top: 1rem;
+  max-width: 36rem;
+  font-size: var(--size-3);
+  line-height: 1.65;
+}
+
+.sc-reel {
+  display: grid;
+  gap: 3.5rem;
+  margin-top: 3rem;
+}
+.sc-step {
+  display: grid;
+  gap: 1.5rem;
+}
+.sc-step__num {
+  font-size: var(--size-2);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--act-accent);
+}
+.sc-step__title {
+  margin-top: 0.5rem;
+  font-size: var(--size-6);
+  line-height: 1.2;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: var(--act-strong);
+}
+.sc-step__body {
+  margin-top: 0.75rem;
+  max-width: 30rem;
+  font-size: var(--size-3);
+  line-height: 1.65;
+}
+.sc-shot {
+  width: min(68vw, 18rem);
+  margin-inline: auto;
+}
+/* Stacked layout: each screen settles upright as it scrolls into view. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sc:not([data-live]) .sc-shot {
+      transform-origin: 50% 100%;
+      animation: sc-settle linear both;
+      animation-timeline: var(--sc-view);
+      animation-range: entry 0% cover 30%;
+    }
+  }
+}
+@keyframes sc-settle {
+  from {
+    transform: perspective(1400px) rotateX(12deg) translateY(1.5rem) scale(0.95);
+  }
+}
+
+@media (min-width: 64rem) {
+  .sc-hero {
+    padding-block: 5rem 0;
+  }
+  .sc-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 2rem;
+  }
+  .sc-hero__grid {
+    min-height: min(46rem, calc(100vh - 9rem));
+  }
+  .sc-hero__copy {
+    padding-bottom: 5rem;
+  }
+  .sc-fan {
+    --w: clamp(14rem, 17vw, 18rem);
+    align-self: end;
+  }
+  .sc-act {
+    padding-block: 7rem;
+  }
+  .sc-act__numeral {
+    top: -3rem;
+    right: 0;
+  }
+  .sc-reel {
+    --col-text: 1;
+    --col-shot: 2;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: repeat(var(--steps), auto);
+    column-gap: 4rem;
+    row-gap: 5rem;
+    margin-top: 4rem;
+  }
+  /* The middle story mirrors, so the page reads left, right, left. */
+  .sc-act--sotam .sc-reel {
+    --col-text: 2;
+    --col-shot: 1;
+    --turn: -1;
+  }
+  .sc-step {
+    display: contents;
+  }
+  .sc-step__text {
+    grid-column: var(--col-text);
+    grid-row: var(--i);
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 30rem;
+  }
+  .sc-step__num {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: var(--size-2);
+  }
+  .sc-step__num::after {
+    content: "";
+    width: 2.5rem;
+    height: 2px;
+    background: var(--act-line);
+    transform-origin: left;
+    transition:
+      background-color 300ms ease,
+      transform 500ms var(--sc-ease);
+  }
+  .sc-step__title {
+    font-size: var(--size-7);
+  }
+  .sc-step__body {
+    font-size: var(--size-4);
+  }
+  .sc-shot {
+    grid-column: var(--col-shot);
+    grid-row: var(--i);
+    width: 20rem;
+  }
+
+  /* Pinned stage (script present): all screens share one sticky slot. */
+  .sc[data-live] .sc-reel {
+    --stage-h: min(74vh, 44rem);
+    row-gap: 0;
+  }
+  .sc[data-live] .sc-step__text {
+    min-height: 76vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .sc[data-live] .sc-step__text[data-state="active"] .sc-step__num::after {
+    background: var(--act-accent);
+    transform: scaleX(2.2);
+  }
+  .sc[data-live] .sc-shot {
+    grid-row: 1 / span var(--steps);
+    position: sticky;
+    top: calc((100vh - var(--stage-h)) / 2 + 1.5rem);
+    align-self: start;
+    display: grid;
+    place-items: center;
+    height: var(--stage-h);
+    width: min(21rem, calc(var(--stage-h) * var(--ratio)));
+    justify-self: center;
+    opacity: 0;
+    transform: perspective(1600px) translate3d(0, 3rem, -140px)
+      rotateY(calc(var(--turn, 1) * -22deg)) rotateX(5deg) scale(0.9);
+    transition:
+      opacity 450ms ease,
+      transform 800ms var(--sc-ease);
+    pointer-events: none;
+  }
+  .sc[data-live] .sc-shot[data-state="active"] {
+    opacity: 1;
+    transform: perspective(1600px) rotateY(calc(var(--turn, 1) * -10deg))
+      rotateX(2deg);
+  }
+  .sc[data-live] .sc-shot[data-state="past"] {
+    transform: perspective(1600px) translate3d(0, -3rem, -140px)
+      rotateY(calc(var(--turn, 1) * 8deg)) rotateX(-4deg) scale(0.9);
+  }
+}
+
+/* ---------- Folding screen (one per story) ---------- */
+.sc-foldfig {
+  display: grid;
+  gap: 2rem;
+  margin-top: 4.5rem;
+}
+.sc-foldfig__caption {
+  max-width: 30rem;
+}
+.sc-device--fold {
+  width: min(100%, 36rem);
+  margin-inline: auto;
+}
+.sc-fold {
+  position: relative;
+  display: flex;
+  perspective: 240cqi;
+}
+.sc-fold__half {
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0;
+  padding: 1.5cqi;
+  background: #05060a;
+  box-shadow: inset 0 0 0 0.3cqi #6f747f;
+  backface-visibility: hidden;
+}
+/* One shared shadow under the whole device, so neither half shades the
+   other across the hinge. */
+.sc-fold::before {
+  content: "";
+  position: absolute;
+  inset: 6% 4% 0;
+  border-radius: var(--sc-rf);
+  box-shadow:
+    0 40px 80px -30px rgba(0, 0, 0, 0.7),
+    0 60px 120px -50px var(--sc-halo);
+}
+.sc-fold__half--l {
+  padding-right: 0;
+  border-radius: var(--sc-rf) var(--sc-rh) var(--sc-rh) var(--sc-rf);
+  transform-origin: 100% 50%;
+}
+.sc-fold__half--r {
+  padding-left: 0;
+  border-radius: var(--sc-rh) var(--sc-rf) var(--sc-rf) var(--sc-rh);
+  transform-origin: 0 50%;
+}
+.sc-fold__pane {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--sc-rp) var(--sc-r0) var(--sc-r0) var(--sc-rp);
+}
+.sc-fold__half--r .sc-fold__pane {
+  border-radius: var(--sc-r0) var(--sc-rp) var(--sc-rp) var(--sc-r0);
+}
+.sc-fold__pane img {
+  display: block;
+  width: 200%;
+  max-width: none;
+  height: auto;
+}
+.sc-fold__half--r img {
+  margin-left: -100%;
+}
+/* The crease: a soft groove drawn on each pane where it meets the hinge. */
+.sc-fold__pane::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset-block: 0;
+  right: 0;
+  width: 7%;
+  background: linear-gradient(
+    var(--toward-hinge, 90deg),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.03) 45%,
+    rgba(0, 0, 0, 0.09)
+  );
+  pointer-events: none;
+}
+.sc-fold__half--r .sc-fold__pane::before {
+  --toward-hinge: 270deg;
+  right: auto;
+  left: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sc-fold__half--l {
+      animation: sc-unfold-l linear both;
+      animation-timeline: var(--sc-view);
+      animation-range: entry 15% cover 48%;
+    }
+    .sc-fold__half--r {
+      animation: sc-unfold-r linear both;
+      animation-timeline: var(--sc-view);
+      animation-range: entry 15% cover 48%;
+    }
+  }
+}
+@keyframes sc-unfold-l {
+  from {
+    transform: rotateY(52deg);
+    filter: brightness(0.74);
+  }
+}
+@keyframes sc-unfold-r {
+  from {
+    transform: rotateY(-52deg);
+    filter: brightness(0.86);
+  }
+}
+@media (min-width: 64rem) {
+  .sc-foldfig {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    align-items: center;
+    column-gap: 4rem;
+    margin-top: 2rem;
+  }
+  .sc-foldfig__caption {
+    justify-self: center;
+    width: 100%;
+  }
+  .sc-act--sotam .sc-foldfig__caption {
+    order: 2;
+  }
+}
+
+/* ---------- Owner's desk (Sổ Trọ coda) ---------- */
+.sc-desk {
+  margin-top: 4rem;
+}
+.sc-desk__caption {
+  max-width: 36rem;
+}
+.sc-desk__frame {
+  margin-top: 1.75rem;
+  max-width: 60rem;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: #0b0e16;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 50px 110px -50px var(--sc-halo);
+}
+.sc-desk__bar {
+  display: flex;
+  gap: 0.375rem;
+  padding: 0.625rem 0.875rem;
+}
+.sc-desk__bar span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.28);
+}
+.sc-desk__frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .sc-desk__frame {
+      transform-origin: 50% 100%;
+      animation: sc-settle linear both;
+      animation-timeline: var(--sc-view);
+      animation-range: entry 0% cover 36%;
+    }
+  }
+}
+
+.sc-act__more {
+  margin-top: 3rem;
+}
+.sc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--act-accent, #9db8ff);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+}
+.sc-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Close ---------- */
+.sc-close {
+  padding-block: 4.5rem;
+  background: var(--sc-ink);
+  color: #cdd6ea;
+}
+.sc-close__title {
+  font-size: var(--size-7);
+  line-height: 1.12;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: #f4f6fb;
+}
+.sc-close__lede {
+  margin-top: 0.75rem;
+  max-width: 36rem;
+  font-size: var(--size-3);
+  line-height: 1.65;
+}
+.sc-cards {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+.sc-card {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 0.375rem;
+  padding: 1.125rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--radius-panel);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f4f6fb;
+  transition:
+    transform 220ms var(--sc-ease),
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+.sc-card img {
+  grid-row: span 2;
+  border-radius: var(--radius-card);
+}
+.sc-card__name {
+  font-size: var(--size-5);
+  font-weight: 650;
+}
+.sc-card .sc-badge {
+  grid-column: 2;
+  justify-self: start;
+}
+.sc-card__go {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  color: #9db8ff;
+}
+.sc-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(157, 184, 255, 0.7);
+  background: rgba(255, 255, 255, 0.08);
+}
+.sc-proof {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  max-width: 44rem;
+  font-size: var(--size-2);
+  line-height: 1.65;
+  color: #b6c2dc;
+}
+.sc-proof__title {
+  font-size: var(--size-3);
+  font-weight: 650;
+  color: #f4f6fb;
+}
+.sc-proof p,
+.sc-proof ul {
+  margin-top: 0.75rem;
+}
+.sc-proof code {
+  font-size: 0.875em;
+  color: #dbe4f7;
+}
+@media (min-width: 48rem) {
+  .sc-cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .sc-close {
+    padding-block: 6rem;
+  }
+}
+
+@media (forced-colors: active) {
+  .sc-phone,
+  .sc-fold__half,
+  .sc-desk__frame,
+  .sc-card,
+  .sc-chip {
+    border: 1px solid CanvasText;
+  }
+  .sc-act__numeral {
+    display: none;
+  }
+}
+@media print {
+  .sc-fan,
+  .sc-act__numeral {
+    display: none;
+  }
+}
+
+/* Status-strip ground and ink, matched to the top edge of each capture. */
+.sc-tone--sotro {
+  --status: #fefdf9;
+  --status-ink: #1c1410;
+}
+.sc-tone--sotro-night {
+  --status: #1d1410;
+  --status-ink: #f3e6d6;
+}
+.sc-tone--sotam {
+  --status: #e3e2dc;
+  --status-ink: #1d1c19;
+}
+.sc-tone--vungtaylai {
+  --status: #faf7ef;
+  --status-ink: #12302f;
+}
+
+/* Type steps up with the viewport, always on the nine-step scale. */
+@media (min-width: 48rem) {
+  .sc-hero__title,
+  .sc-close__title {
+    font-size: var(--size-8);
+  }
+}
+@media (min-width: 64rem) {
+  .sc-hero__title {
+    font-size: var(--size-9);
+  }
+  .sc-hero__lede,
+  .sc-act__intro,
+  .sc-close__lede {
+    font-size: var(--size-4);
+  }
+  .sc-act__title {
+    font-size: var(--size-8);
+  }
+  /* Decorative outlined numeral (aria-hidden), sized off the body size. */
+  .sc-act__numeral {
+    font-size: 13em;
+  }
+}
+
+/* Reduced motion: same content, nothing travels. Screens on the pinned stage
+   swap in place. */
+@media (prefers-reduced-motion: reduce) {
+  .sc[data-live] .sc-shot[data-state] {
+    transform: none;
+    transition: none;
+  }
+  .sc-fan,
+  .sc-card,
+  .sc-chip,
+  .sc-step__num::after {
+    transition: none;
+  }
+}
