@@ -122,11 +122,28 @@ const playLabel = labelFor(
   .horizon-sea-toggle__play {
     display: none;
   }
+  :global([data-horizon-sea-state="resting"]) .horizon-sea-toggle__pause,
   :global([data-horizon-sea-state="paused"]) .horizon-sea-toggle__pause {
     display: none;
   }
+  :global([data-horizon-sea-state="resting"]) .horizon-sea-toggle__play,
   :global([data-horizon-sea-state="paused"]) .horizon-sea-toggle__play {
     display: block;
+  }
+  /* While the scene draws the sail as a body of light, the raster mark
+     underneath steps back; it returns the moment the scene is not running. */
+  :global(
+    .hero-plane[data-horizon-sea-state="running"][data-horizon-sail]
+      .hero-stage
+      .hero-visual
+  ),
+  :global(
+    .hero-plane[data-horizon-sea-state="paused"][data-horizon-sail]
+      .hero-stage
+      .hero-visual
+  ) {
+    opacity: 0;
+    transition: opacity 900ms ease;
   }
   /* A display spanned across a hinge keeps the static hero: a full-bleed
      scene would be drawn across the fold. Print never carries the scene. */

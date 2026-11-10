@@ -31,6 +31,24 @@ const frame = (page: Page) =>
         ?.toDataURL() ?? "",
   );
 
+/**
+ * Pause the scene with its control. On a slow machine the scene may already
+ * have stopped itself ("resting"); the first press then starts it, and from
+ * that press on the scene never stops itself, so the second press pauses it.
+ */
+async function pauseScene(page: Page, press: () => Promise<void>) {
+  const hero = page.locator("[data-horizon-sea-root]");
+  await expect(hero).toHaveAttribute(
+    "data-horizon-sea-state",
+    /^(running|resting)$/,
+  );
+  await press();
+  if ((await hero.getAttribute("data-horizon-sea-state")) === "running") {
+    await press();
+  }
+  await expect(hero).toHaveAttribute("data-horizon-sea-state", "paused");
+}
+
 test.describe("motion welcome", () => {
   test.use({ reducedMotion: "no-preference" });
 
@@ -41,7 +59,6 @@ test.describe("motion welcome", () => {
       await page.goto(home);
       const hero = page.locator("[data-horizon-sea-root]");
       const toggle = page.locator("[data-horizon-sea-toggle]");
-      await expect(hero).toHaveAttribute("data-horizon-sea-state", "running");
       await expect(toggle).toBeVisible();
       await expect
         .poll(() => paintedPixels(page), { timeout: 10_000 })
@@ -53,11 +70,9 @@ test.describe("motion welcome", () => {
       expect(pauseLabel).toBeTruthy();
       expect(playLabel).toBeTruthy();
       expect(pauseLabel).not.toBe(playLabel);
-      await expect(toggle).toHaveAttribute("aria-label", pauseLabel!);
 
       // Paused: the label flips and the picture holds still.
-      await toggle.click();
-      await expect(hero).toHaveAttribute("data-horizon-sea-state", "paused");
+      await pauseScene(page, () => toggle.click());
       await expect(toggle).toHaveAttribute("aria-label", playLabel!);
       const held = await frame(page);
       await page.waitForTimeout(400);
@@ -66,6 +81,7 @@ test.describe("motion welcome", () => {
       // Resumed: the picture moves again.
       await toggle.click();
       await expect(hero).toHaveAttribute("data-horizon-sea-state", "running");
+      await expect(toggle).toHaveAttribute("aria-label", pauseLabel!);
       await expect.poll(() => frame(page), { timeout: 5_000 }).not.toBe(held);
     });
   }
@@ -113,10 +129,72 @@ test.describe("motion welcome", () => {
     expect(box!.width).toBeGreaterThanOrEqual(44);
     expect(box!.height).toBeGreaterThanOrEqual(44);
     await toggle.focus();
-    await page.keyboard.press("Enter");
-    await expect(page.locator("[data-horizon-sea-root]")).toHaveAttribute(
-      "data-horizon-sea-state",
-      "paused",
+    await pauseScene(page, () => page.keyboard.press("Enter"));
+  });
+});
+
+test.describe("the sail of light (large screens)", () => {
+  test.use({
+    reducedMotion: "no-preference",
+    viewport: { width: 1440, height: 900 },
+  });
+
+  test("the static mark steps back only while the scene draws the sail", async ({
+    page,
+  }) => {
+    await page.goto("/en/");
+    const hero = page.locator("[data-horizon-sea-root]");
+    await expect(hero).toHaveAttribute("data-horizon-sea-state", /.+/);
+    await page.waitForTimeout(1500);
+    // The scene may hand the sail back to the static mark on a slow machine
+    // (its performance governor); either way exactly one sail is on show.
+    const state = await page.evaluate(() => {
+      const root = document.querySelector("[data-horizon-sea-root]")!;
+      const mark = document.querySelector<HTMLElement>(".hero-visual")!;
+      return {
+        sail: root.hasAttribute("data-horizon-sail"),
+        markOpacity: Number(getComputedStyle(mark).opacity),
+      };
+    });
+    if (state.sail) expect(state.markOpacity).toBeLessThan(0.05);
+    else expect(state.markOpacity).toBeGreaterThan(0.5);
+  });
+
+  test("a press on the bare scene never navigates or blocks the actions", async ({
+    page,
+  }) => {
+    await page.goto("/en/");
+    await expect(page.locator("[data-horizon-sea-toggle]")).toBeVisible();
+    const hero = await page.locator("[data-horizon-sea-root]").boundingBox();
+    // One press on the water (low in the hero), one on the sky (top edge).
+    await page.mouse.click(
+      hero!.x + hero!.width * 0.5,
+      hero!.y + hero!.height - 30,
+    );
+    await page.mouse.click(hero!.x + hero!.width * 0.5, hero!.y + 12);
+    await expect(page).toHaveURL(/\/en\/$/);
+    const action = page
+      .locator("[data-hero-flagship] [data-hero-primary], .hero-actions a")
+      .first();
+    const href = await action.getAttribute("href");
+    await action.click();
+    await expect(page).toHaveURL(new RegExp(`${href}$`));
+  });
+});
+
+test.describe("phones", () => {
+  test.use({
+    reducedMotion: "no-preference",
+    viewport: { width: 390, height: 844 },
+  });
+
+  test("the heavy 3D sail is not built below 1024px", async ({ page }) => {
+    await page.goto("/en/");
+    await expect(page.locator("[data-horizon-sea-toggle]")).toBeVisible();
+    await page.waitForTimeout(600);
+    await expect(page.locator("[data-horizon-sea-root]")).not.toHaveAttribute(
+      "data-horizon-sail",
+      /.*/,
     );
   });
 });
