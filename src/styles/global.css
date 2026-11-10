@@ -1752,6 +1752,11 @@ h3 {
       animation-timeline: var(--view-timeline);
       animation-range: entry 0% entry 55%;
     }
+    /* An item that holds a link rises without the scale (`view-rise-text` in
+       reveal.css): a 44px target must not measure 43px on its way in. */
+    .view-rise--text {
+      animation-name: view-rise-text;
+    }
   }
 }
 

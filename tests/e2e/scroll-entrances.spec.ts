@@ -66,6 +66,58 @@ test.describe("motion welcome", () => {
   });
 });
 
+test.describe("entrances and tap targets", () => {
+  test.use({
+    reducedMotion: "no-preference",
+    viewport: { width: 390, height: 844 },
+  });
+
+  // Engines differ on what an entrance shows before its block scrolls in
+  // (WebKit holds the first keyframe, Chromium may skip it under
+  // content-visibility), so this reads the keyframes instead of a rendered
+  // size: a scroll-driven entrance on a block that holds a link or a button
+  // must never scale it, or a 44px target measures 43px.
+  for (const route of ["/en/products/sotro/", "/en/"]) {
+    test(`${route} no scroll-driven entrance scales a link or button`, async ({
+      page,
+    }) => {
+      await page.goto(route, { waitUntil: "load" });
+      test.skip(
+        !(await supportsViewTimeline(page)),
+        "this browser has no scroll-driven animations",
+      );
+      const offenders = await page.evaluate(() => {
+        const rows = new Set<string>();
+        // Ask each element: document.getAnimations() leaves out animations
+        // inside a section the browser is skipping (content-visibility).
+        const animations = [...document.querySelectorAll("*")].flatMap(
+          (element) => element.getAnimations(),
+        );
+        for (const animation of animations) {
+          if (animation.timeline instanceof DocumentTimeline) continue;
+          const effect = animation.effect;
+          if (!(effect instanceof KeyframeEffect)) continue;
+          // A pseudo-element's own entrance does not move its host's content.
+          if (effect.pseudoElement) continue;
+          const target = effect.target;
+          if (!target?.querySelector("a[href], button")) continue;
+          const scales = effect.getKeyframes().some((frame) => {
+            const transform = String(frame.transform ?? "");
+            return /scale|matrix/.test(transform) || frame.scale !== undefined;
+          });
+          if (scales) {
+            rows.add(
+              `${target.tagName.toLowerCase()}.${target.className} (${(animation as CSSAnimation).animationName})`,
+            );
+          }
+        }
+        return [...rows];
+      });
+      expect(offenders, offenders.join("\n")).toEqual([]);
+    });
+  }
+});
+
 test.describe("reduced motion", () => {
   test.use({ reducedMotion: "reduce" });
 
