@@ -1,6 +1,7 @@
 ---
 import BlueSkyzIcon from "@/components/icon/BlueSkyzIcon.astro";
 import Container from "@/components/layout/Container.astro";
+import PageHeader from "@/components/layout/PageHeader.astro";
 import ProductStatus from "@/components/product/ProductStatus.astro";
 import { EMPTY_STATE_COPY } from "@/data/empty-state-copy";
 import { SITE, labelFor, SHARED_LABELS, type Language } from "@/data/site";
@@ -82,7 +83,7 @@ const founderLocation =
   <section class="about-hero" data-about-hero>
     <Container class="about-hero__inner">
       <div class="about-hero__copy">
-        <h1 class="about-hero__title type-d1 text-balance">{title}</h1>
+        <PageHeader title={title ?? ""} />
         {missionHeading && missionIntro && (
           <section
             class="about-mission"
@@ -238,8 +239,7 @@ const founderLocation =
   .about-hero__copy {
     min-inline-size: 0;
   }
-  .about-hero__title {
-    margin: 0;
+  .about-hero :global(.page-header__title) {
     color: var(--brand-porcelain);
   }
   .about-mission {

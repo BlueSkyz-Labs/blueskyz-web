@@ -8,9 +8,10 @@ import { getEntry } from "astro:content";
 /**
  * Home close (Owner 2026-11-10): the page ends on a statement, not a strip.
  *
- * The statement is the house line already authored for the home
- * (`pages/<lang>/index.yaml`, `onewhouse.heading` and `.intro`); nothing is
- * written here. The artwork is the decorative brand elevation already used on
+ * The statement is copy already authored for the home in
+ * `pages/<lang>/index.yaml`: the hero's supporting line as the heading and the
+ * house intro under it; nothing is written here. (The "One house" heading
+ * itself stays off the home, as decided in Experience v6.) The artwork is the decorative brand elevation already used on
  * About. The three next steps are the same links as before, inside the same
  * navigation landmark. Without the authored line the band falls back to the
  * plain next-steps row.
@@ -18,18 +19,20 @@ import { getEntry } from "astro:content";
 interface Props {
   lang: Language;
 }
-interface HouseContent {
-  heading?: unknown;
-  intro?: unknown;
+interface HomeSections {
+  hero?: { supporting?: unknown };
+  onewhouse?: { intro?: unknown };
 }
 const { lang } = Astro.props;
 const navLabel = labelFor(SHARED_LABELS.nextSteps, lang);
 const actions = getHomeCloseActions(lang);
 
 const home = await getEntry("pages", `${lang}-index`);
-const house = home?.data.sections?.onewhouse as HouseContent | undefined;
-const heading = typeof house?.heading === "string" ? house.heading : null;
-const intro = typeof house?.intro === "string" ? house.intro : null;
+const sections = home?.data.sections as HomeSections | undefined;
+const supporting = sections?.hero?.supporting;
+const houseIntro = sections?.onewhouse?.intro;
+const heading = typeof supporting === "string" ? supporting : null;
+const intro = typeof houseIntro === "string" ? houseIntro : null;
 const statement = heading && intro ? { heading, intro } : null;
 ---
 
@@ -51,7 +54,10 @@ const statement = heading && intro ? { heading, intro } : null;
     </div>
     <Container class="home-close__inner">
       <div class="home-close__copy">
-        <h2 id="home-close-title" class="type-d1 home-close__title">
+        <h2
+          id="home-close-title"
+          class="type-d2 home-close__title text-balance"
+        >
           {statement.heading}
         </h2>
         <p class="home-close__lead text-pretty">{statement.intro}</p>
@@ -165,7 +171,9 @@ const statement = heading && intro ? { heading, intro } : null;
       padding-block: 3rem 1.5rem;
     }
   }
-  @media (forced-colors: active) {
+  /* Spanned foldables: nothing may sit across the hinge, so the decorative
+     artwork steps out and the statement stays in the leading segment. */
+  @media (forced-colors: active), (horizontal-viewport-segments: 2) {
     .home-close__art {
       display: none;
     }
