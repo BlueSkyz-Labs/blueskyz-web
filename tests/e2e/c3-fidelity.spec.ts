@@ -167,6 +167,23 @@ test.describe("C3-D Fidelity Engine — presentation tier", () => {
             )
           );
         }
+        // Scroll-driven entrances have a progress, not a duration. They are
+        // allowed only while they animate compositor properties.
+        if (!(a.timeline instanceof DocumentTimeline)) {
+          const keyframes = a.effect?.getKeyframes() ?? [];
+          return keyframes.every((frame) =>
+            Object.keys(frame).every((property) =>
+              [
+                "opacity",
+                "transform",
+                "offset",
+                "computedOffset",
+                "easing",
+                "composite",
+              ].includes(property),
+            ),
+          );
+        }
         const t = a.effect?.getTiming?.();
         return !t || t.duration < 2000 || t.iterations === Infinity;
       }),
