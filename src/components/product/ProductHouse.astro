@@ -221,6 +221,24 @@ if (!compact && products.length > 0 && !card) {
   )}
 </section>
 
+<script>
+  // Pointer light for the product rows: records where a fine pointer is
+  // inside the row so the hover highlight follows it. Presentation only.
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    for (const row of document.querySelectorAll<HTMLElement>(".product-row")) {
+      row.addEventListener(
+        "pointermove",
+        (event) => {
+          const box = row.getBoundingClientRect();
+          row.style.setProperty("--spot-x", `${event.clientX - box.left}px`);
+          row.style.setProperty("--spot-y", `${event.clientY - box.top}px`);
+        },
+        { passive: true },
+      );
+    }
+  }
+</script>
+
 <style>
   .product-row {
     display: grid;
@@ -232,6 +250,40 @@ if (!compact && products.length > 0 && !card) {
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-card);
     background: var(--surface-raised);
+  }
+  /* A fine pointer lights the row it rests on: the light follows the pointer
+     (two custom properties written by the script below) and the row lifts a
+     little. Hover only, so touch and keyboard see the plain row. */
+  @media (hover: hover) and (pointer: fine) {
+    .product-row {
+      transition:
+        transform var(--motion-quick, 180ms) var(--ease-standard, ease),
+        border-color var(--motion-quick, 180ms) var(--ease-standard, ease),
+        box-shadow var(--motion-quick, 180ms) var(--ease-standard, ease);
+    }
+    .product-row:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(
+        in srgb,
+        var(--brand-cobalt) 45%,
+        var(--border-subtle)
+      );
+      background:
+        radial-gradient(
+          24rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+          color-mix(in srgb, var(--brand-cobalt) 9%, transparent),
+          transparent 62%
+        ),
+        var(--surface-raised);
+      box-shadow: 0 14px 34px -22px
+        color-mix(in srgb, var(--brand-cobalt) 55%, transparent);
+    }
+  }
+  @media (forced-colors: active) {
+    .product-row:hover {
+      transform: none;
+      background: Canvas;
+    }
   }
   /* Dark keeps the quieter hairline (LOW-5: only light was near-invisible). */
   :global([data-theme="dark"]) .product-row {

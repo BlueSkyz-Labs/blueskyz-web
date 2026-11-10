@@ -1,6 +1,7 @@
 ---
 import HorizonField from "@/components/experience/HorizonField.astro";
 import HorizonSeam from "@/components/experience/HorizonSeam.astro";
+import HorizonSea from "@/components/experience/HorizonSea.astro";
 import ButtonLink from "@/components/ui/ButtonLink.astro";
 import SailReveal from "@/components/motion/SailReveal.astro";
 import { SHARED_LABELS, SITE, labelFor, type Language } from "@/data/site";
@@ -110,8 +111,12 @@ const supportingLine = flagship ? null : proposition;
 <section
   class="hero-plane hero-plane--ink relative isolate overflow-hidden border-b border-white/10"
   aria-labelledby="hero-title"
+  data-horizon-sea-root
 >
   <div class="hero-atmosphere hero-atmosphere--ink" aria-hidden="true"></div>
+  <!-- The living layer: a canvas under the content (enhancement only; empty
+       without JS or when motion is not welcome) and its pause control. -->
+  <HorizonSea lang={lang} />
   <!-- Plain container, not the rise wrapper: the LCP headline lives inside it and must
        not animate or move, so no ancestor may carry the 400 ms rise either. -->
   <div
@@ -560,7 +565,11 @@ const supportingLine = flagship ? null : proposition;
     /* Restrained 3D: the capture turns a few degrees toward the promise. A
        static transform (no layout box change, CLS 0); the slot stays reserved. */
     .hero-focal {
-      transform: perspective(2000px) rotateY(-8deg);
+      /* The two custom properties are the pointer response written by the
+         Horizon Sea script; both rest at 0, so the static pose is unchanged. */
+      transform: perspective(2000px)
+        rotateY(calc(-8deg + var(--hero-tilt-y, 0deg)))
+        rotateX(var(--hero-tilt-x, 0deg));
       transform-origin: 60% 50%;
     }
     .hero-flagship :global(.flagship-capture__image) {
@@ -579,6 +588,8 @@ const supportingLine = flagship ? null : proposition;
     position: absolute;
     z-index: 0;
     pointer-events: none;
+    /* The Horizon Sea script bobs the sail with the swell (transform only). */
+    transform-origin: 30% 88%;
   }
   @media (min-width: 1024px) {
     /* 18rem so the tilted capture still renders >= 280 px wide. */
