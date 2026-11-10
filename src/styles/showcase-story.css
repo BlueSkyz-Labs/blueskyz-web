@@ -59,18 +59,18 @@
 }
 .sc-hero__title {
   margin-top: 1rem;
-  max-width: 34rem;
+  max-width: 40rem;
 }
 .sc-hero__lede {
   margin-top: 1.25rem;
-  max-width: 34rem;
+  max-width: 40rem;
   font-size: var(--size-3);
   line-height: 1.65;
   color: #cdd6ea;
 }
 .sc-hero__note {
   margin-top: 1.25rem;
-  max-width: 34rem;
+  max-width: 40rem;
   font-size: var(--size-2);
   line-height: 1.55;
   color: #a9b6d2;
