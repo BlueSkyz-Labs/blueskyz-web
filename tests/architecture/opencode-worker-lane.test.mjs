@@ -36,7 +36,7 @@ import {
 } from "../../scripts/lib/opencode-fanout.mjs";
 
 /**
- * OpenCode Go / free-pool worker lane (reuses blackangelz/blueskyz-studio
+ * OpenCode Go / free-pool worker lane (reuses BlueSkyz-Labs/blueskyz-studio
  * go_first.py, same mechanism as BlueSkyz-Labs/sotro). Offline only: the
  * studio worker and the OpenCode CLI are replaced by local fakes, so no
  * network call is made and no key value is read.

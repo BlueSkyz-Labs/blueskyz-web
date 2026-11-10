@@ -2,7 +2,7 @@
  * BlueSkyz Web adapter for the shared BlueSkyz OpenCode Go worker.
  *
  * The worker is NOT reimplemented here. It is reused from the portfolio
- * framework in blackangelz/blueskyz-studio (same mechanism Sổ Trọ adopted on
+ * framework in BlueSkyz-Labs/blueskyz-studio (same mechanism Sổ Trọ adopted on
  * 2026-11-02, see BlueSkyz-Labs/sotro docs/runbooks/OPENCODE_GO_WORKER.md):
  *   framework/finops/go_first.py           DeepSeek Flash latest -> MiMo Flash (transient faults only)
  *   framework/finops/go_credentials.py     3-key rotation, 429/403 cooldown (OPENCODE_GO_ROTATION_MODE=on)
@@ -19,7 +19,7 @@ import { existsSync } from "node:fs";
 import { join } from "node:path";
 
 export const BRAND = "blueskyz-web";
-export const STUDIO_REPO = "https://github.com/blackangelz/blueskyz-studio";
+export const STUDIO_REPO = "https://github.com/BlueSkyz-Labs/blueskyz-studio";
 export const GO_FIRST = join("framework", "finops", "go_first.py");
 export const GO_CREDENTIALS = join("framework", "finops", "go_credentials.py");
 export const DEFAULT_STUDIO_DIRS = [

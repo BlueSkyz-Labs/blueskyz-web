@@ -8,10 +8,25 @@
  * limit reached", measured in Sổ Trọ 2026-11-04). The CLI reads the key
  * through an `{env:VAR}` reference; this module never reads or prints a key.
  */
+import { existsSync } from "node:fs";
 import { join } from "node:path";
 import { BRAND, DATA_CLASSES, FINOPS_DIR } from "./opencode-go-worker.mjs";
 
 export const DEFAULT_POOL = `${FINOPS_DIR}/free-pool.json`;
+/** Committed seed (repository-relative), used when no ranked pool file exists. */
+export const SEED_POOL = join("docs", "finops", "free-pool.seed.json");
+
+/**
+ * Pool file to read: FREE_POOL_FILE, else the ranked file in the project's
+ * shared files, else the committed seed. A fresh project environment has no
+ * shared file yet (measured 2026-11-10: the free lane was skipped for that
+ * reason alone).
+ */
+export function poolFile(env, repoRoot, exists = existsSync) {
+  if (env.FREE_POOL_FILE) return env.FREE_POOL_FILE;
+  return exists(DEFAULT_POOL) ? DEFAULT_POOL : join(repoRoot, SEED_POOL);
+}
+
 export const DEFAULT_KEY_VAR = "OPENCODE_GO_API_KEY_1";
 export const MAX_FREE_PROMPT_CHARS = 100_000;
 const KEY_VAR_RE = /^OPENCODE_[A-Z0-9_]{1,40}$/;
