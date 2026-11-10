@@ -85,7 +85,7 @@ const frameRatio = (width: number, height: number) =>
     <div class="site-container sc-hero__grid">
       <div class="sc-hero__copy">
         <p class="eyebrow sc-eyebrow">{copy.eyebrow}</p>
-        <h1 id="sc-title" class="sc-hero__title">
+        <h1 id="sc-title" class="sc-hero__title type-d1">
           {copy.title}
         </h1>
         <p class="sc-hero__lede">{copy.lede}</p>
@@ -163,9 +163,12 @@ const frameRatio = (width: number, height: number) =>
               {chapterLabel(actIndex + 1)} ·{" "}
               <span lang={nameLang}>{act.name}</span>
             </span>
+            <span class="sc-act__maker" lang="en">
+              by BlueSkyz Labs
+            </span>
             <span class="sc-badge">{act.status}</span>
           </p>
-          <h2 id={`sc-${act.slug}-title`} class="sc-act__title">
+          <h2 id={`sc-${act.slug}-title`} class="sc-act__title type-d2">
             {act.title[lang]}
           </h2>
           <p class="sc-act__intro">{act.intro[lang]}</p>
@@ -301,7 +304,7 @@ const frameRatio = (width: number, height: number) =>
 
   <section class="sc-close" aria-labelledby="sc-close-title">
     <div class="site-container">
-      <h2 id="sc-close-title" class="sc-close__title">
+      <h2 id="sc-close-title" class="sc-close__title type-d2">
         {copy.closingTitle}
       </h2>
       <p class="sc-close__lede">{copy.closingLede}</p>

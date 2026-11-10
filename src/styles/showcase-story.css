@@ -59,12 +59,7 @@
 }
 .sc-hero__title {
   margin-top: 1rem;
-  font-size: var(--size-7);
-  line-height: 1.06;
-  font-weight: 650;
-  letter-spacing: -0.025em;
-  text-wrap: balance;
-  max-width: 26rem;
+  max-width: 34rem;
 }
 .sc-hero__lede {
   margin-top: 1.25rem;
@@ -358,6 +353,13 @@
   font-weight: 600;
   color: var(--act-accent);
 }
+/* Brand Kit v5 endorsement: the product keeps its own mark and name; the
+   house signs beside it. */
+.sc-act__maker {
+  font-size: var(--size-2);
+  font-weight: 400;
+  color: var(--act-text, #cdd6ea);
+}
 .sc-act__kicker img {
   border-radius: var(--radius-sm);
 }
@@ -374,11 +376,6 @@
 }
 .sc-act__title {
   margin-top: 1rem;
-  font-size: var(--size-7);
-  line-height: 1.1;
-  font-weight: 650;
-  letter-spacing: -0.02em;
-  text-wrap: balance;
   max-width: 44rem;
   color: var(--act-strong);
 }
@@ -761,10 +758,6 @@
   color: #cdd6ea;
 }
 .sc-close__title {
-  font-size: var(--size-7);
-  line-height: 1.12;
-  font-weight: 650;
-  letter-spacing: -0.02em;
   color: #f4f6fb;
 }
 .sc-close__lede {
@@ -884,24 +877,13 @@
   --status-ink: #12302f;
 }
 
-/* Type steps up with the viewport, always on the nine-step scale. */
-@media (min-width: 48rem) {
-  .sc-hero__title,
-  .sc-close__title {
-    font-size: var(--size-8);
-  }
-}
+/* Titles take face, weight and size from the shared display classes
+   (.type-d1, .type-d2); only supporting text steps up here. */
 @media (min-width: 64rem) {
-  .sc-hero__title {
-    font-size: var(--size-9);
-  }
   .sc-hero__lede,
   .sc-act__intro,
   .sc-close__lede {
     font-size: var(--size-4);
-  }
-  .sc-act__title {
-    font-size: var(--size-8);
   }
   /* Decorative outlined numeral (aria-hidden), sized off the body size. */
   .sc-act__numeral {
