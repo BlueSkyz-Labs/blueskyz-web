@@ -102,6 +102,20 @@ const DECISION_ROOM_ALIASES: Record<Language, string[]> = {
   "zh-hant": ["比較", "聲明"],
 };
 
+/** The showcase story page; the label is the word its own eyebrow shows. */
+const SHOWCASE_LABEL: Record<Language, string> = {
+  en: "Showcase",
+  vi: "Showcase",
+  zh: "展示",
+  "zh-hant": "展示",
+};
+const SHOWCASE_ALIASES: Record<Language, string[]> = {
+  en: ["screens", "screenshots", "apps"],
+  vi: ["giao diện", "ảnh chụp", "ứng dụng"],
+  zh: ["界面", "截图", "应用"],
+  "zh-hant": ["介面", "截圖", "應用"],
+};
+
 const GUIDE_ALIASES: Record<Language, string> = {
   en: "guide",
   vi: "hướng dẫn",
@@ -204,6 +218,18 @@ export function buildNavigatorIndex(
       label: DECISION_ROOM_LABEL[lang],
       kind: "route",
       aliases: [...DECISION_ROOM_ALIASES[lang]],
+    };
+    items.push(item);
+    byHref.set(item.href, item);
+  }
+
+  const showcaseHref = `/${lang}/showcase/`;
+  if (!byHref.has(showcaseHref)) {
+    const item: NavigatorItem = {
+      href: showcaseHref,
+      label: SHOWCASE_LABEL[lang],
+      kind: "route",
+      aliases: [...SHOWCASE_ALIASES[lang]],
     };
     items.push(item);
     byHref.set(item.href, item);

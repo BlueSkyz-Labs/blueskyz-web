@@ -64,6 +64,7 @@
 /en/products/sotro/guide /en/products/sotro/guide/ 301
 /en/products/vungtaylai /en/products/vungtaylai/ 301
 /en/security /en/security/ 301
+/en/showcase /en/showcase/ 301
 /en/support /en/support/ 301
 /en/verify /en/verify/ 301
 /vi/404 /vi/404/ 301
@@ -90,6 +91,7 @@
 /vi/products/sotro/guide /vi/products/sotro/guide/ 301
 /vi/products/vungtaylai /vi/products/vungtaylai/ 301
 /vi/security /vi/security/ 301
+/vi/showcase /vi/showcase/ 301
 /vi/support /vi/support/ 301
 /vi/verify /vi/verify/ 301
 /zh-hant/404 /zh-hant/404/ 301
@@ -111,6 +113,7 @@
 /zh-hant/products/sotro/guide /zh-hant/products/sotro/guide/ 301
 /zh-hant/products/vungtaylai /zh-hant/products/vungtaylai/ 301
 /zh-hant/security /zh-hant/security/ 301
+/zh-hant/showcase /zh-hant/showcase/ 301
 /zh-hant/support /zh-hant/support/ 301
 /zh-hant/verify /zh-hant/verify/ 301
 /zh/404 /zh/404/ 301
@@ -132,6 +135,7 @@
 /zh/products/sotro/guide /zh/products/sotro/guide/ 301
 /zh/products/vungtaylai /zh/products/vungtaylai/ 301
 /zh/security /zh/security/ 301
+/zh/showcase /zh/showcase/ 301
 /zh/support /zh/support/ 301
 /zh/verify /zh/verify/ 301
 # Dynamic rules (placeholders/splats) go LAST. Cloudflare counts every rule
