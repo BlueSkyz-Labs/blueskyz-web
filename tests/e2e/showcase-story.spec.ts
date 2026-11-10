@@ -55,20 +55,28 @@ for (const lang of LOCALES) {
 
 test("every screen is a real image that loads", async ({ page }) => {
   await page.goto(route("vi"));
-  await scrollThrough(page);
-  await expect
-    .poll(
-      () =>
-        page
-          .locator("[data-showcase] img")
-          .evaluateAll((images) =>
-            (images as HTMLImageElement[])
-              .filter((image) => !(image.complete && image.naturalWidth > 0))
-              .map((image) => image.currentSrc || image.src),
-          ),
-      { timeout: 15_000 },
-    )
-    .toEqual([]);
+  // Bring each lazy image into view in turn and wait for it: a fast sweep of
+  // the page is not enough for WebKit to request every one of them.
+  const pending = await page
+    .locator("[data-showcase] img")
+    .evaluateAll(async (images) => {
+      const failed: string[] = [];
+      for (const image of images as HTMLImageElement[]) {
+        image.scrollIntoView({ block: "center", behavior: "instant" });
+        if (!(image.complete && image.naturalWidth > 0)) {
+          await new Promise<void>((resolve) => {
+            const done = () => resolve();
+            image.addEventListener("load", done, { once: true });
+            image.addEventListener("error", done, { once: true });
+            setTimeout(done, 5_000);
+          });
+        }
+        if (!(image.complete && image.naturalWidth > 0))
+          failed.push(image.currentSrc || image.src);
+      }
+      return failed;
+    });
+  expect(pending).toEqual([]);
 });
 
 test("without JavaScript every chapter shows its own screen", async ({
