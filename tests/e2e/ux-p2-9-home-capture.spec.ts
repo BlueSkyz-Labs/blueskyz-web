@@ -2,10 +2,13 @@ import { expect, test, type Page } from "@playwright/test";
 
 /**
  * UX P2-9 — the home flagship capture must be readable. The full owner console
- * scaled into the theatre slot rendered its text at 4-7px. Wide screens now
- * show the same recorded capture cropped to the collections panel; narrow
- * screens show the recorded phone capture of the same screen. Exactly one is
- * visible, and the hidden one is never downloaded.
+ * scaled into the theatre slot rendered its text at 4-7px. Wide screens first
+ * showed the capture cropped to the collections panel. Since the home stage
+ * (Owner 2026-11-10) the act is full width, so wide screens show the whole
+ * recorded console at a larger scale than the crop had (0.45 or more rendered
+ * px per source px, against the crop's 0.36 floor) and no crop is needed;
+ * narrow screens show the recorded phone capture of the same screen. Exactly
+ * one is visible, and the hidden one is never downloaded.
  */
 const THEATRE = "[data-flagship-theatre]";
 
@@ -38,7 +41,7 @@ test("negative proof: the uncropped console at its old width is not readable", (
 });
 
 for (const lang of ["en", "vi", "zh", "zh-hant"]) {
-  test(`/${lang}/ 1440: the theatre shows the cropped console at a readable scale`, async ({
+  test(`/${lang}/ 1440: the theatre shows the whole console at a readable scale`, async ({
     browser,
   }) => {
     const context = await browser.newContext({
@@ -48,8 +51,8 @@ for (const lang of ["en", "vi", "zh", "zh-hant"]) {
     await page.goto(`/${lang}/`);
     const c = await visibleCapture(page);
     expect(c.surface).toBe("desktop");
-    expect(c.cropped).toBe(true);
-    expect(readable(c.scale, 0.36), String(c.scale)).toBe(true);
+    expect(c.cropped).toBe(false);
+    expect(readable(c.scale, 0.45), String(c.scale)).toBe(true);
     await context.close();
   });
 

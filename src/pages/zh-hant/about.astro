@@ -3,7 +3,6 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { PAGE_META } from "@/data/page-meta";
 import Container from "@/components/layout/Container.astro";
-import PageHeader from "@/components/layout/PageHeader.astro";
 import AboutComposition from "@/components/empty-state/AboutComposition.astro";
 ---
 
@@ -13,10 +12,10 @@ import AboutComposition from "@/components/empty-state/AboutComposition.astro";
   description={PAGE_META["zh-hant"]["about"].description}
   path="/zh-hant/about/"
 >
-  <section class="py-16 lg:py-24">
+  <AboutComposition lang="zh-hant" part="hero" title="關於 BlueSkyz Labs" />
+  <section class="py-12 lg:py-16">
     <Container>
-      <PageHeader title="關於 BlueSkyz Labs" />
-      <AboutComposition lang="zh-hant" />
+      <AboutComposition lang="zh-hant" part="body" />
     </Container>
   </section>
 </BaseLayout>

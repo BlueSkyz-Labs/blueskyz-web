@@ -3,28 +3,176 @@ import ButtonLink from "@/components/ui/ButtonLink.astro";
 import Container from "@/components/layout/Container.astro";
 import { getHomeCloseActions } from "@/lib/journey";
 import { SHARED_LABELS, labelFor, type Language } from "@/data/site";
+import { getEntry } from "astro:content";
 
+/**
+ * Home close (Owner 2026-11-10): the page ends on a statement, not a strip.
+ *
+ * The statement is the house line already authored for the home
+ * (`pages/<lang>/index.yaml`, `onewhouse.heading` and `.intro`); nothing is
+ * written here. The artwork is the decorative brand elevation already used on
+ * About. The three next steps are the same links as before, inside the same
+ * navigation landmark. Without the authored line the band falls back to the
+ * plain next-steps row.
+ */
 interface Props {
   lang: Language;
+}
+interface HouseContent {
+  heading?: unknown;
+  intro?: unknown;
 }
 const { lang } = Astro.props;
 const navLabel = labelFor(SHARED_LABELS.nextSteps, lang);
 const actions = getHomeCloseActions(lang);
+
+const home = await getEntry("pages", `${lang}-index`);
+const house = home?.data.sections?.onewhouse as HouseContent | undefined;
+const heading = typeof house?.heading === "string" ? house.heading : null;
+const intro = typeof house?.intro === "string" ? house.intro : null;
+const statement = heading && intro ? { heading, intro } : null;
 ---
 
-<nav
-  class="border-t border-[var(--border-subtle)] bg-[var(--surface-subtle)]"
-  aria-label={navLabel}
-  data-home-next-steps
->
-  <Container class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
-    <p class="eyebrow">{navLabel}</p>
-    <div class="flex flex-wrap gap-3">
-      {actions.map((action) => (
-        <ButtonLink variant="secondary" icon="arrow-right" href={action.href}>
-          {action.label}
-        </ButtonLink>
-      ))}
+{statement ? (
+  <section
+    class="home-close"
+    aria-labelledby="home-close-title"
+    data-home-close
+  >
+    <div class="home-close__art" aria-hidden="true">
+      <img
+        src="/images/about/founder-elevation.webp"
+        alt=""
+        width="960"
+        height="1200"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
-  </Container>
-</nav>
+    <Container class="home-close__inner">
+      <div class="home-close__copy">
+        <h2 id="home-close-title" class="type-d1 home-close__title">
+          {statement.heading}
+        </h2>
+        <p class="home-close__lead text-pretty">{statement.intro}</p>
+        <nav class="home-close__nav" aria-label={navLabel} data-home-next-steps>
+          {actions.map((action) => (
+            <ButtonLink variant="on-ink" icon="arrow-right" href={action.href}>
+              {action.label}
+            </ButtonLink>
+          ))}
+        </nav>
+      </div>
+    </Container>
+  </section>
+) : (
+  <nav
+    class="border-t border-[var(--border-subtle)] bg-[var(--surface-subtle)]"
+    aria-label={navLabel}
+    data-home-next-steps
+  >
+    <Container class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="eyebrow">{navLabel}</p>
+      <div class="flex flex-wrap gap-3">
+        {actions.map((action) => (
+          <ButtonLink variant="secondary" icon="arrow-right" href={action.href}>
+            {action.label}
+          </ButtonLink>
+        ))}
+      </div>
+    </Container>
+  </nav>
+)}
+
+<style>
+  /* Always ink, like the footer it leads into: porcelain text in both themes. */
+  .home-close {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand-ink);
+    color: var(--brand-porcelain);
+    border-top: 1px solid color-mix(in srgb, white 8%, transparent);
+  }
+  .home-close__art {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(56%, 50rem);
+  }
+  .home-close__art img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 38%;
+  }
+  /* The artwork dissolves into the ink toward the copy and the footer. */
+  .home-close__art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to right,
+        var(--brand-ink) 0%,
+        color-mix(in srgb, var(--brand-ink) 55%, transparent) 38%,
+        transparent 75%
+      ),
+      linear-gradient(to top, var(--brand-ink), transparent 30%);
+  }
+  .home-close :global(.home-close__inner) {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: 26rem;
+  }
+  .home-close__copy {
+    max-width: 36rem;
+    padding-block: 4rem;
+  }
+  .home-close__title {
+    margin: 0;
+    color: var(--brand-porcelain);
+  }
+  .home-close__lead {
+    margin: 1.25rem 0 2rem;
+    font-size: var(--size-4);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--brand-porcelain) 80%, transparent);
+  }
+  .home-close__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  @media (max-width: 767px) {
+    .home-close {
+      display: flex;
+      flex-direction: column;
+    }
+    .home-close__art {
+      position: relative;
+      order: 2;
+      width: 100%;
+      height: 16rem;
+    }
+    .home-close__art::after {
+      background: linear-gradient(to bottom, var(--brand-ink), transparent 40%);
+    }
+    .home-close :global(.home-close__inner) {
+      min-height: 0;
+    }
+    .home-close__copy {
+      padding-block: 3rem 1.5rem;
+    }
+  }
+  @media (forced-colors: active) {
+    .home-close__art {
+      display: none;
+    }
+  }
+  @media print {
+    .home-close__art {
+      display: none;
+    }
+  }
+</style>

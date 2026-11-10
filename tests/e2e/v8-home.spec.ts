@@ -105,13 +105,17 @@ for (const lang of ["en", "vi", "zh", "zh-hant"] as const) {
   });
 }
 
-test("/en/ at 1440: page height stays within 2900px", async ({ page }) => {
+// Home stage (Owner 2026-11-10): the flagship console is shown whole, the
+// products in development are cards and the page closes on the house line, so
+// the budget moves from 2900 to 3250px. It stays a budget: about three and a
+// half desktop screens, with nothing added that is not already authored.
+test("/en/ at 1440: page height stays within 3250px", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto("/en/");
   const height = await page.evaluate(
     () => document.documentElement.scrollHeight,
   );
-  expect(height).toBeLessThanOrEqual(2900);
+  expect(height).toBeLessThanOrEqual(3250);
 });
 
 test("the home proof list keeps two points and one capture label per group", async ({
