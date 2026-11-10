@@ -322,7 +322,7 @@
     .c2-flagship-theatre__ink-stage {
       transform-origin: 50% 100%;
       animation: theatre-settle linear both;
-      animation-timeline: view();
+      animation-timeline: var(--view-timeline);
       animation-range: entry 0% cover 34%;
     }
   }
@@ -413,7 +413,7 @@
         color-mix(in srgb, var(--brand-cobalt) 55%, transparent);
       pointer-events: none;
       animation: closing-horizon linear both;
-      animation-timeline: view();
+      animation-timeline: var(--view-timeline);
       animation-range: entry 0% entry 260%;
     }
   }
