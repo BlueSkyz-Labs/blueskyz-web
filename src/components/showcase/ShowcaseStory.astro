@@ -1,0 +1,428 @@
+---
+import "@/styles/showcase-story.css";
+import BlueSkyzIcon from "@/components/icon/BlueSkyzIcon.astro";
+import {
+  CAPTURE,
+  FOLD_SCREENS,
+  OWNER_DESK,
+  SHOWCASE_ACTS,
+  SHOWCASE_COPY,
+} from "@/data/showcase-story";
+import type { Language } from "@/lib/i18n";
+import { statusLabelFor } from "@/lib/product-copy";
+import { getPublicProducts } from "@/lib/products";
+
+/**
+ * Showcase story (Owner 2026-11-10): the three products told as three short
+ * stories with their newest real screens.
+ *
+ * Presentation only. Product names, stages and links come from the product
+ * registry; an act whose product is not public is not rendered. Screens and
+ * their wording come from `src/data/showcase-story.ts`.
+ *
+ * Experience contract:
+ * - Static first. Without JS every chapter shows its own screen beside its
+ *   text. With JS, wide screens get one pinned stage per story where the
+ *   screens change as the chapters scroll past.
+ * - CSS transforms only for depth (no WebGL, no library, no canvas). Nothing
+ *   loops; reduced motion gets the same content with no movement.
+ * - Device frames are drawn in CSS around the real captures: a slim phone
+ *   with a status strip above the capture (never over it) and a book-style
+ *   folding screen that opens on scroll. They carry no maker or model name.
+ * - Colours are fixed per stage (each story sits on its own ground), so text
+ *   and ground never depend on the site theme.
+ */
+interface Props {
+  lang: Language;
+}
+const { lang } = Astro.props;
+const copy = SHOWCASE_COPY[lang];
+
+const registry = new Map(
+  (await getPublicProducts()).map((product) => [product.data.slug, product]),
+);
+const acts = SHOWCASE_ACTS.flatMap((act) => {
+  const product = registry.get(act.slug);
+  return product
+    ? [
+        {
+          ...act,
+          name: product.data.name,
+          status: statusLabelFor(product.data.publicLabel, lang),
+          href: `/${lang}/products/${act.slug}/`,
+          icon: `/products/${act.slug}/icon-112.png`,
+        },
+      ]
+    : [];
+});
+
+/** Product names are Vietnamese; mark them on pages in another language. */
+const nameLang = lang === "vi" ? undefined : "vi";
+const base = "/showcase/2026-11/";
+const two = (n: number) => String(n).padStart(2, "0");
+const chapterLabel = (n: number) =>
+  lang === "zh" || lang === "zh-hant"
+    ? `${copy.chapter} ${n} 章`
+    : `${copy.chapter} ${n}`;
+const captureDate = new Intl.DateTimeFormat(
+  lang === "zh-hant" ? "zh-Hant" : lang === "zh" ? "zh-Hans" : lang,
+  { dateStyle: "long", timeZone: "UTC" },
+).format(new Date(`${CAPTURE.date}T00:00:00Z`));
+/** One opening screen per story for the hero. */
+const fan = acts.map((act) => ({ slug: act.slug, screen: act.screens[0]! }));
+
+/** Status-strip tone class, matched to the capture's top edge (see CSS). */
+const toneClass = (slug: string, file: string) =>
+  `sc-tone--${file === "sotro-night" ? file : slug}`;
+/** Whole-frame width / height: capture plus status strip and bezels. */
+const frameRatio = (width: number, height: number) =>
+  (width / (height + width * 0.14)).toFixed(4);
+---
+
+<div class="sc" data-showcase>
+  <section class="sc-hero" aria-labelledby="sc-title">
+    <div class="sc-hero__glow" aria-hidden="true"></div>
+    <div class="site-container sc-hero__grid">
+      <div class="sc-hero__copy">
+        <p class="eyebrow sc-eyebrow">{copy.eyebrow}</p>
+        <h1 id="sc-title" class="sc-hero__title type-d1">
+          {copy.title}
+        </h1>
+        <p class="sc-hero__lede">{copy.lede}</p>
+        <nav class="sc-jump" aria-label={copy.jump}>
+          <ul>
+            {acts.map((act) => (
+              <li>
+                <a href={`#${act.slug}`} class="sc-chip">
+                  <img
+                    src={act.icon}
+                    alt=""
+                    width="28"
+                    height="28"
+                    decoding="async"
+                  />
+                  <span lang={nameLang}>{act.name}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <p class="sc-hero__note">{copy.note}</p>
+      </div>
+      <div class="sc-fan" data-fan aria-hidden="true">
+        {fan.map(({ slug, screen }, index) => (
+          <div class="sc-fan__phone" style={`--slot:${index - 1}`}>
+            <div class="sc-device">
+              <div class:list={["sc-phone", toneClass(slug, screen.file)]}>
+                <div class="sc-phone__screen">
+                  <div class="sc-phone__status">
+                    <span class="sc-phone__signal" />
+                    <span class="sc-phone__island" />
+                    <span class="sc-phone__batt" />
+                  </div>
+                  <img
+                    src={`${base}${screen.file}-480.webp`}
+                    alt=""
+                    width="480"
+                    height={Math.round((screen.height * 480) / screen.width)}
+                    loading="eager"
+                    decoding="async"
+                    fetchpriority="low"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {acts.map((act, actIndex) => (
+    <section
+      class:list={["sc-act", `sc-act--${act.slug}`]}
+      id={act.slug}
+      aria-labelledby={`sc-${act.slug}-title`}
+    >
+      <div class="sc-act__glow" aria-hidden="true" />
+      <div class="site-container">
+        <header class="sc-act__head">
+          <span class="sc-act__numeral" aria-hidden="true">
+            {two(actIndex + 1)}
+          </span>
+          <p class="sc-act__kicker">
+            <img
+              src={act.icon}
+              alt=""
+              width="40"
+              height="40"
+              loading="lazy"
+              decoding="async"
+            />
+            <span>
+              {chapterLabel(actIndex + 1)} ·{" "}
+              <span lang={nameLang}>{act.name}</span>
+            </span>
+            <span class="sc-act__maker" lang="en">
+              by BlueSkyz Labs
+            </span>
+            <span class="sc-badge">{act.status}</span>
+          </p>
+          <h2 id={`sc-${act.slug}-title`} class="sc-act__title type-d2">
+            {act.title[lang]}
+          </h2>
+          <p class="sc-act__intro">{act.intro[lang]}</p>
+        </header>
+
+        <div class="sc-reel" data-reel style={`--steps:${act.screens.length}`}>
+          {act.screens.map((screen, index) => (
+            <div class="sc-step" style={`--i:${index + 1}`}>
+              <div
+                class="sc-step__text"
+                data-step
+                data-state={index === 0 ? "active" : "next"}
+              >
+                <p class="sc-step__num">
+                  <span aria-hidden="true">{two(index + 1)}</span>
+                  <span class="sr-only">
+                    {copy.screenOf} {index + 1}/{act.screens.length}
+                  </span>
+                </p>
+                <h3 class="sc-step__title">{screen.title[lang]}</h3>
+                <p class="sc-step__body">{screen.body[lang]}</p>
+              </div>
+              <figure
+                class="sc-shot"
+                data-shot
+                data-state={index === 0 ? "active" : "next"}
+                style={`--ratio:${frameRatio(screen.width, screen.height)}`}
+              >
+                <div class="sc-device">
+                  <div
+                    class:list={["sc-phone", toneClass(act.slug, screen.file)]}
+                  >
+                    <div class="sc-phone__screen">
+                      <div class="sc-phone__status" aria-hidden="true">
+                        <span class="sc-phone__signal" />
+                        <span class="sc-phone__island" />
+                        <span class="sc-phone__batt" />
+                      </div>
+                      <img
+                        src={`${base}${screen.file}.webp`}
+                        srcset={`${base}${screen.file}-480.webp 480w, ${base}${screen.file}.webp ${screen.width}w`}
+                        sizes="(min-width: 64rem) 20rem, 72vw"
+                        alt={screen.alt[lang]}
+                        width={screen.width}
+                        height={screen.height}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          ))}
+        </div>
+
+        <figure class="sc-foldfig">
+          <figcaption class="sc-foldfig__caption">
+            <p class="sc-step__num">{copy.foldLabel}</p>
+            <p class="sc-step__body">{FOLD_SCREENS[act.slug].body[lang]}</p>
+          </figcaption>
+          <div class="sc-device sc-device--fold">
+            <div class="sc-fold">
+              <div class="sc-fold__half sc-fold__half--l">
+                <div class="sc-fold__pane">
+                  <img
+                    src={`${base}${FOLD_SCREENS[act.slug].file}.webp`}
+                    srcset={`${base}${FOLD_SCREENS[act.slug].file}-720.webp 720w, ${base}${FOLD_SCREENS[act.slug].file}.webp ${FOLD_SCREENS[act.slug].width}w`}
+                    sizes="(min-width: 64rem) 36rem, 92vw"
+                    alt={FOLD_SCREENS[act.slug].alt[lang]}
+                    width={FOLD_SCREENS[act.slug].width}
+                    height={FOLD_SCREENS[act.slug].height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+              <div class="sc-fold__half sc-fold__half--r" aria-hidden="true">
+                <div class="sc-fold__pane">
+                  <img
+                    src={`${base}${FOLD_SCREENS[act.slug].file}.webp`}
+                    srcset={`${base}${FOLD_SCREENS[act.slug].file}-720.webp 720w, ${base}${FOLD_SCREENS[act.slug].file}.webp ${FOLD_SCREENS[act.slug].width}w`}
+                    sizes="(min-width: 64rem) 36rem, 92vw"
+                    alt=""
+                    width={FOLD_SCREENS[act.slug].width}
+                    height={FOLD_SCREENS[act.slug].height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </figure>
+
+        {act.slug === "sotro" && (
+          <figure class="sc-desk">
+            <figcaption class="sc-desk__caption">
+              <p class="sc-step__num">{copy.ownerDeskLabel}</p>
+              <p class="sc-step__body">{OWNER_DESK.body[lang]}</p>
+            </figcaption>
+            <div class="sc-desk__frame">
+              <div class="sc-desk__bar" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </div>
+              <img
+                src={`${base}${OWNER_DESK.file}.webp`}
+                srcset={`${base}${OWNER_DESK.file}-960.webp 960w, ${base}${OWNER_DESK.file}.webp ${OWNER_DESK.width}w`}
+                sizes="(min-width: 64rem) 60rem, 92vw"
+                alt={OWNER_DESK.alt[lang]}
+                width={OWNER_DESK.width}
+                height={OWNER_DESK.height}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          </figure>
+        )}
+
+        <p class="sc-act__more">
+          <a href={act.href} class="sc-link">
+            <span>
+              {copy.openProduct} <span lang={nameLang}>{act.name}</span>
+            </span>
+            <BlueSkyzIcon name="arrow-right" class="h-4 w-4 shrink-0" />
+          </a>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  <section class="sc-close" aria-labelledby="sc-close-title">
+    <div class="site-container">
+      <h2 id="sc-close-title" class="sc-close__title type-d2">
+        {copy.closingTitle}
+      </h2>
+      <p class="sc-close__lede">{copy.closingLede}</p>
+      <ul class="sc-cards">
+        {acts.map((act) => (
+          <li>
+            <a href={act.href} class="sc-card">
+              <img
+                src={act.icon}
+                alt=""
+                width="56"
+                height="56"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="sc-card__name" lang={nameLang}>
+                {act.name}
+              </span>
+              <span class="sc-badge">{act.status}</span>
+              <span class="sc-card__go" aria-hidden="true">
+                <BlueSkyzIcon name="arrow-right" class="h-4 w-4 shrink-0" />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="sc-proof">
+        <h2 class="sc-proof__title">{copy.provenanceTitle}</h2>
+        <p>
+          {copy.provenanceBody}
+          {lang === "zh" || lang === "zh-hant" ? "" : " "}
+          {copy.frameNote}
+        </p>
+        <ul>
+          {acts.map((act) => (
+            <li>
+              <span lang={nameLang}>{act.name}</span>: {copy.revisionLabel}{" "}
+              <code>{CAPTURE.revisions[act.slug]}</code>, {captureDate}
+            </li>
+          ))}
+        </ul>
+        <p>
+          <a href={`/${lang}/products/`} class="sc-link">
+            <span>{copy.productsLink}</span>
+            <BlueSkyzIcon name="arrow-right" class="h-4 w-4 shrink-0" />
+          </a>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  /**
+   * Enhancement only. On a wide screen each story pins one stage and the
+   * screens change as the chapters scroll past; the hero fan leans toward a
+   * fine pointer. Without this script the page is the plain static story.
+   */
+  const root = document.querySelector<HTMLElement>("[data-showcase]");
+  if (root && "IntersectionObserver" in window) {
+    const wide = matchMedia("(min-width: 64rem)");
+    const calm = matchMedia("(prefers-reduced-motion: reduce)");
+
+    const setLive = (): void => {
+      root.toggleAttribute("data-live", wide.matches);
+    };
+    setLive();
+    wide.addEventListener("change", setLive);
+
+    for (const reel of root.querySelectorAll<HTMLElement>("[data-reel]")) {
+      const steps = [...reel.querySelectorAll<HTMLElement>("[data-step]")];
+      const shots = [...reel.querySelectorAll<HTMLElement>("[data-shot]")];
+      const activate = (active: number): void => {
+        steps.forEach((step, index) => {
+          const state =
+            index === active ? "active" : index < active ? "past" : "next";
+          step.dataset.state = state;
+          const shot = shots[index];
+          if (shot) shot.dataset.state = state;
+        });
+      };
+      // A chapter becomes current while it crosses the middle of the screen.
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              activate(steps.indexOf(entry.target as HTMLElement));
+            }
+          }
+        },
+        { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
+      );
+      for (const step of steps) observer.observe(step);
+    }
+
+    const fan = root.querySelector<HTMLElement>("[data-fan]");
+    const hero = fan?.closest<HTMLElement>("section");
+    if (
+      fan &&
+      hero &&
+      !calm.matches &&
+      matchMedia("(hover: hover) and (pointer: fine)").matches
+    ) {
+      hero.addEventListener(
+        "pointermove",
+        (event) => {
+          const box = hero.getBoundingClientRect();
+          const x = ((event.clientX - box.left) / box.width) * 2 - 1;
+          const y = ((event.clientY - box.top) / box.height) * 2 - 1;
+          fan.style.setProperty("--lean-y", `${(x * 7).toFixed(2)}deg`);
+          fan.style.setProperty("--lean-x", `${(y * -4).toFixed(2)}deg`);
+        },
+        { passive: true },
+      );
+      hero.addEventListener("pointerleave", () => {
+        fan.style.removeProperty("--lean-y");
+        fan.style.removeProperty("--lean-x");
+      });
+    }
+  }
+</script>
