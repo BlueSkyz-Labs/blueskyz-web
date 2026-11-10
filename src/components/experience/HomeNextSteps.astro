@@ -33,6 +33,23 @@ const supporting = sections?.hero?.supporting;
 const houseIntro = sections?.onewhouse?.intro;
 const heading = typeof supporting === "string" ? supporting : null;
 const intro = typeof houseIntro === "string" ? houseIntro : null;
+// Brand Kit v5: one phrase of a display heading may be set in the serif
+// italic. The words are the authored line; this only marks which of them
+// lean. Chinese has no italic, so those locales stay upright.
+const EMPHASIS: Partial<Record<Language, string>> = {
+  en: "perspective",
+  vi: "Nhìn cao hơn",
+};
+const phrase = EMPHASIS[lang];
+const at = heading && phrase ? heading.indexOf(phrase) : -1;
+const parts =
+  heading && phrase && at >= 0
+    ? {
+        before: heading.slice(0, at),
+        em: phrase,
+        after: heading.slice(at + phrase.length),
+      }
+    : null;
 const statement = heading && intro ? { heading, intro } : null;
 ---
 
@@ -58,7 +75,15 @@ const statement = heading && intro ? { heading, intro } : null;
           id="home-close-title"
           class="type-d2 home-close__title text-balance"
         >
-          {statement.heading}
+          {parts ? (
+            <Fragment>
+              {parts.before}
+              <em>{parts.em}</em>
+              {parts.after}
+            </Fragment>
+          ) : (
+            statement.heading
+          )}
         </h2>
         <p class="home-close__lead text-pretty">{statement.intro}</p>
         <nav class="home-close__nav" aria-label={navLabel} data-home-next-steps>
