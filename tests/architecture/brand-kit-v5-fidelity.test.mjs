@@ -108,12 +108,14 @@ test("the committed kit subset reports 5.0.0 and keeps the type licence", () => 
     /SIL OPEN FONT LICENSE Version 1\.1/i,
   );
   for (const subset of ["latin", "vietnamese"]) {
-    assert.ok(
-      existsSync(
-        `${KIT}/03_Type/noto-serif-display-${subset}-wght-normal.woff2`,
-      ),
-      `${subset} display master`,
-    );
+    for (const style of ["normal", "italic"]) {
+      assert.ok(
+        existsSync(
+          `${KIT}/03_Type/noto-serif-display-${subset}-wght-${style}.woff2`,
+        ),
+        `${subset} ${style} display master`,
+      );
+    }
   }
 });
 

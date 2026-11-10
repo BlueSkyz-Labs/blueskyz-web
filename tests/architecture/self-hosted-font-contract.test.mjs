@@ -78,4 +78,22 @@ test("the Brand Kit v5 display face is self-hosted, licensed and metric-matched"
   assert.ok(fallback, "display fallback face");
   assert.match(fallback, /size-adjust\s*:\s*113%/);
   assert.doesNotMatch(layout, /noto-serif-display-/);
+  // The italic (the kit's only emphasis) is a real self-hosted face at the
+  // same weight, under its own ceiling; it is fetched only where used.
+  let italicBytes = 0;
+  for (const subset of ["latin", "vietnamese"]) {
+    const file = `noto-serif-display-${subset}-300-italic-v2.003.woff2`;
+    italicBytes += statSync(`public/fonts/${file}`).size;
+    assert.ok(
+      fontFaces.some(
+        (face) =>
+          face.includes(file) &&
+          /font-style\s*:\s*italic/.test(face) &&
+          /font-weight\s*:\s*300/.test(face) &&
+          /unicode-range\s*:/.test(face),
+      ),
+      `${subset} italic display face must be declared italic, 300, subsetted`,
+    );
+  }
+  assert.ok(italicBytes <= 24_000);
 });

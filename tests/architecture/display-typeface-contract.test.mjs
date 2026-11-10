@@ -23,11 +23,14 @@ const GLOBAL_CSS_PATH = "src/styles/global.css";
 // the browser synthesise a bold, so the band is a single point.
 const DISPLAY_WEIGHT_MIN = 300;
 const DISPLAY_WEIGHT_MAX = 300;
-// The brand text face plus the two display subsets, nothing else.
+// The brand text face plus the display subsets (upright and italic), nothing
+// else.
 const ALLOWED_FONT_FILE =
-  /^(inter-(latin|vietnamese)-wght-v\d+\.\d+\.\d+|noto-serif-display-(latin|vietnamese)-300-v\d+\.\d+)\.woff2$/;
+  /^(inter-(latin|vietnamese)-wght-v\d+\.\d+\.\d+|noto-serif-display-(latin|vietnamese)-300(-italic)?-v\d+\.\d+)\.woff2$/;
 const DISPLAY_FONT_FILE = /^noto-serif-display-/;
-// Ceiling for the whole display face (both subsets), in bytes on disk.
+const DISPLAY_ITALIC_FILE = /-300-italic-/;
+// Ceiling per style (both subsets), in bytes on disk. The upright is what a
+// page always fetches; the italic is fetched only where a heading uses <em>.
 const DISPLAY_FONT_BYTES_MAX = 24_000;
 
 const read = (path) => readFileSync(path, "utf8");
@@ -63,15 +66,28 @@ function checkDisplayFace(css, globalCss) {
   const faces = (
     stripComments(globalCss).match(/@font-face\s*\{[^}]+\}/g) ?? []
   ).filter((face) => /font-family:\s*"Noto Serif Display"\s*;/.test(face));
-  assert.equal(faces.length, 2, "exactly two display subsets are declared");
+  assert.equal(
+    faces.length,
+    4,
+    "exactly two display subsets are declared, upright and italic",
+  );
+  const italic = faces.filter((face) =>
+    /font-style\s*:\s*italic\s*;/.test(face),
+  );
+  assert.equal(italic.length, 2, "the italic is a real face, both subsets");
   for (const face of faces) {
     assert.match(face, /font-weight\s*:\s*300\s*;/, "display face is 300 only");
     assert.match(face, /font-display\s*:\s*swap\s*;/);
     assert.match(face, /unicode-range\s*:/, "display face must be subsetted");
     assert.match(
       face,
-      /url\("\/fonts\/noto-serif-display-(latin|vietnamese)-300-v[\d.]+\.woff2"\)/,
+      /url\("\/fonts\/noto-serif-display-(latin|vietnamese)-300(-italic)?-v[\d.]+\.woff2"\)/,
       "display face must be self-hosted",
+    );
+    assert.equal(
+      /font-style\s*:\s*italic\s*;/.test(face),
+      /-300-italic-v/.test(face),
+      "an italic face points at an italic file, an upright face at an upright one",
     );
   }
   const fallback = stripComments(globalCss).match(
@@ -83,7 +99,7 @@ function checkDisplayFace(css, globalCss) {
   assert.doesNotMatch(fallback, /url\(/, "the fallback is a local face");
 }
 
-/** Only the Inter subsets and the two display subsets ship, under the ceiling. */
+/** Only the Inter subsets and the display subsets (upright, italic) ship, under the ceiling. */
 function checkFontFiles(names, sizeOf = () => 0) {
   const woff2 = names.filter((n) => n.endsWith(".woff2"));
   assert.ok(
@@ -94,12 +110,21 @@ function checkFontFiles(names, sizeOf = () => 0) {
     assert.match(name, ALLOWED_FONT_FILE, `unexpected web font ${name}`);
   }
   const display = woff2.filter((n) => DISPLAY_FONT_FILE.test(n));
-  assert.equal(display.length, 2, "the display face ships as two subsets");
-  const bytes = display.reduce((sum, name) => sum + sizeOf(name), 0);
-  assert.ok(
-    bytes <= DISPLAY_FONT_BYTES_MAX,
-    `display face is ${bytes} B, over ${DISPLAY_FONT_BYTES_MAX} B`,
-  );
+  for (const [style, files] of [
+    ["upright", display.filter((n) => !DISPLAY_ITALIC_FILE.test(n))],
+    ["italic", display.filter((n) => DISPLAY_ITALIC_FILE.test(n))],
+  ]) {
+    assert.equal(
+      files.length,
+      2,
+      `the ${style} display face ships as two subsets`,
+    );
+    const bytes = files.reduce((sum, name) => sum + sizeOf(name), 0);
+    assert.ok(
+      bytes <= DISPLAY_FONT_BYTES_MAX,
+      `${style} display face is ${bytes} B, over ${DISPLAY_FONT_BYTES_MAX} B`,
+    );
+  }
 }
 
 /** Display rules use the weight token, and the token sits in the quiet band. */

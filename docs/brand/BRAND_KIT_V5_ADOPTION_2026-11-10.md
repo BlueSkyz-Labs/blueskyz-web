@@ -14,6 +14,7 @@ which earlier decision it replaces.
 | Favicon, PWA, Apple, tile icons  | Ink square, tinted sail                       | Night square, flat three-facet sail (28 files)                                |
 | Default share image              | v4 Open Graph card                            | v5 link preview, 1200 x 630 (PNG, WebP, AVIF)                                 |
 | Display headings (h1, h2)        | Inter at weight 520                           | Noto Serif Display at weight 300                                              |
+| Emphasis in a display heading    | none                                          | Noto Serif Display Italic 300, a real face, fetched only where `<em>` is used |
 
 Unchanged: the sail geometry (the three paths are identical in v4 and v5),
 the brand colours in `src/styles/global.css` (Ink, Porcelain, Cobalt already

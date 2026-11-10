@@ -39,6 +39,17 @@ License 1.1 in `brand/blueskyz-brand-kit-v5/03_Type/OFL-NotoSerifDisplay.txt`.
 | `noto-serif-display-latin-300-v2.003.woff2`      | Latin      | 14,320 | `80c6ef98d9e4f1f5ddb39cbb059efe8bd33e8f804dff1d740cb31ef7b7f4e6a9` |
 | `noto-serif-display-vietnamese-300-v2.003.woff2` | Vietnamese |  5,476 | `e053e76e1ac34733888b2f9e43acc46e11fddebfc5d7d9ab5ad7f86a559bbb93` |
 
+Italic is the kit's only emphasis in a display heading (no bold, no
+capitals). The italic ships as a real face at the same weight, instanced the
+same way from the `-wght-italic` masters. It is not preloaded; a browser
+fetches it only where a display heading carries `<em>`, and a heading is
+never a slanted upright.
+
+| File                                                    | Subset     |  Bytes | SHA-256                                                            |
+| ------------------------------------------------------- | ---------- | -----: | ------------------------------------------------------------------ |
+| `noto-serif-display-latin-300-italic-v2.003.woff2`      | Latin      | 16,272 | `85dbcf3ddc9163f295223974ff1af5e79186ceafaa16a495bb345acb9ec1427b` |
+| `noto-serif-display-vietnamese-300-italic-v2.003.woff2` | Vietnamese |  6,116 | `da91d609b5b6879c742c2b884f1abb0cae780e88b43902a9b81efb746da2dba1` |
+
 `public/theme-init.js` preloads the display face before Inter on every locale
 except Chinese (Chinese display headings use the system CJK stack). The
 "Noto Serif Display Fallback" face in `src/styles/global.css` is a local serif

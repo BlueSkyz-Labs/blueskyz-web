@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Reproducibly derive the site's display face from the Brand Kit v5 type masters.
 
-Source: brand/blueskyz-brand-kit-v5/03_Type/noto-serif-display-{latin,vietnamese}-wght-normal.woff2
+Source: brand/blueskyz-brand-kit-v5/03_Type/noto-serif-display-{latin,vietnamese}-wght-{normal,italic}.woff2
 (Noto Serif Display variable, wght 100-900, SIL OFL 1.1; licence beside the masters).
 Transform: pin wght to 300 (the kit's display weight; the site sets display
 headings in one weight only), keep cmap and all layout features, drop
@@ -9,7 +9,7 @@ hinting/gasp/STAT/MVAR. OFL 1.1 permits modification; "Noto" is not a Reserved
 Font Name.
 
   pip install --user fonttools brotli
-  python3 tools/instance-noto-serif-display.py <master.woff2> public/fonts/noto-serif-display-<subset>-300-v2.003.woff2
+  python3 tools/instance-noto-serif-display.py <master.woff2> public/fonts/noto-serif-display-<subset>-300[-italic]-v2.003.woff2
 """
 import io
 import sys

@@ -11,7 +11,7 @@ print, screen, brand book) is kept unpacked in the Owner's Google Drive folder
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
 | `01_Logo`      | Labs lockups (horizontal, stacked, compact), Labs emblem, the sail on night, on paper and in one colour                                                  | `public/brand/blueskyz/v5/logos/`               |
 | `02_Colour`    | `tokens.css`, `tokens.json`                                                                                                                             | values carried in `src/styles/global.css`       |
-| `03_Type`      | Noto Serif Display variable masters (Latin, Vietnamese) and the SIL OFL 1.1 licence                                                                     | instanced to `public/fonts/noto-serif-display-*` |
+| `03_Type`      | Noto Serif Display variable masters, upright and italic (Latin, Vietnamese), and the SIL OFL 1.1 licence                                                                     | instanced to `public/fonts/noto-serif-display-*` |
 | `07_Social`    | Link preview 1200x630 (PNG, WebP, AVIF)                                                                                                                 | `public/social/og-default.*`                    |
 | `13_Web_Icons` | favicon (SVG, ICO), PWA, Apple, maskable and tile icons, pinned-tab mask, web manifest, browserconfig                                                    | `public/icons/` and the root copies             |
 
