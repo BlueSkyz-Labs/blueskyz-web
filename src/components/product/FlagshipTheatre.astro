@@ -629,8 +629,11 @@ const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
     }
     .c2-flagship-theatre--stage .c2-flagship-theatre__capture-stage {
       /* 48rem capture plus the frame's padding and border. */
+      /* WebKit resolved the earlier min(100% - …, 48rem) to 743px in CI, so
+         the width is plain and the cap is a separate max-width. */
       box-sizing: content-box;
-      width: min(100% - 1.25rem - 2px, 48rem);
+      width: 48rem;
+      max-width: calc(100% - 1.25rem - 2px);
       padding: 0.625rem 0.625rem 0;
       border-bottom: 0;
       border-radius: var(--radius-media);
