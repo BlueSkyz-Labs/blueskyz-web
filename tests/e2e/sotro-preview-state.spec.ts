@@ -10,10 +10,11 @@ import { webPreviewOpen } from "../../src/components/product/product-page-copy";
 const LANGS = ["en", "vi", "zh", "zh-hant"] as const;
 
 const HOME_LINE = {
-  en: "Now in preview: Sổ Trọ, a notebook for landlords. In development: Sổ Tâm, a private journal.",
-  vi: "Đang mở bản xem trước: Sổ Trọ, sổ tay cho chủ trọ. Đang phát triển: Sổ Tâm, nhật ký riêng tư.",
-  zh: "预览中：Sổ Trọ，房东记事本。开发中：Sổ Tâm，私密日记。",
-  "zh-hant": "預覽中：Sổ Trọ，房東記事本。開發中：Sổ Tâm，私密日記。",
+  en: "Now in preview: Sổ Trọ, a landlord's notebook for their rooms. In development: Sổ Tâm, a private journal.",
+  vi: "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
+  zh: "预览中：Sổ Trọ，帮房东管理出租房间的记事本。开发中：Sổ Tâm，只属于你的私密日记。",
+  "zh-hant":
+    "預覽中：Sổ Trọ，幫房東管理出租房間的記事本。開發中：Sổ Tâm，只屬於你的私密日記。",
 } as const;
 
 test("negative proof: webPreviewOpen needs web, an early-or-later lifecycle and a listing", () => {

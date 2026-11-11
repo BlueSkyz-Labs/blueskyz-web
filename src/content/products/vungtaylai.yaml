@@ -1,6 +1,6 @@
 slug: vungtaylai
 name: Vững Tay Lái
-shortDescription: A Vietnamese-first Web/PWA learning experience for class-B driving knowledge, understanding, and exam practice.
+shortDescription: "Practice for Vietnam's class-B driving theory test, with sourced lessons and feedback on mistakes."
 lifecycle: prototype
 availability: preview
 publicLabel: In development
@@ -57,7 +57,7 @@ lastReviewedAt: 2026-10-24
 # is an Owner feedback checkpoint (plan v5 W3.4).
 i18n:
   vi:
-    shortDescription: "Trải nghiệm học Web/PWA ưu tiên tiếng Việt cho kiến thức, hiểu biết và luyện thi lý thuyết lái xe hạng B."
+    shortDescription: "Ôn thi lý thuyết lái xe hạng B, với bài học có dẫn nguồn và phần luyện đề chỉ ra chỗ bạn sai."
     jobs:
       - "Chuẩn bị kiến thức lái xe hạng B tại Việt Nam với nguồn tham chiếu rõ ràng"
       - "Luyện câu hỏi, nhận ra hiểu lầm và ôn lại các khái niệm khó"
@@ -67,7 +67,7 @@ i18n:
       - "Mục tiêu phát triển: tiến độ học và ôn tập sẵn sàng khi không có mạng"
     primaryActionLabel: "Xem trước Vững Tay Lái"
   zh:
-    shortDescription: "以越南语为先的 Web/PWA 学习体验，面向 B 类驾照的知识、理解与考试练习。"
+    shortDescription: "备考越南 B 类驾照理论考试：课程注明出处，练习指出你的错误。"
     jobs:
       - "在清晰的来源背景下准备越南 B 类驾驶知识"
       - "练习题目、识别误解并复习难点概念"
@@ -78,7 +78,7 @@ i18n:
     primaryActionLabel: "预览 Vững Tay Lái"
   # zh-Hant copy: machine-assisted (OpenCC s2twp), pending native review.
   zh-hant:
-    shortDescription: "以越南語為先的 Web/PWA 學習體驗，面向 B 類駕照的知識、理解與考試練習。"
+    shortDescription: "備考越南 B 類駕照理論考試：課程註明出處，練習指出你的錯誤。"
     jobs:
       - "在清晰的來源背景下準備越南 B 類駕駛知識"
       - "練習題目、辨識誤解並複習難點概念"

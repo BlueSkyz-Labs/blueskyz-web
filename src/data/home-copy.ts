@@ -19,19 +19,23 @@ export const HOME_PRODUCT_LINE: Record<
 > = {
   en: {
     lead: "Now in preview: ",
-    a: ", a notebook for landlords. In development: ",
+    a: ", a landlord's notebook for their rooms. In development: ",
     b: ", a private journal.",
   },
   vi: {
     lead: "Đang mở bản xem trước: ",
-    a: ", sổ tay cho chủ trọ. Đang phát triển: ",
-    b: ", nhật ký riêng tư.",
+    a: ", sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: ",
+    b: ", cuốn nhật ký của riêng bạn.",
   },
-  zh: { lead: "预览中：", a: "，房东记事本。开发中：", b: "，私密日记。" },
+  zh: {
+    lead: "预览中：",
+    a: "，帮房东管理出租房间的记事本。开发中：",
+    b: "，只属于你的私密日记。",
+  },
   "zh-hant": {
     lead: "預覽中：",
-    a: "，房東記事本。開發中：",
-    b: "，私密日記。",
+    a: "，幫房東管理出租房間的記事本。開發中：",
+    b: "，只屬於你的私密日記。",
   },
 };
 
@@ -56,7 +60,7 @@ export const HOME_ONE_LINER: Record<
     "zh-hant": "給越南房東：查看本月還有誰沒繳租、今天要處理什麼。",
   },
   sotam: {
-    en: "A private, local-first journal for reflections and memories.",
+    en: "A private journal, kept on your own device first.",
   },
 };
 
@@ -68,25 +72,32 @@ export const HOME_ONE_LINER: Record<
  */
 export const HOME_FLAGSHIP_LEAD: Record<string, Localized | undefined> = {
   sotro: {
-    en: "Rooms, tenants, meter readings and monthly charges, kept as dependable records.",
-    vi: "Phòng, người thuê, số điện nước và các khoản thu hằng tháng, ghi lại cho gọn, cho chắc.",
-    zh: "房间、租客、水电表读数和每月费用，记录清楚可靠。",
-    "zh-hant": "房間、房客、水電表度數和每月費用，記錄清楚可靠。",
+    en: "Rooms, tenants, meter readings and monthly charges in one place. No paper notebook, no spreadsheet.",
+    vi: "Phòng, người thuê, số điện nước và tiền từng tháng, gom về một chỗ. Không cần sổ giấy, không cần bảng tính.",
+    zh: "房间、租客、水电表读数和每月费用，集中在一处。不用纸本，也不用表格。",
+    "zh-hant":
+      "房間、房客、水電表度數和每月費用，集中在一處。不用紙本，也不用試算表。",
   },
 };
 
-/** hom-8 and hom-9: the two home proof points for Sổ Trọ (capability 0 and 1). */
+/**
+ * The two home proof points for Sổ Trọ, from the registry capabilities.
+ * Copy polish 2026-11-11: the old first point ("electricity bills ... with
+ * each tier shown") is gone, because the Sotro public profile lists tiered
+ * electricity billing as deliberately NOT claimed (invoices use the flat
+ * rate). It is replaced by capability 1 (large text, family helper by QR).
+ */
 export const HOME_PROOF_POINTS: Localized[] = [
   {
-    en: "Electricity bills from meter readings, with each tier shown",
-    vi: "Tính tiền điện từ số công tơ, hiện rõ từng bậc giá",
-    zh: "根据电表读数计算电费，并清楚列出每一档",
-    "zh-hant": "依電表度數計算電費，並清楚列出每一級",
+    en: "Large text and buttons; family joins by scanning a QR code",
+    vi: "Chữ to, nút lớn; người nhà tham gia bằng cách quét mã QR",
+    zh: "大字号与大按钮；家人的手机扫描二维码即可加入",
+    "zh-hant": "大字級與大按鈕；家人的手機掃描 QR 碼即可加入",
   },
   {
-    en: "Receipts, with a separate step to confirm money received",
-    vi: "Có biên nhận, và một bước xác nhận riêng trước khi ghi nhận tiền đã nhận",
-    zh: "提供收据；确认收款需单独一步",
-    "zh-hant": "提供收據；確認收款需獨立一步",
+    en: "Confirm each payment received, then copy the receipt to Zalo",
+    vi: "Xác nhận từng khoản đã nhận, rồi sao chép biên nhận gửi qua Zalo",
+    zh: "确认每笔已收款项，然后把收据复制到 Zalo",
+    "zh-hant": "確認每筆已收款項，然後把收據複製到 Zalo",
   },
 ];
