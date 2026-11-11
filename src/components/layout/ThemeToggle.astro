@@ -143,11 +143,14 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
   }
 
   /* ─── Tooltip ─── below the trigger, inverted surface, shown after a short
-     delay on hover (pointer devices) and on :focus-visible. */
+     delay on hover (pointer devices) and on :focus-visible. It hangs from the
+     trigger's right edge and grows leftwards: the trigger sits near the right
+     edge of the bar, so a centred tip can widen the page when the bar wraps
+     (200% text at tablet width). */
   .theme-tip {
     position: absolute;
     top: calc(100% + 0.5rem);
-    left: 50%;
+    right: 0;
     z-index: 1;
     padding: 0.375rem 0.625rem;
     border-radius: var(--radius-sm, 0.375rem);
@@ -161,7 +164,7 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
-    transform: translate(-50%, -0.25rem);
+    transform: translate(0, -0.25rem);
     transition:
       opacity 120ms ease-out,
       transform 120ms ease-out,
@@ -187,7 +190,7 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
     .theme-trigger:hover .theme-tip {
       opacity: 1;
       visibility: visible;
-      transform: translate(-50%, 0);
+      transform: translate(0, 0);
       transition:
         opacity 160ms ease-out 300ms,
         transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1) 300ms,
@@ -198,7 +201,7 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
   .theme-trigger:focus-visible .theme-tip {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, 0);
+    transform: translate(0, 0);
     transition:
       opacity 160ms ease-out 300ms,
       transform 220ms cubic-bezier(0.2, 0.9, 0.3, 1) 300ms,

@@ -904,4 +904,19 @@
   .sc-step__num::after {
     transition: none;
   }
+  /* The global reduced-motion floor leaves every element a 0.01 ms
+     transition on `all`, so a late style change (font swap, theme or tier
+     attribute) still creates CSSTransitions that WebKit reports from
+     getAnimations(). Removing the property, not shortening it, means none can
+     be created anywhere in the story (same rule as the hero headline in
+     display-type.css). */
+  [data-showcase],
+  [data-showcase] *,
+  [data-showcase]::before,
+  [data-showcase]::after,
+  [data-showcase] *::before,
+  [data-showcase] *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

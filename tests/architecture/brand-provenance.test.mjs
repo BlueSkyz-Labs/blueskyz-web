@@ -36,15 +36,15 @@ test("Production v4 canonical masters are present and checksum-verifiable", () =
   }
 });
 
-test("header and footer use Production v4 lockups", () => {
+test("header and footer use Brand Kit v5 lockups", () => {
   const lockup = readFileSync("src/components/brand/BrandLockup.astro", "utf8");
   assert.match(
     lockup,
-    /\/brand\/blueskyz\/v4\/logos\/horizontal-flat-light\.svg/,
+    /\/brand\/blueskyz\/v5\/logos\/lockup-compact-labs-paper\.svg/,
   );
   assert.match(
     lockup,
-    /\/brand\/blueskyz\/v4\/logos\/horizontal-reverse-white\.svg/,
+    /\/brand\/blueskyz\/v5\/logos\/lockup-compact-labs-night\.svg/,
   );
   assert.doesNotMatch(lockup, /SITE\.name/);
   for (const path of [

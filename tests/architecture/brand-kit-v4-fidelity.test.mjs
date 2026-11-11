@@ -1,7 +1,10 @@
 /**
  * Brand Kit v4 fidelity guard.
- * Every published brand asset must stay byte-identical to its master in the
- * committed kit mirror (brand/blueskyz-production-v4), the CSS token layer
+ * Every published v4 brand asset (hero art, principle icons, product marks,
+ * tokens) must stay byte-identical to its master in the committed kit mirror
+ * (brand/blueskyz-production-v4). The masterbrand lockup, the web icon set
+ * and the social card moved to Brand Kit v5 on 2026-11-10 and are guarded by
+ * brand-kit-v5-fidelity.test.mjs. The CSS token layer
  * must carry the kit's values, and the document head must keep the
  * favicon/theme contract. Drift in any of these fails the build.
  */
@@ -11,72 +14,7 @@ import { test } from "node:test";
 
 const KIT = "brand/blueskyz-production-v4";
 
-const FAVICON_FILES = [
-  "android-chrome-192x192.png",
-  "android-chrome-512x512.png",
-  "apple-touch-icon.png",
-  "browserconfig.xml",
-  "favicon.ico",
-  "favicon.svg",
-  "icon-1024x1024.png",
-  "icon-128x128.png",
-  "icon-150x150.png",
-  "icon-16x16.png",
-  "icon-180x180.png",
-  "icon-192x192.png",
-  "icon-256x256.png",
-  "icon-32x32.png",
-  "icon-384x384.png",
-  "icon-48x48.png",
-  "icon-512x512.png",
-  "icon-64x64.png",
-  "mstile-150x150.png",
-  "mstile-310x310.png",
-  "safari-pinned-tab.svg",
-  "site.webmanifest",
-];
-
-const MASKABLE_FILES = [
-  "android-maskable-192x192.png",
-  "android-maskable-512x512.png",
-];
-
-const APPLE_FILES = [
-  "apple-touch-icon-120x120.png",
-  "apple-touch-icon-152x152.png",
-  "apple-touch-icon-167x167.png",
-  "apple-touch-icon-180x180.png",
-];
-
 const PAIRS = [
-  ...FAVICON_FILES.map((file) => [
-    `${KIT}/03_ICONS/01_FAVICON_PWA/${file}`,
-    `public/icons/${file}`,
-  ]),
-  ...MASKABLE_FILES.map((file) => [
-    `${KIT}/03_ICONS/01_FAVICON_PWA/MASKABLE/${file}`,
-    `public/icons/MASKABLE/${file}`,
-  ]),
-  ...APPLE_FILES.map((file) => [
-    `${KIT}/03_ICONS/01_FAVICON_PWA/APPLE/${file}`,
-    `public/icons/APPLE/${file}`,
-  ]),
-  [
-    `${KIT}/03_ICONS/01_FAVICON_PWA/browserconfig.xml`,
-    "public/browserconfig.xml",
-  ],
-  [
-    `${KIT}/02_LOGOS/01_VECTOR_SVG/FULL_LOCKUPS/blueskyzlabs_horizontal_flat_dark.svg`,
-    "public/brand/blueskyz/v4/logos/horizontal-flat-dark.svg",
-  ],
-  [
-    `${KIT}/02_LOGOS/01_VECTOR_SVG/FULL_LOCKUPS/blueskyzlabs_horizontal_flat_light.svg`,
-    "public/brand/blueskyz/v4/logos/horizontal-flat-light.svg",
-  ],
-  [
-    `${KIT}/02_LOGOS/01_VECTOR_SVG/FULL_LOCKUPS/blueskyzlabs_horizontal_reverse_white.svg`,
-    "public/brand/blueskyz/v4/logos/horizontal-reverse-white.svg",
-  ],
   [
     `${KIT}/04_DIGITAL/01_WEBSITE/website_hero_1920x1080.png`,
     "public/brand/blueskyz/v4/hero/website_hero_1920x1080.png",
@@ -88,18 +26,6 @@ const PAIRS = [
   [
     `${KIT}/04_DIGITAL/10_WEB_OPTIMIZED/website_hero_1920x1080.avif`,
     "public/brand/blueskyz/v4/hero/website_hero_1920x1080.avif",
-  ],
-  [
-    `${KIT}/04_DIGITAL/01_WEBSITE/open_graph_1200x630.png`,
-    "public/social/og-default.png",
-  ],
-  [
-    `${KIT}/04_DIGITAL/10_WEB_OPTIMIZED/open_graph_1200x630.webp`,
-    "public/social/og-default.webp",
-  ],
-  [
-    `${KIT}/04_DIGITAL/10_WEB_OPTIMIZED/open_graph_1200x630.avif`,
-    "public/social/og-default.avif",
   ],
   ...[
     ["intelligence", "intelligence"],

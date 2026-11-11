@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 
-test("v4 hero uses the supplied website artwork and flat lockup", () => {
+test("hero keeps the horizon field and the header carries the v5 lockup", () => {
   const hero = readFileSync("src/components/sections/Hero.astro", "utf8");
   const lockup = readFileSync("src/components/brand/BrandLockup.astro", "utf8");
   const site = readFileSync("src/data/site.ts", "utf8");
   // C2 (approved design §9 W1 + plan Task 5) transforms the hero from a framed
   // brand-art card into an integrated Horizon field, so the brand raster is no
-  // longer required IN the hero. Brand fidelity still means the v4 lockup, the
+  // longer required IN the hero. Brand fidelity still means the kit lockup (v5 since 2026-11-10), the
   // ink plane and the tagline contract — and the removed framed card must not
   // come back.
   // Experience v6 S1: the header already carries the lockup, so the hero must
@@ -22,11 +22,11 @@ test("v4 hero uses the supplied website artwork and flat lockup", () => {
   assert.match(site, /taglineAccent: "Impact\."/);
   assert.match(
     lockup,
-    /\/brand\/blueskyz\/v4\/logos\/horizontal-flat-light\.svg/,
+    /\/brand\/blueskyz\/v5\/logos\/lockup-compact-labs-paper\.svg/,
   );
   assert.match(
     lockup,
-    /\/brand\/blueskyz\/v4\/logos\/horizontal-reverse-white\.svg/,
+    /\/brand\/blueskyz\/v5\/logos\/lockup-compact-labs-night\.svg/,
   );
 });
 

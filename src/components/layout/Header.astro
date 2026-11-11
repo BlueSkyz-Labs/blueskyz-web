@@ -61,14 +61,16 @@ const plainLinks = NAV.slice(1);
     >
       {/* Tablet (md to lg): the bar keeps search, language and theme; the
           routes and the CTA live in the compact menu until lg so the bar
-          stays one row. `contents` keeps the desktop flex flow unchanged. */}
+          stays one row. `contents` keeps the desktop flex flow unchanged.
+          Between lg and xl the route links take a tighter inline padding so
+          the longest nav (vi) still fits beside the Brand Kit v5 lockup. */}
       <span class="hidden lg:contents">
         {plainLinks.map((link) => (
           <a
             href={link.href}
             aria-current={isActive(link.href) ? "page" : undefined}
             data-nav-current={isInSection(link.href) ? "" : undefined}
-            class="inline-flex min-h-11 items-center px-3 text-sm font-medium text-[var(--text-secondary)] no-underline hover:text-[var(--text-primary)]"
+            class="inline-flex min-h-11 items-center px-2 xl:px-3 text-sm font-medium text-[var(--text-secondary)] no-underline hover:text-[var(--text-primary)]"
           >
             {link.label}
           </a>

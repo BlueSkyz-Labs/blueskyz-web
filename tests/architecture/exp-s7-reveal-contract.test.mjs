@@ -309,7 +309,8 @@ test("at most one signature appearance per composition", () => {
 
 test("the mark is decorative and cites its brand source", () => {
   assert.match(SAIL, /aria-hidden="true"/);
-  assert.match(SAIL, /horizontal-flat-dark\.svg/);
+  assert.match(SAIL, /blueskyzlabs_horizontal_flat_dark\.svg/);
+  assert.match(SAIL, /blueskyz-brand-kit-v5\/01_Logo\/sail-night\.svg/);
   assert.match(SAIL, /brand\/ is untouched/);
 });
 

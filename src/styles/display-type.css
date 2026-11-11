@@ -1,21 +1,24 @@
-/* Display type and fluid type scale (Experience v6 S4; calm-chrome round
- * 2026-10-04).
+/* Display type and fluid type scale (Experience v6 S4; Brand Kit v5,
+ * 2026-11-10).
  *
- * Display headings use the already-loaded Inter Variable at a light display
- * weight with tight tracking: lightness as authority, no second web face
- * (Owner 2026-10-04, "calm chrome": the Plus Jakarta Sans 700 display face
- * was retired; zero added font bytes). The display token is applied ONLY
- * through `.type-d1`, `.type-d2` and `.hero-headline`, which sit on h1/h2
- * elements (never below 28 px, never in CJK). Nothing here is named after a
- * cultural source. Guard: tests/architecture/display-typeface-contract.test.mjs.
+ * Display headings use the Brand Kit v5 display face, Noto Serif Display at
+ * one light weight (300): lightness as authority, in the house serif. It is
+ * the only second web face on the site (about 14 KB Latin plus 5 KB
+ * Vietnamese); its @font-face rules and metric fallback live in global.css.
+ * This replaces the 2026-10-04 "calm chrome" setting (Inter 520, no second
+ * face). The display token is applied ONLY through `.type-d1`, `.type-d2` and
+ * `.hero-headline`, which sit on h1/h2 elements (never below 28 px, never in
+ * CJK). Nothing here is named after a cultural source. Guard:
+ * tests/architecture/display-typeface-contract.test.mjs.
  */
 
 :root {
   --font-display:
-    "Inter Variable", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
-  /* Quiet display weight: inside Inter's 400-700 instanced axis, guarded to
-     480-600 so display headings never drift back to a heavy 700. */
-  --display-weight: 520;
+    "Noto Serif Display", "Noto Serif Display Fallback", "Inter Variable",
+    "Inter Fallback", serif;
+  /* The display face ships at exactly one weight; any other value would make
+     the browser synthesise a bold. Guarded to 300. */
+  --display-weight: 300;
   /* CJK never loads a web display face: Latin/Vietnamese glyphs (product
      names) stay Inter, Han glyphs come from the system CJK stacks. */
   --font-display-cjk:
