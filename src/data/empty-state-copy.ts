@@ -9,10 +9,11 @@ import type { LocalizedLabel } from "@/data/site";
  */
 export const EMPTY_STATE_COPY = {
   contactLede: {
-    en: "For business enquiries or other requests, choose the appropriate contact route below.",
-    vi: "Để liên hệ kinh doanh hoặc gửi yêu cầu khác, hãy chọn kênh phù hợp bên dưới.",
-    zh: "如需商务或其他咨询，请从下方选择合适的联系渠道。",
-    "zh-hant": "如需商務或其他諮詢，請從下方選擇合適的聯絡管道。",
+    en: "Want to work with us, ask about one of our apps, or something else? Choose the contact below that fits.",
+    vi: "Bạn muốn hợp tác, hỏi về ứng dụng hay cần việc khác? Hãy chọn kênh liên hệ phù hợp bên dưới.",
+    zh: "想与我们合作、询问应用或其他事情？请在下方选择合适的联系方式。",
+    "zh-hant":
+      "想與我們合作、詢問應用程式或其他事情？請在下方選擇合適的聯絡方式。",
   },
   notPublished: {
     en: "Not listed",
@@ -58,7 +59,7 @@ export const EMPTY_STATE_COPY = {
   },
   aboutWhatWeMake: {
     en: "What we are building",
-    vi: "Chúng tôi đang xây dựng",
+    vi: "Những gì chúng tôi đang làm",
     zh: "我们正在打造",
     "zh-hant": "我們正在打造",
   },

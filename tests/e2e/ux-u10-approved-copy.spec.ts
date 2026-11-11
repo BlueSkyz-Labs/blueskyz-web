@@ -19,10 +19,10 @@ test.describe("U10 VI home, tagline and verify label", () => {
     await page.goto("/vi/");
     const body = page.locator("body");
     await expect(page.locator("h1")).toContainText(NEW_H1);
-    // Preview 2026-10-15 replaces the 2026-10-12 sub-line (Owner review of
-    // the new copy pending); the old line must be gone.
+    // Copy polish 2026-11-11 (Owner asked for customer-centred editing)
+    // replaces the 2026-10-15 preview sub-line; the 2026-10-12 line stays gone.
     await expect(body).toContainText(
-      "Đang mở bản xem trước: Sổ Trọ, sổ tay cho chủ trọ. Đang phát triển: Sổ Tâm, nhật ký riêng tư.",
+      "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
     );
     await expect(body).not.toContainText(
       "Đang phát triển: Sổ Trọ, sổ tay cho chủ trọ; Sổ Tâm, nhật ký riêng tư.",
