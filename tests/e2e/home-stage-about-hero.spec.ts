@@ -34,10 +34,10 @@ for (const lang of LANGS) {
     await expect(close).toHaveCount(1);
     await expect(close.locator("h2")).toHaveCount(1);
     await expect(close.locator("h2")).not.toHaveText("");
-    await expect(close.locator('[aria-hidden="true"] img')).toHaveAttribute(
-      "alt",
-      "",
-    );
+    // The artwork is the brand sail drawn inline: decorative, and no image
+    // request is added to the home's byte budget.
+    await expect(close.locator('[aria-hidden="true"] > svg')).toHaveCount(1);
+    await expect(close.locator("img")).toHaveCount(0);
     const links = close.locator("nav[data-home-next-steps] a");
     await expect(links).toHaveCount(3);
     expect(

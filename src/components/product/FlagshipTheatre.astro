@@ -112,6 +112,9 @@ const showProfileCta = cta.href !== profileHref;
 // Stage (Owner 2026-11-10): on the home the act is a full-width stage. The
 // copy sits in two columns above the whole recorded console at a readable
 // scale (no crop needed at this width); narrow screens keep the phone capture.
+// The capture is 48rem wide inside the stage frame, so a 1x screen is served
+// the 768px derivative at its own size: the home image budget has no room for
+// the full-size file.
 const stage = compact && hasCapture;
 const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
 
@@ -327,7 +330,7 @@ const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
             class={narrowScreen ? "c2-flagship-theatre__capture--wide" : ""}
             sizes={
               narrowScreen
-                ? "(min-width: 1100px) 62rem, 92vw"
+                ? "(min-width: 1024px) 48rem, 92vw"
                 : "(min-width: 1024px) 34rem, 92vw"
             }
             smallSrc={
@@ -625,7 +628,9 @@ const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
       pointer-events: none;
     }
     .c2-flagship-theatre--stage .c2-flagship-theatre__capture-stage {
-      width: min(100%, 62rem);
+      /* 48rem capture plus the frame's padding and border. */
+      box-sizing: content-box;
+      width: min(100% - 1.25rem - 2px, 48rem);
       padding: 0.625rem 0.625rem 0;
       border-bottom: 0;
       border-radius: var(--radius-media);

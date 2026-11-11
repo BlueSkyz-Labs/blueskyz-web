@@ -5,8 +5,8 @@ import { expect, test, type Page } from "@playwright/test";
  * scaled into the theatre slot rendered its text at 4-7px. Wide screens first
  * showed the capture cropped to the collections panel. Since the home stage
  * (Owner 2026-11-10) the act is full width, so wide screens show the whole
- * recorded console at a larger scale than the crop had (0.45 or more rendered
- * px per source px, against the crop's 0.36 floor) and no crop is needed;
+ * recorded console at a larger scale than the crop's floor (0.4 or more
+ * rendered px per source px, against 0.36) and no crop is needed;
  * narrow screens show the recorded phone capture of the same screen. Exactly
  * one is visible, and the hidden one is never downloaded.
  */
@@ -52,7 +52,7 @@ for (const lang of ["en", "vi", "zh", "zh-hant"]) {
     const c = await visibleCapture(page);
     expect(c.surface).toBe("desktop");
     expect(c.cropped).toBe(false);
-    expect(readable(c.scale, 0.45), String(c.scale)).toBe(true);
+    expect(readable(c.scale, 0.4), String(c.scale)).toBe(true);
     await context.close();
   });
 
