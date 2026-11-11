@@ -14,6 +14,23 @@ import { FINOPS_DIR } from "./opencode-go-worker.mjs";
 export const DEFAULT_KEY_VAR = "CLAUDE_API_KEY";
 export const API_BASE_URL = "https://api.anthropic.com";
 export const DEFAULT_LEDGER = `${FINOPS_DIR}/claude-api-calls.jsonl`;
+/**
+ * Portfolio Claude API workspace (an identifier, not a secret; same value as
+ * sgps-core tools/sgps_model_router.py PORTFOLIO_CLAUDE_WORKSPACE_ID). The
+ * portfolio key is not scoped to one workspace, so every request names it.
+ */
+export const PORTFOLIO_WORKSPACE_ID = "wrkspc_01W87Ryo9B8SWcFtDmNgx9sj";
+
+/** Workspace id: project variable, then the portfolio names (ENV registry), then the portfolio default. */
+export function workspaceId(env) {
+  return (
+    env.CLAUDE_API_WORKSPACE_ID ||
+    env.CLAUDE_WORKSPACE_ID ||
+    env.ANTHROPIC_WORKSPACE_ID ||
+    PORTFOLIO_WORKSPACE_ID
+  );
+}
+
 export const MAX_TOKENS = 16_000;
 
 /**

@@ -6,7 +6,8 @@
  *   echo "<prompt>" | node scripts/claude-api-worker.mjs --thread lane-x --complexity 2 [--task coding]
  *
  * Key: the env var named by CLAUDE_API_KEY_VAR (default CLAUDE_API_KEY); never printed.
- * Workspace: CLAUDE_API_WORKSPACE_ID (needed when the key is not scoped to one workspace).
+ * Workspace: CLAUDE_API_WORKSPACE_ID, else CLAUDE_WORKSPACE_ID / ANTHROPIC_WORKSPACE_ID, else the
+ * portfolio workspace (the portfolio key is not scoped to one workspace).
  * Caps: BLUESKYZ_WEB_CLAUDE_API_{CALL,DAY,MONTH}_USD (defaults in scripts/lib/claude-api-worker.mjs).
  * Ledger: /mnt/project-files/BLUESKYZ_WEB_FINOPS/claude-api-calls.jsonl (or CLAUDE_API_LEDGER).
  * Exit: 0 draft on stdout; 2 usage/refused; 6 cap reached or key missing; 7 API error or model refusal.
@@ -41,6 +42,7 @@ import {
   reserveUsd,
   textOf,
   usageUsd,
+  workspaceId,
 } from "./lib/claude-api-worker.mjs";
 
 function parse(argv) {
@@ -149,9 +151,9 @@ async function main() {
 
   // An organization key that is not scoped to one workspace needs the
   // workspace id (not a secret) on every request.
-  const workspace = process.env.CLAUDE_API_WORKSPACE_ID;
+  const workspace = workspaceId(process.env);
   if (workspace && !/^wrkspc_[A-Za-z0-9]{8,64}$/.test(workspace)) {
-    console.error("CLAUDE_API_WORKSPACE_ID does not look like a workspace id.");
+    console.error("Claude API workspace id does not look like a workspace id.");
     appendFileSync(ledger, `${JSON.stringify(row("error", 0))}\n`);
     return 6;
   }
