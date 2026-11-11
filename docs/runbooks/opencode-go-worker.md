@@ -31,7 +31,7 @@ the repository gates before anything is committed.
 
 ## Reuse, do not rewrite
 
-The worker lives in the portfolio framework `blackangelz/blueskyz-studio`
+The worker lives in the portfolio framework `BlueSkyz-Labs/blueskyz-studio`
 (one source, changed by PR there):
 
 | Studio file                             | Role                                                                                                 |
@@ -83,15 +83,17 @@ also blocks purposes containing `publish`, `release`, `customer`, `final` or
    Extra Usage off.
 4. Claude API: `CLAUDE_API_KEY` (present 2026-11-08, value not read). The
    key is not scoped to one workspace, so the API also needs
-   `CLAUDE_API_WORKSPACE_ID` (a `wrkspc_…` id, not a secret) for the
-   workspace this project may bill. Caps (USD, ledger estimate) default to
+   a workspace id (a `wrkspc_…` id, not a secret). The worker reads
+   `CLAUDE_API_WORKSPACE_ID`, then `CLAUDE_WORKSPACE_ID` /
+   `ANTHROPIC_WORKSPACE_ID`, and otherwise uses the portfolio workspace
+   recorded in sgps-core, so nothing needs to be set for the default. Caps (USD, ledger estimate) default to
    0.5 per call, 5 per day, 50 per month; change them with
    `BLUESKYZ_WEB_CLAUDE_API_{CALL,DAY,MONTH}_USD`.
 
 ## Use (agent)
 
 ```bash
-git clone --depth 1 https://github.com/blackangelz/blueskyz-studio /home/user/blueskyz-studio
+git clone --depth 1 https://github.com/BlueSkyz-Labs/blueskyz-studio /home/user/blueskyz-studio
 node scripts/opencode-go-worker.mjs --status
 echo "Write a node:test for scripts/check-static-links.mjs ..." \
   | node scripts/opencode-go-worker.mjs --thread lane-links-test --task code_test
@@ -112,8 +114,13 @@ fallback.
 
 Ledger and state live in `/mnt/project-files/BLUESKYZ_WEB_FINOPS/`:
 `go-calls.jsonl` (append-only, no prompt or output), `go-rotation.json`,
-`free-pool.json` (seeded from the Sổ Trọ ranking of 2026-11-04; re-rank in
-the weekly retro, `.claude/OPERATING_RULES.md` O6).
+`free-pool.json` (re-rank in the weekly retro, `.claude/OPERATING_RULES.md`
+O6). When that file is missing, as in a new project environment, the free
+worker reads the committed seed `docs/finops/free-pool.seed.json`.
+
+In a project environment the studio repository has to be on the project's
+repository list (or attached to the session) before it can be cloned; a
+missing clone makes the Go lane exit 2 with the clone command.
 
 When a `BlueSkyz-Labs/sgps-core` checkout is present, classify and route each
 delegated task with `tools/sgps_model_router.py route` and record the gated

@@ -8,7 +8,8 @@
  * --start N rotates the pool so the attempt order begins at model N (used by
  * scripts/opencode-fanout.mjs).
  *
- * Pool: /mnt/project-files/BLUESKYZ_WEB_FINOPS/free-pool.json (or FREE_POOL_FILE).
+ * Pool: FREE_POOL_FILE, else /mnt/project-files/BLUESKYZ_WEB_FINOPS/free-pool.json,
+ * else the committed seed docs/finops/free-pool.seed.json.
  * CLI: OPENCODE_BIN or `opencode` on PATH. Account key: OPENCODE_FREE_KEY_VAR
  * names the env var (default OPENCODE_GO_API_KEY_1); its value is never read here.
  * FREE_ATTEMPT_TIMEOUT_S: per-model attempt timeout, 10-600 s (default 180).
@@ -38,7 +39,6 @@ import {
 } from "./lib/opencode-go-worker.mjs";
 import {
   DEFAULT_KEY_VAR,
-  DEFAULT_POOL,
   MAX_FREE_PROMPT_CHARS,
   attemptState,
   cleanOutput,
@@ -48,6 +48,7 @@ import {
   eligibleModels,
   goWorkerScript,
   ledgerRow,
+  poolFile,
 } from "./lib/opencode-free-worker.mjs";
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -107,7 +108,7 @@ function main() {
   let models = [];
   try {
     const pool = JSON.parse(
-      readFileSync(process.env.FREE_POOL_FILE ?? DEFAULT_POOL, "utf8"),
+      readFileSync(poolFile(process.env, repoRoot), "utf8"),
     );
     models = rotate(eligibleModels(pool, o.dataClass), o.start ?? 0);
   } catch {

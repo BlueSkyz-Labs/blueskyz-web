@@ -1,0 +1,26 @@
+{
+  "schema": "blueskyz-web.free-pool.v1",
+  "note": "Committed seed, used when the ranked pool file in the project's shared files (BLUESKYZ_WEB_FINOPS/free-pool.json) is missing. Order and privacy from sgps-core protocols/model-routing-catalog.json; all five answered a synthetic probe from a cloud session on 2026-11-10. privacy zdr may receive internal_non_sensitive; anything else gets public or synthetic data only. Re-rank in the weekly retro.",
+  "models": [
+    {
+      "id": "deepseek-v4.1-flash-free",
+      "privacy": "zdr"
+    },
+    {
+      "id": "glm-5.3-flash-free",
+      "privacy": "zdr"
+    },
+    {
+      "id": "beam-free",
+      "privacy": "no_train_retained"
+    },
+    {
+      "id": "nemotron-3.5-super-vl-free",
+      "privacy": "trains"
+    },
+    {
+      "id": "mimo-v2.6-flash-free",
+      "privacy": "trains"
+    }
+  ]
+}
