@@ -38,7 +38,7 @@ export async function renderProductOgImage(slug: string): Promise<Buffer> {
     readFile(path.join(PUBLIC_DIR, "products", slug, "icon.png")),
     readFile(path.join(PUBLIC_DIR, BRAND, "hero/prismatic-r4d-mark-840.webp")),
     readFile(
-      path.join(PUBLIC_DIR, BRAND, "logos/horizontal-reverse-white.svg"),
+      path.join(PUBLIC_DIR, "brand/blueskyz/v5/logos/lockup-labs-night.svg"),
     ),
   ]);
 
@@ -62,7 +62,7 @@ export async function renderProductOgImage(slug: string): Promise<Buffer> {
     .toBuffer();
 
   const wordmarkLayer = await sharp(wordmark, { density: 144 })
-    .resize({ width: 300 })
+    .resize({ width: 340 })
     .png()
     .toBuffer();
 
@@ -70,7 +70,7 @@ export async function renderProductOgImage(slug: string): Promise<Buffer> {
     .composite([
       { input: sailLayer, left: 650, top: 15 },
       { input: iconRounded, left: 110, top: 165 },
-      { input: wordmarkLayer, left: 100, top: 505 },
+      { input: wordmarkLayer, left: 104, top: 512 },
     ])
     .jpeg({ quality: 82, mozjpeg: true, chromaSubsampling: "4:2:0" })
     .toBuffer();

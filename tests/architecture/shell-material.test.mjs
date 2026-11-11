@@ -51,7 +51,7 @@ test("header is the only blur material; an unrelated card blur is detected", () 
 
 test("porcelain lockups switch to the reverse wordmark in dark themes", () => {
   assert.match(lockup, /brand-lockup--adaptive/);
-  assert.match(lockup, /horizontal-reverse-white\.svg/);
+  assert.match(lockup, /lockup-compact-labs-night\.svg/);
   assert.match(
     globalCss,
     /\[data-theme="dark"\][\s\S]*?brand-lockup__img--dark/,
