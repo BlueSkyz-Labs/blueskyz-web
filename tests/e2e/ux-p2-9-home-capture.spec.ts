@@ -21,7 +21,17 @@ const visibleCapture = async (page: Page) => {
     .filter({ visible: true });
   await expect(figure).toHaveCount(1);
   const img = figure.locator("img");
-  await img.scrollIntoViewIfNeeded();
+  // Measure the capture at rest. The flagship stage settles from 96.5% scale
+  // over its scroll timeline (entry 0% to cover 34%); scrollIntoViewIfNeeded
+  // stops with the image at the viewport edge, where browsers that run scroll
+  // timelines (Chromium, WebKit) still show the start of that settle.
+  await img.evaluate((el) => el.scrollIntoView({ block: "center" }));
+  await img.evaluate(
+    () =>
+      new Promise((done) =>
+        requestAnimationFrame(() => requestAnimationFrame(done)),
+      ),
+  );
   await expect(img).toHaveJSProperty("complete", true);
   return {
     surface: await figure.getAttribute("data-capture-surface"),
