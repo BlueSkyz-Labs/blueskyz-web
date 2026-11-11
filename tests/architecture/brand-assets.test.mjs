@@ -123,11 +123,12 @@ function countDarkPixelsInRgbPng(path) {
   return { dark, height, width };
 }
 
-// Brand files are copied from the v4 kit, never regenerated: a generator
-// would silently replace the kit Open Graph master, and a legacy tree would
-// keep publishing superseded marks.
+// Brand files are copied from the committed kits (v4 product and hero art,
+// v5 masterbrand), never regenerated: a generator would silently replace the
+// kit Open Graph master, and a legacy tree would keep publishing superseded
+// marks.
 const PUBLISHED_BRAND_ROOT = "public/brand/blueskyz";
-const ALLOWED_BRAND_DIRS = ["flags", "v4"];
+const ALLOWED_BRAND_DIRS = ["flags", "v4", "v5"];
 
 function legacyBrandEntries(root) {
   return readdirSync(root)
@@ -135,15 +136,16 @@ function legacyBrandEntries(root) {
     .sort();
 }
 
-test("only the v4 kit projection and flags are published as brand files", () => {
+test("only the v4 and v5 kit projections and flags are published as brand files", () => {
   assert.deepEqual(legacyBrandEntries(PUBLISHED_BRAND_ROOT), []);
   assert.equal(existsSync("scripts/generate-brand-assets.py"), false);
 });
 
-test("negative proof: a legacy brand tree beside v4 is reported", () => {
+test("negative proof: a legacy brand tree beside the kits is reported", () => {
   const root = mkdtempSync(join(tmpdir(), "bsl-brand-"));
   try {
-    for (const name of ["flags", "v4", "r4d"]) mkdirSync(join(root, name));
+    for (const name of ["flags", "v4", "v5", "r4d"])
+      mkdirSync(join(root, name));
     assert.deepEqual(legacyBrandEntries(root), ["r4d"]);
   } finally {
     rmSync(root, { recursive: true, force: true });
@@ -155,23 +157,27 @@ test("committed OG assets exist for masterbrand social previews", () => {
   assert.equal(existsSync("public/og-image.png"), false);
 });
 
-test("OG image contains opaque ink pixels from the v4 masterbrand", () => {
+test("OG image contains the opaque night field of the v5 masterbrand", () => {
   const { dark, height, width } = countDarkPixelsInRgbPng(
     "public/social/og-default.png",
   );
   assert.deepEqual([width, height], [1200, 630]);
-  assert.ok(dark > 2000, `expected v4 ink cluster, found ${dark} dark pixels`);
+  assert.ok(dark > 2000, `expected v5 night field, found ${dark} dark pixels`);
 });
 
-test("favicon is the Production v4 PWA master", () => {
+test("the published v4 masterbrand lockups are gone (superseded by v5)", () => {
+  assert.equal(existsSync("public/brand/blueskyz/v4/logos"), false);
+});
+
+test("favicon is the Brand Kit v5 web icon master", () => {
   assert.equal(existsSync("public/favicon.ico"), true);
   const bytes = readFileSync("public/favicon.ico");
   const source = readFileSync(
-    "brand/blueskyz-production-v4/03_ICONS/01_FAVICON_PWA/favicon.ico",
+    "brand/blueskyz-brand-kit-v5/13_Web_Icons/favicon.ico",
   );
   assert.deepEqual(
     bytes,
     source,
-    "favicon must remain byte-identical to the v4 source",
+    "favicon must remain byte-identical to the v5 source",
   );
 });

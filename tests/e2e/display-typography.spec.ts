@@ -1,11 +1,11 @@
 import { expect, test, type Page } from "@playwright/test";
 
 /**
- * Experience v6 S4 — display type and fluid scale (calm-chrome round
- * 2026-10-04: display headings use the loaded Inter Variable face at the
- * quiet display weight; no second web face).
- * - EN/VI display headings resolve to Inter, which really loads (Vietnamese
- *   subset on /vi/ with the stacked diacritics in the copy).
+ * Experience v6 S4 — display type and fluid scale. Brand Kit v5 (Owner,
+ * 2026-11-10): display headings use the loaded Noto Serif Display face at
+ * weight 300; Inter stays the interface and body face.
+ * - EN/VI display headings resolve to Noto Serif Display, which really loads
+ *   (Vietnamese subset on /vi/ with the stacked diacritics in the copy).
  * - zh / zh-hant headings stay on the CJK stack and do not leave a one-glyph or
  *   punctuation-only orphan line at 390 px.
  * - Display headings are never below 28 px and body/H3 keep Inter.
@@ -30,7 +30,8 @@ test.describe("display typeface", () => {
         const cs = getComputedStyle(h1);
         const loaded = [...document.fonts]
           .filter(
-            (f) => f.family.includes("Inter Variable") && f.status === "loaded",
+            (f) =>
+              f.family.includes("Noto Serif Display") && f.status === "loaded",
           )
           .map((f) => f.unicodeRange);
         // Engine-neutral coverage: Chromium serializes unicode-range in upper
@@ -54,7 +55,7 @@ test.describe("display typeface", () => {
           // loaded display face, and the exact weight + sample text must resolve.
           viCovered: covers(0x1ea0) && covers(0x1ef9),
           viFaceReady: document.fonts.check(
-            `${cs.fontWeight} 1em "Inter Variable"`,
+            `${cs.fontWeight} 1em "Noto Serif Display"`,
             "Ạ ế ộ ữ",
           ),
           size: parseFloat(cs.fontSize),
@@ -64,11 +65,13 @@ test.describe("display typeface", () => {
           bodyFamily: getComputedStyle(document.body).fontFamily,
         };
       });
-      expect(info.family).toMatch(/^"?Inter Variable"?/);
+      // Brand Kit v5: display titles are Noto Serif Display; Inter stays the
+      // interface and body face (asserted on body below).
+      expect(info.family).toMatch(/^"?Noto Serif Display"?/);
       expect(info.size).toBeGreaterThanOrEqual(28);
-      // Quiet display weight (display-type.css --display-weight, 480-600 band).
-      expect(Number(info.weight)).toBeGreaterThanOrEqual(480);
-      expect(Number(info.weight)).toBeLessThanOrEqual(600);
+      // Light display weight (display-type.css --display-weight: 300, the one
+      // static serif weight shipped; never synthetic bold).
+      expect(Number(info.weight)).toBe(300);
       expect(info.loaded.length).toBeGreaterThan(0);
       // Nothing may clip the tone-mark stacks above/below the line box.
       expect(info.clips).toBe(false);

@@ -1,0 +1,15 @@
+---
+// zh-Hant copy: machine-assisted (OpenCC s2twp), pending native review.
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ShowcaseStory from "@/components/showcase/ShowcaseStory.astro";
+import { SHOWCASE_META } from "@/data/showcase-story";
+---
+
+<BaseLayout
+  title={SHOWCASE_META["zh-hant"].title}
+  description={SHOWCASE_META["zh-hant"].description}
+  path="/zh-hant/showcase/"
+  scene="ink"
+>
+  <ShowcaseStory lang="zh-hant" />
+</BaseLayout>

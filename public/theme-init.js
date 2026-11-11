@@ -11,7 +11,7 @@ try {
 /**
  * Engine-aware font preload. No storage writes and no remote access.
  * Order matters: the display face (hero H1, the LCP element) is requested
- * first so the 74 KB Inter Latin transfer cannot queue ahead of it.
+ * first so the Inter Latin transfer cannot queue ahead of it.
  */
 try {
   const ua = navigator.userAgent ?? "";
@@ -29,6 +29,13 @@ try {
       link.href = href;
       document.head.appendChild(link);
     };
+    // Brand Kit v5 display face first (hero H1). Chinese pages set display
+    // headings in the system CJK stack and never request it.
+    if (!lang.startsWith("zh")) {
+      for (const subset of subsets) {
+        preload(`/fonts/noto-serif-display-${subset}-300-v2.003.woff2`);
+      }
+    }
     for (const subset of subsets) {
       preload(`/fonts/inter-${subset}-wght-v5.3.0.woff2`);
     }

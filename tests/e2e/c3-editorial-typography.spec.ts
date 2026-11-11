@@ -345,11 +345,14 @@ test.describe("C3-A Editorial Typography — display hierarchy", () => {
       .evaluate((el) => {
         const computed = getComputedStyle(el);
         return {
+          fontFamily: computed.fontFamily,
           fontWeight: Number(computed.fontWeight),
           fontSize: Number.parseFloat(computed.fontSize),
         };
       });
-    expect(h1Styles.fontWeight).toBeGreaterThanOrEqual(500);
+    // Brand Kit v5: the display serif at its one shipped weight (300).
+    expect(h1Styles.fontFamily).toMatch(/^"?Noto Serif Display"?/);
+    expect(h1Styles.fontWeight).toBe(300);
     expect(h1Styles.fontSize).toBeGreaterThanOrEqual(24);
   });
 });
