@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ShowcaseStory from "@/components/showcase/ShowcaseStory.astro";
+import { SHOWCASE_META } from "@/data/showcase-story";
+---
+
+<BaseLayout
+  title={SHOWCASE_META["en"].title}
+  description={SHOWCASE_META["en"].description}
+  path="/en/showcase/"
+  scene="ink"
+>
+  <ShowcaseStory lang="en" />
+</BaseLayout>
