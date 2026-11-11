@@ -10,7 +10,7 @@ import { webPreviewOpen } from "../../src/components/product/product-page-copy";
 const LANGS = ["en", "vi", "zh", "zh-hant"] as const;
 
 const HOME_LINE = {
-  en: "Now in preview: Sổ Trọ, a notebook for landlords to run their rooms. In development: Sổ Tâm, a journal that stays private.",
+  en: "Now in preview: Sổ Trọ, a landlord's notebook for their rooms. In development: Sổ Tâm, a private journal.",
   vi: "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
   zh: "预览中：Sổ Trọ，帮房东管理出租房间的记事本。开发中：Sổ Tâm，只属于你的私密日记。",
   "zh-hant":

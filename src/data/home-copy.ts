@@ -19,8 +19,8 @@ export const HOME_PRODUCT_LINE: Record<
 > = {
   en: {
     lead: "Now in preview: ",
-    a: ", a notebook for landlords to run their rooms. In development: ",
-    b: ", a journal that stays private.",
+    a: ", a landlord's notebook for their rooms. In development: ",
+    b: ", a private journal.",
   },
   vi: {
     lead: "Đang mở bản xem trước: ",
@@ -60,7 +60,7 @@ export const HOME_ONE_LINER: Record<
     "zh-hant": "給越南房東：查看本月還有誰沒繳租、今天要處理什麼。",
   },
   sotam: {
-    en: "A private journal for your thoughts and memories, saved on your own device first.",
+    en: "A private journal, kept on your own device first.",
   },
 };
 
@@ -72,7 +72,7 @@ export const HOME_ONE_LINER: Record<
  */
 export const HOME_FLAGSHIP_LEAD: Record<string, Localized | undefined> = {
   sotro: {
-    en: "Rooms, tenants, meter readings and every month's charges, in one place. No paper notebook, no spreadsheet.",
+    en: "Rooms, tenants, meter readings and monthly charges in one place. No paper notebook, no spreadsheet.",
     vi: "Phòng, người thuê, số điện nước và tiền từng tháng, gom về một chỗ. Không cần sổ giấy, không cần bảng tính.",
     zh: "房间、租客、水电表读数和每月费用，集中在一处。不用纸本，也不用表格。",
     "zh-hant":
@@ -89,15 +89,15 @@ export const HOME_FLAGSHIP_LEAD: Record<string, Localized | undefined> = {
  */
 export const HOME_PROOF_POINTS: Localized[] = [
   {
-    en: "Large text and big buttons; a family member's phone joins by scanning a QR code",
-    vi: "Chữ to, nút lớn; điện thoại của người nhà tham gia chỉ bằng cách quét mã QR",
+    en: "Large text and buttons; family joins by scanning a QR code",
+    vi: "Chữ to, nút lớn; người nhà tham gia bằng cách quét mã QR",
     zh: "大字号与大按钮；家人的手机扫描二维码即可加入",
     "zh-hant": "大字級與大按鈕；家人的手機掃描 QR 碼即可加入",
   },
   {
-    en: "Check a payment before you confirm it, then copy the receipt into Zalo",
-    vi: "Xem lại rồi mới xác nhận đã nhận tiền, sau đó sao chép biên nhận gửi qua Zalo",
-    zh: "先核对再确认收款，然后把收据复制到 Zalo",
-    "zh-hant": "先核對再確認收款，然後把收據複製到 Zalo",
+    en: "Confirm each payment received, then copy the receipt to Zalo",
+    vi: "Xác nhận từng khoản đã nhận, rồi sao chép biên nhận gửi qua Zalo",
+    zh: "确认每笔已收款项，然后把收据复制到 Zalo",
+    "zh-hant": "確認每筆已收款項，然後把收據複製到 Zalo",
   },
 ];

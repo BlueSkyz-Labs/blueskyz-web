@@ -76,7 +76,7 @@ test("lede is the short deck line and nothing overflows at 390px", async ({
   await page.goto("/en/products/");
   await expect(
     page.getByText(
-      "Each product says plainly what stage it is at, what works now and what is still planned.",
+      "Each product shows its stage, what works today and what is planned.",
     ),
   ).toBeVisible();
   const overflow = await page.evaluate(
