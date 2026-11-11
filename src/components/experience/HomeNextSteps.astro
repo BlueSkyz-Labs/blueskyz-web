@@ -3,28 +3,218 @@ import ButtonLink from "@/components/ui/ButtonLink.astro";
 import Container from "@/components/layout/Container.astro";
 import { getHomeCloseActions } from "@/lib/journey";
 import { SHARED_LABELS, labelFor, type Language } from "@/data/site";
+import { getEntry } from "astro:content";
 
+/**
+ * Home close (Owner 2026-11-10): the page ends on a statement, not a strip.
+ *
+ * The statement is copy already authored for the home in
+ * `pages/<lang>/index.yaml`: the hero's supporting line as the heading and the
+ * house intro under it; nothing is written here. (The "One house" heading
+ * itself stays off the home, as decided in Experience v6.) The artwork is the
+ * brand sail drawn inline (the three paths of the mark, copied unchanged as
+ * in SailReveal), so the band adds no image request to the home's byte
+ * budget. The three next steps are the same links as before, inside the same
+ * navigation landmark. Without the authored line the band falls back to the
+ * plain next-steps row.
+ */
 interface Props {
   lang: Language;
+}
+interface HomeSections {
+  hero?: { supporting?: unknown };
+  onewhouse?: { intro?: unknown };
 }
 const { lang } = Astro.props;
 const navLabel = labelFor(SHARED_LABELS.nextSteps, lang);
 const actions = getHomeCloseActions(lang);
+
+const home = await getEntry("pages", `${lang}-index`);
+const sections = home?.data.sections as HomeSections | undefined;
+const supporting = sections?.hero?.supporting;
+const houseIntro = sections?.onewhouse?.intro;
+const heading = typeof supporting === "string" ? supporting : null;
+const intro = typeof houseIntro === "string" ? houseIntro : null;
+const statement = heading && intro ? { heading, intro } : null;
 ---
 
-<nav
-  class="border-t border-[var(--border-subtle)] bg-[var(--surface-subtle)]"
-  aria-label={navLabel}
-  data-home-next-steps
->
-  <Container class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
-    <p class="eyebrow">{navLabel}</p>
-    <div class="flex flex-wrap gap-3">
-      {actions.map((action) => (
-        <ButtonLink variant="secondary" icon="arrow-right" href={action.href}>
-          {action.label}
-        </ButtonLink>
-      ))}
+{statement ? (
+  <section
+    class="home-close"
+    aria-labelledby="home-close-title"
+    data-home-close
+  >
+    <div class="home-close__art" aria-hidden="true">
+      <svg viewBox="0 0 512 512" focusable="false">
+        <defs>
+          <linearGradient id="close-sail-a" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#FFFFFF"></stop>
+            <stop offset="1" stop-color="#CBD5E1"></stop>
+          </linearGradient>
+          <linearGradient id="close-sail-b" x1="0" y1="0" x2="1" y2="1">
+            <stop stop-color="#F7F8FA"></stop>
+            <stop offset="1" stop-color="#64748B"></stop>
+          </linearGradient>
+          <linearGradient id="close-sail-c" x1="0" y1="0" x2="1" y2="0">
+            <stop stop-color="#2564FF"></stop>
+            <stop offset="1" stop-color="#0B1020"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          fill="url(#close-sail-a)"
+          d="M72 432 C118 285 226 139 394 54 C326 166 278 256 255 334 C196 329 130 369 72 432 Z"
+        ></path>
+        <path
+          fill="url(#close-sail-b)"
+          d="M394 54 C353 165 333 276 371 408 L255 334 C289 244 326 138 394 54 Z"
+        ></path>
+        <path
+          fill="url(#close-sail-c)"
+          d="M72 432 C151 363 213 333 255 334 L371 408 C292 363 193 364 72 432 Z"
+        ></path>
+      </svg>
     </div>
-  </Container>
-</nav>
+    <Container class="home-close__inner">
+      <div class="home-close__copy">
+        <h2
+          id="home-close-title"
+          class="type-d2 home-close__title text-balance"
+        >
+          {statement.heading}
+        </h2>
+        <p class="home-close__lead text-pretty">{statement.intro}</p>
+        <nav class="home-close__nav" aria-label={navLabel} data-home-next-steps>
+          {actions.map((action) => (
+            <ButtonLink variant="on-ink" icon="arrow-right" href={action.href}>
+              {action.label}
+            </ButtonLink>
+          ))}
+        </nav>
+      </div>
+    </Container>
+  </section>
+) : (
+  <nav
+    class="border-t border-[var(--border-subtle)] bg-[var(--surface-subtle)]"
+    aria-label={navLabel}
+    data-home-next-steps
+  >
+    <Container class="flex flex-col gap-3 py-6 sm:flex-row sm:items-center sm:justify-between">
+      <p class="eyebrow">{navLabel}</p>
+      <div class="flex flex-wrap gap-3">
+        {actions.map((action) => (
+          <ButtonLink variant="secondary" icon="arrow-right" href={action.href}>
+            {action.label}
+          </ButtonLink>
+        ))}
+      </div>
+    </Container>
+  </nav>
+)}
+
+<style>
+  /* Always ink, like the footer it leads into: porcelain text in both themes. */
+  .home-close {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand-ink);
+    color: var(--brand-porcelain);
+    border-top: 1px solid color-mix(in srgb, white 8%, transparent);
+  }
+  /* The sail stands on a drawn horizon at the right of the band, large and
+     quiet: a glow behind it, the line under it. No image is requested. */
+  .home-close__art {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(52%, 44rem);
+    background: radial-gradient(
+      60% 70% at 55% 78%,
+      color-mix(in srgb, var(--brand-cobalt) 30%, transparent),
+      transparent 70%
+    );
+  }
+  .home-close__art svg {
+    position: absolute;
+    right: 6%;
+    bottom: 14%;
+    height: 78%;
+    width: auto;
+    aspect-ratio: 1;
+    opacity: 0.92;
+  }
+  .home-close__art::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 14% -20%;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--brand-cobalt) 80%, white) 55%,
+      transparent
+    );
+    opacity: 0.7;
+  }
+  .home-close :global(.home-close__inner) {
+    position: relative;
+    display: grid;
+    align-items: center;
+    min-height: 26rem;
+  }
+  .home-close__copy {
+    max-width: 36rem;
+    padding-block: 4rem;
+  }
+  .home-close__title {
+    margin: 0;
+    color: var(--brand-porcelain);
+  }
+  .home-close__lead {
+    margin: 1.25rem 0 2rem;
+    font-size: var(--size-4);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--brand-porcelain) 80%, transparent);
+  }
+  .home-close__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  @media (max-width: 767px) {
+    .home-close {
+      display: flex;
+      flex-direction: column;
+    }
+    .home-close__art {
+      position: relative;
+      order: 2;
+      width: 100%;
+      height: 13rem;
+    }
+    .home-close__art svg {
+      right: 50%;
+      translate: 50% 0;
+    }
+    .home-close__art::after {
+      inset: auto 0 14%;
+    }
+    .home-close :global(.home-close__inner) {
+      min-height: 0;
+    }
+    .home-close__copy {
+      padding-block: 3rem 1.5rem;
+    }
+  }
+  /* Spanned foldables: nothing may sit across the hinge, so the decorative
+     artwork steps out and the statement stays in the leading segment. */
+  @media (forced-colors: active), (horizontal-viewport-segments: 2) {
+    .home-close__art {
+      display: none;
+    }
+  }
+  @media print {
+    .home-close__art {
+      display: none;
+    }
+  }
+</style>

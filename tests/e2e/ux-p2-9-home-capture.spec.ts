@@ -2,10 +2,13 @@ import { expect, test, type Page } from "@playwright/test";
 
 /**
  * UX P2-9 — the home flagship capture must be readable. The full owner console
- * scaled into the theatre slot rendered its text at 4-7px. Wide screens now
- * show the same recorded capture cropped to the collections panel; narrow
- * screens show the recorded phone capture of the same screen. Exactly one is
- * visible, and the hidden one is never downloaded.
+ * scaled into the theatre slot rendered its text at 4-7px. Wide screens first
+ * showed the capture cropped to the collections panel. Since the home stage
+ * (Owner 2026-11-10) the act is full width, so wide screens show the whole
+ * recorded console at a larger scale than the crop's floor (0.4 or more
+ * rendered px per source px, against 0.36) and no crop is needed;
+ * narrow screens show the recorded phone capture of the same screen. Exactly
+ * one is visible, and the hidden one is never downloaded.
  */
 const THEATRE = "[data-flagship-theatre]";
 
@@ -18,7 +21,17 @@ const visibleCapture = async (page: Page) => {
     .filter({ visible: true });
   await expect(figure).toHaveCount(1);
   const img = figure.locator("img");
-  await img.scrollIntoViewIfNeeded();
+  // Measure the capture at rest. The flagship stage settles from 96.5% scale
+  // over its scroll timeline (entry 0% to cover 34%); scrollIntoViewIfNeeded
+  // stops with the image at the viewport edge, where browsers that run scroll
+  // timelines (Chromium, WebKit) still show the start of that settle.
+  await img.evaluate((el) => el.scrollIntoView({ block: "center" }));
+  await img.evaluate(
+    () =>
+      new Promise((done) =>
+        requestAnimationFrame(() => requestAnimationFrame(done)),
+      ),
+  );
   await expect(img).toHaveJSProperty("complete", true);
   return {
     surface: await figure.getAttribute("data-capture-surface"),
@@ -38,7 +51,7 @@ test("negative proof: the uncropped console at its old width is not readable", (
 });
 
 for (const lang of ["en", "vi", "zh", "zh-hant"]) {
-  test(`/${lang}/ 1440: the theatre shows the cropped console at a readable scale`, async ({
+  test(`/${lang}/ 1440: the theatre shows the whole console at a readable scale`, async ({
     browser,
   }) => {
     const context = await browser.newContext({
@@ -48,8 +61,8 @@ for (const lang of ["en", "vi", "zh", "zh-hant"]) {
     await page.goto(`/${lang}/`);
     const c = await visibleCapture(page);
     expect(c.surface).toBe("desktop");
-    expect(c.cropped).toBe(true);
-    expect(readable(c.scale, 0.36), String(c.scale)).toBe(true);
+    expect(c.cropped).toBe(false);
+    expect(readable(c.scale, 0.4), String(c.scale)).toBe(true);
     await context.close();
   });
 

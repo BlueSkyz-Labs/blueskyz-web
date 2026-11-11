@@ -150,7 +150,7 @@ if (!compact && products.length > 0 && !card) {
       <ProofFirstEmptyState lang={lang} />
     </div>
   ) : rows.length > 0 ? (
-    <div class="mt-6 grid gap-4">
+    <div class="product-rows mt-6 grid gap-4">
       {rows.map((row) => (
         <article
           class="product-row"
@@ -344,13 +344,64 @@ if (!compact && products.length > 0 && !card) {
   .product-row__cta:hover {
     border-color: var(--action-primary);
   }
+  /* Portfolio cards (Owner 2026-11-10): from md each product in development is
+     a card with room for its mark, name and one line, two to a row, instead of
+     a thin list row. Same record-backed content and the same single action. */
   @media (min-width: 768px) {
+    .product-rows {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
     .product-row {
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      padding: 1.25rem 1.5rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      min-height: 15rem;
+      padding: 2rem;
+      overflow: hidden;
+      background: linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--brand-cobalt) 10%, var(--surface-raised)),
+        var(--surface-raised) 55%
+      );
+    }
+    .product-row::after {
+      content: "";
+      position: absolute;
+      top: -4rem;
+      right: -4rem;
+      width: 16rem;
+      height: 16rem;
+      border-radius: 50%;
+      background: radial-gradient(
+        circle,
+        color-mix(in srgb, var(--brand-cobalt) 22%, transparent),
+        transparent 70%
+      );
+      pointer-events: none;
+    }
+    .product-row__icon {
+      width: 64px;
+      height: 64px;
+    }
+    .product-row__name {
+      font-size: var(--size-6);
+    }
+    .product-row__line {
+      max-width: 30rem;
+      font-size: var(--size-3);
     }
     .product-row__cta {
-      grid-column: auto;
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+    }
+  }
+  @media (forced-colors: active) {
+    .product-row::after {
+      display: none;
     }
   }
 </style>

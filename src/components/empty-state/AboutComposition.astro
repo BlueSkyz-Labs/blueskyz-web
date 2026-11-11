@@ -1,5 +1,7 @@
 ---
 import BlueSkyzIcon from "@/components/icon/BlueSkyzIcon.astro";
+import Container from "@/components/layout/Container.astro";
+import PageHeader from "@/components/layout/PageHeader.astro";
 import ProductStatus from "@/components/product/ProductStatus.astro";
 import { EMPTY_STATE_COPY } from "@/data/empty-state-copy";
 import { SITE, labelFor, SHARED_LABELS, type Language } from "@/data/site";
@@ -31,6 +33,15 @@ import { getEntry } from "astro:content";
  */
 interface Props {
   lang: Language;
+  /**
+   * Owner 2026-11-10: the page opens on a full-width ink band ("hero": page
+   * title, mission, founder identity, operating year and the brand elevation)
+   * and continues in the content column ("body": products and checks). The
+   * facts and their sources are the same; only where they stand changed.
+   */
+  part: "hero" | "body";
+  /** Page H1, required for the hero part. */
+  title?: string;
 }
 
 interface AboutContent {
@@ -41,7 +52,7 @@ interface AboutContent {
   location?: unknown;
 }
 
-const { lang } = Astro.props;
+const { lang, part, title } = Astro.props;
 const products = (await getPublicProducts()).map((product) => ({
   slug: product.data.slug,
   name: product.data.name,
@@ -68,145 +79,179 @@ const founderLocation =
   typeof aboutContent?.location === "string" ? aboutContent.location : null;
 ---
 
-{missionHeading && missionIntro && (
-  <section
-    class="about-mission"
-    aria-labelledby="about-mission-title"
-    data-about-mission
-  >
-    <h2 id="about-mission-title" class="about-mission__title">
-      {missionHeading}
-    </h2>
-    <p class="about-mission__copy text-pretty">{missionIntro}</p>
-  </section>
-)}
-<p class="about-founded" data-organization-founding-year>
-  {labelFor(SHARED_LABELS.operatingSince, lang)} {/* dateline-exempt: year */}
-  <time datetime={String(SITE.operatingSinceYear)}>
-    {SITE.operatingSinceYear}
-  </time>
-</p>
-{founderName && founderLocation && (
-  <section
-    class="about-founder"
-    aria-labelledby="about-founder"
-    data-about-founder
-  >
-    <header class="about-founder__identity">
-      {founderTitle && <p class="about-founder__title">{founderTitle}</p>}
-      <h2 id="about-founder" class="about-founder__name">
-        {founderName}
-      </h2>
-      <p class="about-founder__meta text-pretty">{founderLocation}</p>
-    </header>
-    <div class="about-founder__art" aria-hidden="true">
-      <img
-        src="/images/about/founder-elevation.webp"
-        alt=""
-        width="960"
-        height="1200"
-        decoding="async"
-      />
-    </div>
-  </section>
-)}
-<div class="about-grid" data-about-composition>
-  {products.length > 0 ? (
-    <section aria-labelledby="about-make">
-      <h2 id="about-make" class="about-label">
-        <span class="about-label__text">
-          {labelFor(EMPTY_STATE_COPY.aboutWhatWeMake, lang)}
-        </span>
-      </h2>
-      <ul class="about-products">
-        {products.map((product) => (
-          <li class="about-product" data-about-product>
-            <a
-              href={`/${lang}/products/${product.slug}/`}
-              class="about-product__name"
+{part === "hero" ? (
+  <section class="about-hero" data-about-hero>
+    <Container class="about-hero__inner">
+      <div class="about-hero__copy">
+        <PageHeader title={title ?? ""} />
+        {missionHeading && missionIntro && (
+          <section
+            class="about-mission"
+            aria-labelledby="about-mission-title"
+            data-about-mission
+          >
+            <h2 id="about-mission-title" class="about-mission__title">
+              {missionHeading}
+            </h2>
+            <p class="about-mission__copy text-pretty">{missionIntro}</p>
+          </section>
+        )}
+        <div class="about-hero__facts">
+          {founderName && founderLocation && (
+            <section
+              class="about-founder"
+              aria-labelledby="about-founder"
+              data-about-founder
             >
-              {product.name}
+              {founderTitle && (
+                <p class="about-founder__title">{founderTitle}</p>
+              )}
+              <h2 id="about-founder" class="about-founder__name">
+                {founderName}
+              </h2>
+              <p class="about-founder__meta text-pretty">{founderLocation}</p>
+            </section>
+          )}
+          <p class="about-founded" data-organization-founding-year>
+            {labelFor(SHARED_LABELS.operatingSince, lang)}{" "}
+            {/* dateline-exempt: year */}
+            <time datetime={String(SITE.operatingSinceYear)}>
+              {SITE.operatingSinceYear}
+            </time>
+          </p>
+        </div>
+      </div>
+      <div class="about-founder__art" aria-hidden="true">
+        <img
+          src="/images/about/founder-elevation.webp"
+          alt=""
+          width="960"
+          height="1200"
+          decoding="async"
+        />
+      </div>
+    </Container>
+  </section>
+) : (
+  <Fragment>
+    <div class="about-grid" data-about-composition>
+      {products.length > 0 ? (
+        <section aria-labelledby="about-make">
+          <h2 id="about-make" class="about-label">
+            <span class="about-label__text">
+              {labelFor(EMPTY_STATE_COPY.aboutWhatWeMake, lang)}
+            </span>
+          </h2>
+          <ul class="about-products">
+            {products.map((product) => (
+              <li class="about-product" data-about-product>
+                <a
+                  href={`/${lang}/products/${product.slug}/`}
+                  class="about-product__name"
+                >
+                  {product.name}
+                  <BlueSkyzIcon
+                    name="arrow-right"
+                    class="about-arrow h-4 w-4 shrink-0"
+                  />
+                </a>
+                <ProductStatus label={product.publicLabel} lang={lang} />
+                <p class="about-product__desc text-pretty">
+                  {product.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
+      <section aria-labelledby="about-check" data-about-check>
+        <h2 id="about-check" class="about-label">
+          <span class="about-label__text">
+            {labelFor(EMPTY_STATE_COPY.aboutCheck, lang)}
+          </span>
+        </h2>
+        <ul class="about-checks">
+          <li data-claim-id="privacy-no-tracking-on-this-site">
+            <a href={`/${lang}/privacy/`} class="about-check">
+              <span class="text-pretty">
+                {labelFor(EMPTY_STATE_COPY.aboutCheckNoCookies, lang)}
+              </span>
               <BlueSkyzIcon
                 name="arrow-right"
                 class="about-arrow h-4 w-4 shrink-0"
               />
             </a>
-            <ProductStatus label={product.publicLabel} lang={lang} />
-            <p class="about-product__desc text-pretty">{product.description}</p>
           </li>
-        ))}
-      </ul>
-    </section>
-  ) : null}
-  <section aria-labelledby="about-check" data-about-check>
-    <h2 id="about-check" class="about-label">
-      <span class="about-label__text">
-        {labelFor(EMPTY_STATE_COPY.aboutCheck, lang)}
-      </span>
-    </h2>
-    <ul class="about-checks">
-      <li data-claim-id="privacy-no-tracking-on-this-site">
-        <a href={`/${lang}/privacy/`} class="about-check">
-          <span class="text-pretty">
-            {labelFor(EMPTY_STATE_COPY.aboutCheckNoCookies, lang)}
-          </span>
+          <li data-claim-id="security-reporting-is-private">
+            <a href={`/${lang}/security/`} class="about-check">
+              <span class="text-pretty">
+                {labelFor(EMPTY_STATE_COPY.aboutCheckSecurity, lang)}
+              </span>
+              <BlueSkyzIcon
+                name="arrow-right"
+                class="about-arrow h-4 w-4 shrink-0"
+              />
+            </a>
+          </li>
+        </ul>
+        <a
+          href={`/${lang}/verify/`}
+          class="about-verify inline-flex items-center gap-2"
+        >
+          {labelFor(EMPTY_STATE_COPY.aboutCheckCta, lang)}
           <BlueSkyzIcon
             name="arrow-right"
             class="about-arrow h-4 w-4 shrink-0"
           />
         </a>
-      </li>
-      <li data-claim-id="security-reporting-is-private">
-        <a href={`/${lang}/security/`} class="about-check">
-          <span class="text-pretty">
-            {labelFor(EMPTY_STATE_COPY.aboutCheckSecurity, lang)}
-          </span>
-          <BlueSkyzIcon
-            name="arrow-right"
-            class="about-arrow h-4 w-4 shrink-0"
-          />
+      </section>
+    </div>
+    {SITE.founderEmail ? (
+      <p
+        class="mt-8 text-sm text-[var(--text-secondary)]"
+        data-public-email-role="founder"
+      >
+        {labelFor(SHARED_LABELS.strategicContact, lang)}{" "}
+        <a
+          href={`mailto:${SITE.founderEmail}`}
+          class="font-semibold text-[var(--action-primary)] underline underline-offset-4 hover:no-underline"
+        >
+          {SITE.founderEmail}
         </a>
-      </li>
-    </ul>
-    <a
-      href={`/${lang}/verify/`}
-      class="about-verify inline-flex items-center gap-2"
-    >
-      {labelFor(EMPTY_STATE_COPY.aboutCheckCta, lang)}
-      <BlueSkyzIcon name="arrow-right" class="about-arrow h-4 w-4 shrink-0" />
-    </a>
-  </section>
-</div>
-{SITE.founderEmail ? (
-  <p
-    class="mt-8 text-sm text-[var(--text-secondary)]"
-    data-public-email-role="founder"
-  >
-    {labelFor(SHARED_LABELS.strategicContact, lang)}{" "}
-    <a
-      href={`mailto:${SITE.founderEmail}`}
-      class="font-semibold text-[var(--action-primary)] underline underline-offset-4 hover:no-underline"
-    >
-      {SITE.founderEmail}
-    </a>
-  </p>
-) : null}
+      </p>
+    ) : null}
+  </Fragment>
+)}
 <style>
-  .about-founded {
-    margin: 0 0 3rem;
-    color: var(--text-secondary);
-    font-size: var(--size-2);
+  /* ---- Hero band: always ink, porcelain text in both themes ---- */
+  .about-hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--brand-ink);
+    color: var(--brand-porcelain);
+    border-bottom: 1px solid color-mix(in srgb, white 8%, transparent);
+  }
+  .about-hero :global(.about-hero__inner) {
+    display: grid;
+    gap: 2.5rem;
+    padding-block: 3.5rem 0;
+  }
+  .about-hero__copy {
+    min-inline-size: 0;
+  }
+  .about-hero :global(.page-header__title) {
+    color: var(--brand-porcelain);
   }
   .about-mission {
-    max-width: 48rem;
-    margin-block: 2rem 3rem;
+    max-width: 36rem;
+    margin-block: 2rem 0;
   }
   .about-mission__title {
     margin: 0;
     font-size: var(--size-2);
     font-weight: 600;
     letter-spacing: var(--tracking-eyebrow, 0.12em);
-    color: var(--text-secondary);
+    color: color-mix(in srgb, var(--brand-cobalt) 65%, white);
   }
   :lang(vi) .about-mission__title {
     letter-spacing: 0.03em;
@@ -215,11 +260,89 @@ const founderLocation =
     letter-spacing: 0.02em;
   }
   .about-mission__copy {
-    max-width: 42rem;
-    margin: 1rem 0 0;
-    font-size: var(--size-4);
-    line-height: 1.6;
-    color: var(--text-primary);
+    margin: 0.75rem 0 0;
+    font-size: var(--size-5);
+    line-height: 1.5;
+    color: color-mix(in srgb, var(--brand-porcelain) 86%, transparent);
+  }
+  .about-hero__facts {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 1.5rem 3.5rem;
+    max-width: 38rem;
+    margin-block-start: 2.5rem;
+    padding-block-start: 1.75rem;
+    border-block-start: 1px solid color-mix(in srgb, white 16%, transparent);
+  }
+  .about-founder {
+    min-inline-size: 0;
+  }
+  .about-founder__title {
+    margin: 0 0 0.4rem;
+    font-size: var(--size-1);
+    font-weight: 600;
+    line-height: var(--lh-1);
+    letter-spacing: var(--tracking-eyebrow, 0.12em);
+    color: color-mix(in srgb, var(--brand-cobalt) 65%, white);
+  }
+  .about-founder__name {
+    margin: 0;
+    font-size: var(--size-6);
+    font-weight: 600;
+    line-height: var(--lh-6);
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+    color: var(--brand-porcelain);
+  }
+  .about-founder__meta,
+  .about-founded {
+    margin: 0.4rem 0 0;
+    font-size: var(--size-2);
+    line-height: var(--lh-2);
+    color: color-mix(in srgb, var(--brand-porcelain) 72%, transparent);
+  }
+  .about-founded {
+    margin: 0;
+  }
+  .about-founder__art {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    margin-inline: calc(var(--site-gutter) * -1);
+  }
+  .about-founder__art img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    /* Keep the sail tip and base inside the square crop (art spans ~5-83% of the height). */
+    object-position: 50% 19%;
+  }
+  @media (min-width: 48rem) {
+    .about-hero :global(.about-hero__inner) {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      align-items: center;
+      gap: 3rem;
+      padding-block: 0;
+    }
+    .about-hero__copy {
+      padding-block: 4.5rem;
+    }
+    /* Square and bounded; the left edge dissolves into the ink so the
+       elevation reads as part of the band, not a framed picture. */
+    .about-founder__art {
+      aspect-ratio: 1 / 1;
+      max-inline-size: 40rem;
+      margin-inline: 0;
+      justify-self: end;
+      inline-size: 100%;
+      mask-image: linear-gradient(to right, transparent, #000 32%);
+    }
+  }
+  @media (forced-colors: active) {
+    .about-founder__art {
+      mask-image: none;
+    }
   }
   .about-grid {
     display: grid;
@@ -266,65 +389,6 @@ const founderLocation =
   }
   :lang(zh) .about-label {
     letter-spacing: 0.04em;
-  }
-  .about-founder {
-    display: grid;
-    overflow: hidden;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-media);
-    background: var(--surface-raised);
-  }
-  .about-founder__identity {
-    align-self: center;
-    min-inline-size: 0;
-    padding: 2rem;
-  }
-  .about-founder__title {
-    margin: 0 0 1.5rem;
-    font-size: var(--size-2);
-    font-weight: 600;
-    line-height: var(--lh-2);
-    color: var(--action-primary);
-  }
-  .about-founder__name {
-    margin: 0;
-    font-size: var(--size-7);
-    font-weight: 600;
-    line-height: var(--lh-7);
-    letter-spacing: -0.02em;
-    overflow-wrap: anywhere;
-    color: var(--text-primary);
-  }
-  .about-founder__meta {
-    margin: 1.25rem 0 0;
-    padding-block-start: 1.25rem;
-    border-block-start: 1px solid var(--border-subtle);
-    font-size: var(--size-2);
-    line-height: var(--lh-2);
-    color: var(--text-secondary);
-  }
-  .about-founder__art {
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-  }
-  .about-founder__art img {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    /* Keep the sail tip and base inside the square crop (art spans ~5-83% of the height). */
-    object-position: 50% 19%;
-  }
-  @media (min-width: 48rem) {
-    .about-founder__art {
-      aspect-ratio: 1 / 1;
-    }
-    .about-founder {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    }
-    .about-founder__identity {
-      padding: 3rem;
-    }
   }
   .about-products,
   .about-checks {

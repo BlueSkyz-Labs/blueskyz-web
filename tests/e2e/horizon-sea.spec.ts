@@ -148,16 +148,29 @@ test.describe("the sail of light (large screens)", () => {
     await page.waitForTimeout(1500);
     // The scene may hand the sail back to the static mark on a slow machine
     // (its performance governor); either way exactly one sail is on show.
-    const state = await page.evaluate(() => {
-      const root = document.querySelector("[data-horizon-sea-root]")!;
-      const mark = document.querySelector<HTMLElement>(".hero-visual")!;
-      return {
-        sail: root.hasAttribute("data-horizon-sail"),
-        markOpacity: Number(getComputedStyle(mark).opacity),
-      };
-    });
-    if (state.sail) expect(state.markOpacity).toBeLessThan(0.05);
-    else expect(state.markOpacity).toBeGreaterThan(0.5);
+    // The mark fades over 900 ms once the sail is drawn, and on a slow engine
+    // the sail can switch on after the scene starts, so wait for the fade to
+    // finish rather than reading one frame of it.
+    const read = () =>
+      page.evaluate(() => {
+        const root = document.querySelector("[data-horizon-sea-root]")!;
+        const mark = document.querySelector<HTMLElement>(".hero-visual")!;
+        return {
+          sail: root.hasAttribute("data-horizon-sail"),
+          markOpacity: Number(getComputedStyle(mark).opacity),
+        };
+      });
+    await expect
+      .poll(
+        async () => {
+          const state = await read();
+          return state.sail
+            ? state.markOpacity < 0.05
+            : state.markOpacity > 0.5;
+        },
+        { timeout: 4000 },
+      )
+      .toBe(true);
   });
 
   test("a press on the bare scene never navigates or blocks the actions", async ({
