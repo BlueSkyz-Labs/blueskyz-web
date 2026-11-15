@@ -32,13 +32,35 @@ export const MAX_FREE_PROMPT_CHARS = 100_000;
 const KEY_VAR_RE = /^OPENCODE_[A-Z0-9_]{1,40}$/;
 const MODEL_RE = /^[a-z0-9][a-z0-9.-]{1,60}$/;
 
-/** CLI config: no file edits, no shell, no web fetch; key only by env reference. */
+// Security audit run 2 (2026-11-15): the CLI is model-driven, so it gets no tool
+// at all (prompts may carry untrusted repository or web text) and only the
+// environment it needs, never the other provider keys or tokens in the shell.
+const CLI_TOOLS = [
+  "read",
+  "edit",
+  "glob",
+  "grep",
+  "list",
+  "bash",
+  "task",
+  "external_directory",
+  "webfetch",
+  "websearch",
+  "lsp",
+  "skill",
+  "todowrite",
+  "question",
+];
+const CLI_ENV_KEEP =
+  /^(PATH|HOME|USER|USERNAME|LOGNAME|SHELL|LANG|LC_[A-Z]+|TZ|TERM|TMPDIR|TEMP|TMP|XDG_[A-Z_]+|SYSTEMROOT|SYSTEMDRIVE|WINDIR|COMSPEC|PATHEXT|APPDATA|LOCALAPPDATA|USERPROFILE|HOMEDRIVE|HOMEPATH|PROGRAMDATA|PROGRAMFILES|HTTPS?_PROXY|NO_PROXY|NODE_EXTRA_CA_CERTS|SSL_CERT_FILE|SSL_CERT_DIR)$/i;
+
+/** CLI config: every tool denied; key only by env reference. */
 export function cliConfig(keyVar = DEFAULT_KEY_VAR) {
   if (!KEY_VAR_RE.test(keyVar))
     throw new Error("key variable name must look like OPENCODE_*");
   return {
     $schema: "https://opencode.ai/config.json",
-    permission: { edit: "deny", bash: "deny", webfetch: "deny" },
+    permission: Object.fromEntries(CLI_TOOLS.map((t) => [t, "deny"])),
     provider: { opencode: { options: { apiKey: `{env:${keyVar}}` } } },
   };
 }
@@ -119,6 +141,9 @@ export function goWorkerScript(repoRoot) {
  * PWD it ignored opencode.json, ran anonymously and hit "Free usage limit
  * reached"), so PWD must point at the attempt directory.
  */
-export function cliEnv(env, dir) {
-  return { ...env, PWD: dir };
+export function cliEnv(env, dir, keyVar = DEFAULT_KEY_VAR) {
+  const out = { PWD: dir };
+  for (const [k, v] of Object.entries(env))
+    if (CLI_ENV_KEEP.test(k) || k === keyVar) out[k] = v;
+  return out;
 }

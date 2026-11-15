@@ -155,17 +155,45 @@ test("free pool: zdr-only for internal code, CLI locked down, key by env referen
   ]);
   assert.throws(() => eligibleModels(pool, "personal"), /data-class/);
   const cfg = cliConfig();
-  assert.deepEqual(cfg.permission, {
-    edit: "deny",
-    bash: "deny",
-    webfetch: "deny",
-  });
+  // Security audit run 2 (2026-11-15): the model-driven CLI gets no tool at all.
+  for (const tool of [
+    "read",
+    "glob",
+    "grep",
+    "list",
+    "edit",
+    "bash",
+    "task",
+    "external_directory",
+    "webfetch",
+    "websearch",
+  ])
+    assert.equal(cfg.permission[tool], "deny", `${tool} denied`);
   assert.equal(
     cfg.provider.opencode.options.apiKey,
     "{env:OPENCODE_GO_API_KEY_1}",
   );
   assert.throws(() => cliConfig("AWS_SECRET"), /OPENCODE_/);
   assert.equal(cliEnv({ A: "1" }, "/d").PWD, "/d");
+  // ...and only the environment it needs: never other provider keys or tokens.
+  const child = cliEnv(
+    {
+      PATH: "/bin",
+      HOME: "/h",
+      OPENCODE_GO_API_KEY_1: "k",
+      CLAUDE_API_KEY: "c",
+      GITHUB_TOKEN: "g",
+      AWS_SECRET_ACCESS_KEY: "a",
+    },
+    "/d",
+    "OPENCODE_GO_API_KEY_1",
+  );
+  assert.deepEqual(Object.keys(child).sort(), [
+    "HOME",
+    "OPENCODE_GO_API_KEY_1",
+    "PATH",
+    "PWD",
+  ]);
   assert.equal(cleanOutput("\u001b[0m> build · glm\nhello\n"), "hello");
   assert.equal(attemptState({ status: 0, stdout: "x" }), "settled");
   assert.equal(

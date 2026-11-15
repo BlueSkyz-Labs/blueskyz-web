@@ -131,7 +131,7 @@ function main() {
     const t0 = Date.now();
     const r = spawnSync(bin, cliArgs(model, prompt), {
       cwd: dir,
-      env: cliEnv(process.env, dir),
+      env: cliEnv(process.env, dir, keyVar),
       input: "",
       encoding: "utf8",
       timeout,

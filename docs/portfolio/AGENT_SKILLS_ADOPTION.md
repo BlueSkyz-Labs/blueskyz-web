@@ -11,7 +11,7 @@ Standard: sgps-core `standards/portfolio/AGENT_SKILL_PACKS_STANDARD.md` (registr
 | marketingskills (SGPS:GTM) | v2.14.12 `1f83744` | ADAPT             | SEO, AI search, schema, site architecture, launch, content; context `docs/gtm/PRODUCT_MARKETING.md`                   |
 | astryx (design system)     | v0.7.14 `c6ca304`  | REFERENCE         | the site keeps its own Astro C2 to C4 component system and tokens; no dependency                                      |
 | hallmark (craft audit)     | 2.0.0 `04977e1`    | ADAPT, audit only | brand lock `DESIGN.md` present; build and redesign modes not used on this house surface                               |
-| security-audit             | `c1c8a8c`          | ADOPT             | first full run is queued; its run log goes in `docs/security/` (Owner-label path) when it runs                        |
+| security-audit             | `c1c8a8c`          | ADOPT             | run 1 done 2026-11-15, log `docs/security/SECURITY_AUDIT_RUNS.md`                                                     |
 
 ## Copy polish log
 
@@ -22,4 +22,4 @@ Standard: sgps-core `standards/portfolio/AGENT_SKILL_PACKS_STANDARD.md` (registr
 ## NOT VERIFIED
 
 - No Hallmark `sloplint` run recorded yet on the rendered site.
-- No security-audit run on this repository yet.
+- Security audit run 1 is source-only (no OS sandbox); the free-worker fix is not yet checked against a real opencode CLI.
