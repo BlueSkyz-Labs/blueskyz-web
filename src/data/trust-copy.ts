@@ -45,8 +45,7 @@ export const SECURITY_COPY: PerLang<SecurityCopy> = {
     whyBody:
       "A public issue shows everyone the defect, and who reported it, before anyone has had a chance to look at it.",
     limitLabel: "Limit:",
-    limitBody:
-      "This site does not collect reports itself. Every report goes to GitHub.",
+    limitBody: "This site does not collect reports itself. They go to GitHub.",
     sourcesLabel: "Sources:",
     sources: [
       {
@@ -71,7 +70,7 @@ export const SECURITY_COPY: PerLang<SecurityCopy> = {
       "Một issue công khai sẽ để lộ cả lỗ hổng lẫn người báo trước khi có ai kịp xem xét.",
     limitLabel: "Giới hạn:",
     limitBody:
-      "Trang web này không tự nhận báo cáo. Mọi báo cáo đều gửi qua GitHub.",
+      "Trang web này không tự nhận báo cáo. Báo cáo được gửi qua GitHub.",
     sourcesLabel: "Nguồn:",
     sources: [
       {

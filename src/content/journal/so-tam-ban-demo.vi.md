@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-Có những ngày mình chỉ muốn viết vài dòng, không cần ai đọc. Sổ Tâm, một sản phẩm của BlueSkyz Labs, là cuốn nhật ký riêng tư cho những ngày như thế: nơi viết ra suy nghĩ, nhìn lại và giữ những điều có ý nghĩa, không có nhịp độ nào phải theo, không có điều gì bạn phải làm. Đây là bản demo, đang trong giai đoạn hoàn thiện. Dưới đây là các màn hình thật của bản đang phát triển, chụp ngày 25/10/2026.
+Sổ Tâm, một sản phẩm của BlueSkyz Labs, là cuốn nhật ký riêng tư cho những ngày bạn muốn viết vài dòng cho riêng mình: nơi viết ra suy nghĩ, nhìn lại và giữ những điều có ý nghĩa, không có nhịp độ nào phải theo, không có điều gì bạn phải làm. Đây là bản demo, đang trong giai đoạn hoàn thiện. Dưới đây là các màn hình thật của bản đang phát triển, chụp ngày 25/10/2026.
 
 ## Một ngày Chủ Nhật (tình huống minh họa)
 

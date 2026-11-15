@@ -76,7 +76,7 @@ export const SECURITY_BOUNDARY: BoundaryStatement = {
   },
   doesNotImply: {
     en: "It does not create a bug-bounty program, a promised response time or a right to public disclosure.",
-    vi: "Điều này không có nghĩa là có chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai.",
+    vi: "Điều này không tạo ra chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai.",
     zh: "这并不构成漏洞赏金计划、响应时间服务等级协议，或要求公开披露的权利。",
     "zh-hant":
       "這並不構成漏洞賞金計畫、回應時間服務等級協定，或要求公開揭露的權利。",

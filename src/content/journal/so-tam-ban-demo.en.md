@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-Some days you want to write a few lines that nobody else will read. Sổ Tâm, a BlueSkyz Labs product, is a private journal for those days: a place to write down your thoughts, look back and keep what matters, with no pace to keep up with and nothing you have to do. It is a demo, still being finished. Below are real screens of the development build, captured on 25 October 2026.
+Sổ Tâm, a BlueSkyz Labs product, is a private journal for the days you want to write a few lines for yourself: a place to write down your thoughts, look back and keep what matters, with no pace to keep up with and nothing you have to do. It is a demo, still being finished. Below are real screens of the development build, captured on 25 October 2026.
 
 ## A Sunday (an illustrative scenario)
 

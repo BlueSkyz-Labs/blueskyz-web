@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-The first days of the month are when a landlord reads the meters and collects the rent. Sổ Trọ, a BlueSkyz Labs product for landlords in Vietnam, is built so that a landlord, older landlords included, can open it and know what needs doing today, record each payment once, and have family help when needed. It is a demo, still being finished. Below, we follow one such day through real screens captured on 25 October 2026.
+The first days of the month are when a landlord reads the meters and collects the rent. Sổ Trọ, a BlueSkyz Labs product for landlords in Vietnam, aims to let a landlord, older landlords included, open it and know what needs doing today, record each payment once, and have family help when needed. It is a demo, still being finished. Below, we follow one such day through real screens captured on 25 October 2026.
 
 ## A first-of-the-month day (an illustrative scenario)
 

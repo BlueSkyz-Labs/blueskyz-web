@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-Đầu tháng là lúc chủ trọ đi ghi điện nước và thu tiền phòng. Sổ Trọ, sản phẩm của BlueSkyz Labs cho chủ trọ ở Việt Nam, được làm để một chủ trọ, kể cả người lớn tuổi, mở ra là biết hôm nay cần làm gì, ghi mỗi khoản đúng một lần và có người nhà giúp khi cần. Đây là bản demo, đang trong giai đoạn hoàn thiện. Bài này theo chân một ngày như thế qua các màn hình thật chụp ngày 25/10/2026.
+Đầu tháng là lúc chủ trọ đi ghi điện nước và thu tiền phòng. Sổ Trọ, sản phẩm của BlueSkyz Labs cho chủ trọ ở Việt Nam, nhằm để một chủ trọ, kể cả người lớn tuổi, mở ra là biết hôm nay cần làm gì, ghi mỗi khoản đúng một lần và có người nhà giúp khi cần. Đây là bản demo, đang trong giai đoạn hoàn thiện. Bài này theo chân một ngày như thế qua các màn hình thật chụp ngày 25/10/2026.
 
 ## Một ngày đầu tháng (tình huống minh họa)
 
