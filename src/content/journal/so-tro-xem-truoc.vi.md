@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-Sổ Trọ, sổ thu tiền trọ của BlueSkyz Labs, đang mở xem trước trên web cho chủ trọ ở Việt Nam. Bài này nói sản phẩm giúp được gì và hiện đã có những gì. Mở Sổ Trọ ra là biết tháng này phòng nào chưa đóng tiền trọ và hôm nay cần làm gì.
+Sổ Trọ, sổ thu tiền trọ của BlueSkyz Labs, đang mở xem trước trên web cho chủ trọ ở Việt Nam. Mở Sổ Trọ ra là biết tháng này phòng nào chưa đóng tiền trọ và hôm nay cần làm gì. Dưới đây là những gì sản phẩm làm được và những gì bạn dùng được ngay hôm nay.
 
 ## Sổ Trọ giúp gì
 

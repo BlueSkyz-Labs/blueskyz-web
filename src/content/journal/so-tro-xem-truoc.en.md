@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-Sổ Trọ, BlueSkyz Labs' rent book, is now in web preview for landlords in Vietnam. This post covers what it does and what is available today. Open it and see who still owes rent this month and what needs doing today.
+Sổ Trọ, the rent book from BlueSkyz Labs, is now in web preview for landlords in Vietnam. Open it and you see who still owes rent this month and what needs doing today. Here is what it does and what you can use today.
 
 ## What Sổ Trọ helps with
 

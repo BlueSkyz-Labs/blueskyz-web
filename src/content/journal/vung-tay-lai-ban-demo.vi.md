@@ -20,11 +20,11 @@ infographic:
 draft: false
 ---
 
-Vững Tay Lái là sản phẩm của BlueSkyz Labs dành cho người đang học lý thuyết lái xe hạng B ở Việt Nam. Mục tiêu của dự án là giúp người học hiểu vì sao một đáp án đúng, biết mình còn hiểu lầm chỗ nào và quay lại ôn đúng chỗ đó, thay vì chỉ học thuộc. Đây là bản demo, đang trong giai đoạn hoàn thiện. Bài này đi qua các màn hình thật của bản đang phát triển.
+Vững Tay Lái, sản phẩm của BlueSkyz Labs cho người đang học lý thuyết lái xe hạng B ở Việt Nam, nhằm giúp người học hiểu vì sao một đáp án đúng, biết mình còn hiểu lầm chỗ nào và quay lại ôn đúng chỗ đó, thay vì chỉ học thuộc. Đây là bản demo, đang trong giai đoạn hoàn thiện. Bài này theo chân một buổi tối ôn thi qua các màn hình thật của bản đang phát triển.
 
 ## Một buổi tối ôn thi (tình huống minh họa)
 
-Tình huống dưới đây dùng câu trả lời mẫu để giới thiệu cách sản phẩm vận hành. Nhân vật không phải người dùng thật.
+Câu chuyện dưới đây là tình huống minh họa, dùng câu trả lời mẫu; nhân vật không phải người dùng thật.
 
 Sau giờ làm, người học mở Vững Tay Lái. Màn hình **Việc hôm nay** chỉ đưa ra một việc cho giai đoạn người học đã chọn, kèm lối tắt đến thi thử, biển báo và sa hình.
 

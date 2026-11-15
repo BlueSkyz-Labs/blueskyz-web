@@ -30,8 +30,8 @@ export const EDITIONS: readonly EditionRecord[] = [
       { kind: "claim", id: "registry-publishes-only-proven-products" },
     ],
     note: {
-      en: "Collected from statements already published here. Adds no new claim.",
-      vi: "Chọn lọc từ các tuyên bố đã đăng ở đây. Không thêm tuyên bố mới.",
+      en: "The statements here were already published on this site; this collection adds none of its own.",
+      vi: "Các tuyên bố ở đây đều đã đăng trên trang này; tuyển tập không thêm tuyên bố nào mới.",
       zh: "选自本站已发布的声明，不新增任何声明。",
       "zh-hant": "選自本站已發布的聲明，不新增任何聲明。",
     },
