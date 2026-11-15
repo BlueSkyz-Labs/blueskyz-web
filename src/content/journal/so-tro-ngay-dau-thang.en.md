@@ -20,17 +20,17 @@ infographic:
 draft: false
 ---
 
-Sổ Trọ is a BlueSkyz Labs product for landlords in Vietnam. The project's goal is that a landlord, older landlords included, can open it and know what needs doing today, record each payment once, and have family help when needed. This is a demo, still being finished. This post walks through real screens captured on 25 October 2026.
+The first days of the month are when a landlord reads the meters and collects the rent. Sổ Trọ, a BlueSkyz Labs product for landlords in Vietnam, aims to let a landlord, older landlords included, open it and know what needs doing today, record each payment once, and have family help when needed. It is a demo, still being finished. Below, we follow one such day through real screens captured on 25 October 2026.
 
 ## A first-of-the-month day (an illustrative scenario)
 
-The scenario below uses sample data to show how the product works. The people in it are not real users.
+The day below is illustrative and uses sample data; the people in it are not real users.
 
 **Morning.** The owner of a small row of rental rooms opens Sổ Trọ on her phone. The **Today** screen asks one question: "Hôm nay cần làm gì?" (what needs doing today?). Below it are only the things to remember and this month's unpaid rent.
 
-**Meter readings.** First, the month's readings. On the **meter readings** screen she picks a room, enters the numbers and moves to the next, down the whole row.
+**Meter readings.** The month starts with the meters. On the **meter readings** screen she picks a room, enters the numbers and moves to the next, down the whole row.
 
-**Collecting rent.** In the afternoon, the tenant in room P13 brings the rent. On the **Collect rent** screen, the **Cần thu** (to collect) list puts the rooms that need attention first. The screen says it plainly: settle the amount before recording it as received; just opening the screen settles nothing. She settles the amount, then taps **Đã nhận tiền** (money received). For tenants who pay by transfer, there is a button to send a Zalo message with a bank-transfer QR code; the QR code appears only once the building has a receiving bank account set up. Solar and lunar dates sit in the month's money overview.
+**Collecting rent.** In the afternoon, the tenant in room P13 brings the rent. On the **Collect rent** screen, the **Cần thu** (to collect) list puts the rooms that need attention first. The screen spells out the rule: settle the amount first, then record it as received. Opening the screen alone settles nothing. She settles the amount, then taps **Đã nhận tiền** (money received). For tenants who pay by transfer, there is a button to send a Zalo message with a bank-transfer QR code; the QR code appears only once the building has a receiving bank account set up. Solar and lunar dates sit in the month's money overview.
 
 **Family helps.** Her son wants to help her. His phone opens the link she sends and he taps **Kết nối điện thoại này** (connect this phone) once, with no account or password. On the desktop, under **Gia đình & thiết bị** (family and devices), the owner chooses who uses which phone.
 

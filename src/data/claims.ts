@@ -124,8 +124,8 @@ export const CLAIMS: readonly PublicClaim[] = [
     kind: "policy",
     surface: "privacy",
     statement: {
-      en: "This site sets no cookies. It stores explicitly selected language and theme preferences in this browser, without tracking or profiling.",
-      vi: "Trang web này không đặt cookie. Trang web chỉ lưu lựa chọn ngôn ngữ và giao diện do khách truy cập chủ động chọn trong trình duyệt, không theo dõi hay lập hồ sơ.",
+      en: "This site sets no cookies. It keeps only the language and theme preferences you choose, in this browser, and does no tracking or profiling.",
+      vi: "Trang web này không đặt cookie. Trang chỉ giữ lựa chọn ngôn ngữ và giao diện của bạn, ngay trong trình duyệt này, và không theo dõi hay lập hồ sơ người xem.",
       zh: "本站不设置 Cookie；仅在访客明确选择语言或主题时于浏览器本地保存偏好，不进行跟踪或行为画像。",
       "zh-hant":
         "本站不設定 Cookie；僅在訪客明確選擇語言或主題時於瀏覽器本地儲存偏好，不進行追蹤或行為剖析。",
@@ -153,13 +153,13 @@ export const CLAIMS: readonly PublicClaim[] = [
     surface: "products",
     statement: {
       en: "A product appears in the public registry only when its public evidence is ready to verify.",
-      vi: "Sản phẩm chỉ xuất hiện trong danh mục công khai khi bằng chứng công khai của nó sẵn sàng để xác minh.",
+      vi: "Một sản phẩm chỉ có tên trong danh mục công khai khi bằng chứng công khai về nó đã sẵn sàng để kiểm chứng.",
       zh: "产品仅在其公开证据可核验时才会出现在公开登记表中。",
       "zh-hant": "產品僅在其公開證據可核驗時才會出現在公開登錄名單中。",
     },
     verifyStatement: {
       en: "A product is listed here only when its public evidence is ready to check.",
-      vi: "Sản phẩm chỉ được liệt kê khi bằng chứng công khai sẵn sàng để kiểm chứng.",
+      vi: "Sản phẩm chỉ được liệt kê khi bằng chứng công khai đã sẵn sàng để kiểm chứng.",
       zh: "只有公开证据可核验时，产品才会列在这里。",
       "zh-hant": "只有公開證據可查證時，產品才會列在這裡。",
     },
