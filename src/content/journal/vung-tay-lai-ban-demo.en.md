@@ -20,11 +20,11 @@ infographic:
 draft: false
 ---
 
-Vững Tay Lái is a BlueSkyz Labs product for people studying the class-B driving theory test in Vietnam. The project's goal is to help learners understand why an answer is right, see where they still misunderstand, and go back to exactly that point, rather than memorising answers. This is a demo, still being finished. This post walks through real screens of the development build.
+Vững Tay Lái, a BlueSkyz Labs product for people studying the class-B driving theory test in Vietnam, is built to help learners understand why an answer is right, see where they still misunderstand, and go back to exactly that point, rather than memorising answers. It is a demo, still being finished. Below, we follow one evening of revision through real screens of the development build.
 
 ## An evening of revision (an illustrative scenario)
 
-The scenario below uses sample answers to show how the product works. The learner is not a real user.
+The evening below is illustrative and uses sample answers; the learner is not a real user.
 
 After work, a learner opens Vững Tay Lái. The **Today** screen offers one task for the stage the learner chose, with shortcuts to the mock exam, road signs and practical driving.
 

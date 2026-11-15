@@ -20,11 +20,11 @@ infographic:
 draft: false
 ---
 
-Sổ Tâm là sản phẩm của BlueSkyz Labs: một cuốn nhật ký riêng tư để viết ra suy nghĩ, nhìn lại và giữ những điều có ý nghĩa. Mục tiêu của dự án là một nơi để lưu lại điều có ý nghĩa: không có nhịp độ nào phải theo, không có điều gì bạn phải làm. Đây là bản demo, đang trong giai đoạn hoàn thiện. Bài này đi qua các màn hình thật của bản đang phát triển, chụp ngày 25/10/2026.
+Có những ngày mình chỉ muốn viết vài dòng, không cần ai đọc. Sổ Tâm, một sản phẩm của BlueSkyz Labs, là cuốn nhật ký riêng tư cho những ngày như thế: nơi viết ra suy nghĩ, nhìn lại và giữ những điều có ý nghĩa, không có nhịp độ nào phải theo, không có điều gì bạn phải làm. Đây là bản demo, đang trong giai đoạn hoàn thiện. Dưới đây là các màn hình thật của bản đang phát triển, chụp ngày 25/10/2026.
 
 ## Một ngày Chủ Nhật (tình huống minh họa)
 
-Tình huống dưới đây dùng nội dung mẫu để minh họa những gì hiện ra trên màn hình. Nhân vật không phải người dùng thật.
+Câu chuyện dưới đây là tình huống minh họa, dùng nội dung mẫu; nhân vật không phải người dùng thật.
 
 **Bắt đầu.** Một người mở Sổ Tâm trên trình duyệt điện thoại lần đầu. Thẻ chào mừng viết "Giữ điều có ý nghĩa." và nói rõ: không cần tài khoản, bản viết trên web lưu trong trình duyệt này, không mã hóa và không tự đồng bộ. Người ấy chạm **Bắt đầu**.
 

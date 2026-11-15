@@ -20,11 +20,11 @@ infographic:
 draft: false
 ---
 
-Sổ Tâm is a BlueSkyz Labs product: a private journal for writing down your thoughts, looking back and keeping what matters. The project's goal is a place to keep what matters, with no pace to keep up with and nothing you have to do. This is a demo, still being finished. This post walks through real screens of the development build, captured on 25 October 2026.
+Some days you want to write a few lines that nobody else will read. Sổ Tâm, a BlueSkyz Labs product, is a private journal for those days: a place to write down your thoughts, look back and keep what matters, with no pace to keep up with and nothing you have to do. It is a demo, still being finished. Below are real screens of the development build, captured on 25 October 2026.
 
 ## A Sunday (an illustrative scenario)
 
-The scenario below uses sample text to illustrate what the screens show. The person in it is not a real user.
+The day below is illustrative and uses sample text; the person in it is not a real user.
 
 **Starting.** Someone opens Sổ Tâm in their phone's browser for the first time. The welcome card reads "Giữ điều có ý nghĩa." (keep what matters) and says plainly that no account is needed, and that on the web the writing stays in this browser, unencrypted and does not sync by itself. They tap **Bắt đầu** (start).
 

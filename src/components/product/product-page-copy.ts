@@ -74,9 +74,9 @@ const DECK: Record<
       whatItDoes: [
         "Write private reflections at your own pace",
         "Reread your entries and memories",
-        "Local-first writing in a private Personal Vault",
-        "Export your reflections to your device, when you choose",
-        "Private Vault storage with clearly defined recovery limits",
+        "Your writing stays on your own device first, in a private Personal Vault",
+        "Export your entries to your device whenever you choose",
+        "Vault storage that states plainly what can and cannot be recovered",
       ],
     },
     vi: {
@@ -85,9 +85,9 @@ const DECK: Record<
       whatItDoes: [
         "Viết suy nghĩ riêng tư theo nhịp của bạn",
         "Đọc lại nhật ký và kỷ niệm",
-        "Nhật ký ưu tiên lưu trên máy, trong kho cá nhân riêng tư",
+        "Bài viết lưu trên máy của bạn trước tiên, trong kho cá nhân riêng tư",
         "Tự xuất bài viết ra máy khi bạn muốn",
-        "Lưu trong kho cá nhân riêng tư, với giới hạn khôi phục được nêu rõ",
+        "Lưu trong kho cá nhân riêng tư, nói rõ điều gì khôi phục được và điều gì không",
       ],
     },
     zh: {

@@ -40,13 +40,13 @@ export const SECURITY_COPY: PerLang<SecurityCopy> = {
     note: "Only maintainers can see reports.",
     offerLead: "What we do not offer:",
     offerBody:
-      "a bug bounty, a response-time commitment or a right to public disclosure. We publish no certification badges without verified evidence.",
+      "a bug bounty, a response-time commitment or a right to public disclosure. We show no certification badge unless the evidence behind it has been verified.",
     whyLabel: "Why private:",
     whyBody:
-      "A public issue publishes the reporter and the defect before anyone can look at either.",
+      "A public issue shows everyone the defect, and who reported it, before anyone has had a chance to look at it.",
     limitLabel: "Limit:",
     limitBody:
-      "This site has no intake service of its own. Reports go to GitHub, not to this site.",
+      "This site does not collect reports itself. Every report goes to GitHub.",
     sourcesLabel: "Sources:",
     sources: [
       {
@@ -60,18 +60,18 @@ export const SECURITY_COPY: PerLang<SecurityCopy> = {
   },
   vi: {
     title: "Bảo mật",
-    lede: "Báo cáo vấn đề bảo mật riêng tư qua GitHub. Đừng mở issue công khai (mục báo lỗi công khai trên GitHub).",
+    lede: "Hãy báo cáo vấn đề bảo mật một cách riêng tư qua GitHub, đừng mở issue công khai (mục báo lỗi công khai trên GitHub).",
     cta: "Báo cáo lỗ hổng",
     note: "Chỉ người bảo trì (người quản lý kho mã nguồn trên GitHub) xem được.",
     offerLead: "Chúng tôi không cung cấp:",
     offerBody:
-      "chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai. Chúng tôi không đăng huy hiệu chứng nhận nếu chưa có bằng chứng đã kiểm chứng.",
+      "chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai. Chúng tôi không gắn huy hiệu chứng nhận nào khi chưa có bằng chứng đã được kiểm chứng.",
     whyLabel: "Vì sao riêng tư:",
     whyBody:
-      "Issue công khai sẽ làm lộ người báo và lỗ hổng trước khi có ai kịp xử lý.",
+      "Một issue công khai sẽ để lộ cả lỗ hổng lẫn người báo trước khi có ai kịp xem xét.",
     limitLabel: "Giới hạn:",
     limitBody:
-      "Trang web này không có dịch vụ tiếp nhận riêng. Báo cáo đi tới GitHub, không đến trang này.",
+      "Trang web này không tự nhận báo cáo. Mọi báo cáo đều gửi qua GitHub.",
     sourcesLabel: "Nguồn:",
     sources: [
       {
@@ -145,7 +145,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "This site sets no cookies. It stores only the language and theme you choose, in your browser, with no tracking or profiling.",
     collectedLead: "What is collected.",
     collectedBody:
-      "No accounts or forms. Server and CDN logs may record technical data such as your IP address, browser type and the page requested, for security, abuse prevention and reliable delivery, not advertising. Page speed is measured with Cloudflare Web Analytics: no cookies/storage, only load timings, page address, browser version, memory figures and a per-load random ID. Cloudflare keeps raw data for 7 days, then about a 10% sample. No ad pixels or session recording.",
+      "No accounts or forms. Server and CDN logs may record technical data such as your IP address, browser type and the page requested, for security, abuse prevention and reliable delivery, never advertising. Cloudflare Web Analytics measures page speed without cookies or storage, sending only load timings, page address, browser version, memory figures and a per-load random ID. Cloudflare keeps raw data 7 days, then about a 10% sample. No ad pixels or session recording.",
     limitsLead: "Limits.",
     limitsBody:
       "This does not mean no data is processed. Any website needs infrastructure that handles network data such as IP addresses and request headers.",
@@ -164,7 +164,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "Trang web này không đặt cookie. Chỉ lưu ngôn ngữ và giao diện bạn chọn, trong trình duyệt của bạn; không theo dõi, không lập hồ sơ.",
     collectedLead: "Thu thập gì.",
     collectedBody:
-      "Không có tài khoản hay biểu mẫu. Nhật ký máy chủ và CDN có thể ghi dữ liệu kỹ thuật như địa chỉ IP, loại trình duyệt và trang được yêu cầu, cho bảo mật, chống lạm dụng và phân phối ổn định, không cho quảng cáo. Tốc độ tải trang được đo bằng Cloudflare Web Analytics: không cookie hay lưu trữ; chỉ gửi thời gian tải, địa chỉ trang, phiên bản trình duyệt, bộ nhớ và mã ngẫu nhiên từng lượt tải. Cloudflare giữ dữ liệu gốc 7 ngày, sau đó giữ mẫu ~10%. Không pixel quảng cáo, không ghi phiên.",
+      "Không có tài khoản hay biểu mẫu. Nhật ký máy chủ và CDN có thể ghi dữ liệu kỹ thuật như địa chỉ IP, loại trình duyệt và trang được yêu cầu, để bảo mật, chống lạm dụng và phân phối ổn định, không cho quảng cáo. Cloudflare Web Analytics đo tốc độ tải trang, không dùng cookie hay bộ nhớ, chỉ gửi thời gian tải, địa chỉ trang, phiên bản trình duyệt, bộ nhớ và mã ngẫu nhiên mỗi lượt tải. Cloudflare giữ dữ liệu gốc 7 ngày, sau đó giữ mẫu khoảng 10%. Không pixel quảng cáo, không ghi phiên.",
     limitsLead: "Giới hạn.",
     limitsBody:
       "Điều này không có nghĩa là không có dữ liệu nào được xử lý. Mọi trang web đều cần hạ tầng xử lý dữ liệu mạng như địa chỉ IP và header yêu cầu (thông tin kỹ thuật trình duyệt tự gửi kèm).",
