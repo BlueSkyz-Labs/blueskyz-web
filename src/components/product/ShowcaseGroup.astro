@@ -75,7 +75,10 @@ const desktopSmallSrc = (src: string) => src.replace(/\.webp$/, "-768.webp");
               <strong class="font-semibold text-[var(--text-primary)]">
                 {item.title[lang]}
               </strong>
-              <span> — {item.caption[lang]}</span>
+              <span>
+                {lang === "zh" || lang === "zh-hant" ? "：" : ": "}
+                {item.caption[lang]}
+              </span>
               <a
                 href={item.src}
                 class="showcase__inspect"
@@ -130,7 +133,10 @@ const desktopSmallSrc = (src: string) => src.replace(/\.webp$/, "-768.webp");
               <strong class="font-semibold text-[var(--text-primary)]">
                 {item.title[lang]}
               </strong>
-              <span> — {item.caption[lang]}</span>
+              <span>
+                {lang === "zh" || lang === "zh-hant" ? "：" : ": "}
+                {item.caption[lang]}
+              </span>
               <a
                 href={item.src}
                 class="showcase__inspect"

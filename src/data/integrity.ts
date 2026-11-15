@@ -69,14 +69,14 @@ export interface IntegrityEntry {
 export const SECURITY_BOUNDARY: BoundaryStatement = {
   id: "bnd-security-reporting",
   claim: {
-    en: "Private vulnerability reporting is available through GitHub security advisories, visible only to maintainers.",
-    vi: "Kênh báo cáo lỗ hổng riêng tư khả dụng qua GitHub security advisories (kênh báo lỗ hổng riêng tư của GitHub), chỉ người bảo trì nhìn thấy.",
+    en: "You can report a vulnerability privately through GitHub security advisories. Only the maintainers can see the report.",
+    vi: "Bạn có thể báo cáo lỗ hổng riêng tư qua GitHub security advisories (kênh báo lỗ hổng riêng tư của GitHub). Chỉ người bảo trì đọc được báo cáo.",
     zh: "可通过 GitHub 安全通告私下报告漏洞，仅维护者可见。",
     "zh-hant": "可透過 GitHub 安全通告私下報告漏洞，僅維護者可見。",
   },
   doesNotImply: {
-    en: "It does not establish a bug-bounty program, a response-time SLA, or a right to public disclosure.",
-    vi: "Nó không xác lập chương trình thưởng lỗ hổng, cam kết thời gian phản hồi, hay quyền công bố công khai.",
+    en: "It does not create a bug-bounty program, a promised response time or a right to public disclosure.",
+    vi: "Điều này không tạo ra chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai.",
     zh: "这并不构成漏洞赏金计划、响应时间服务等级协议，或要求公开披露的权利。",
     "zh-hant":
       "這並不構成漏洞賞金計畫、回應時間服務等級協定，或要求公開揭露的權利。",
@@ -86,15 +86,15 @@ export const SECURITY_BOUNDARY: BoundaryStatement = {
 export const PRIVACY_BOUNDARY: BoundaryStatement = {
   id: "bnd-privacy-collection",
   claim: {
-    en: "This site sets no cookies. It stores explicitly selected language and theme preferences in this browser, without tracking or profiling.",
-    vi: "Trang web này không đặt cookie. Trang web chỉ lưu lựa chọn ngôn ngữ và giao diện do khách truy cập chủ động chọn trong trình duyệt, không theo dõi hay lập hồ sơ.",
+    en: "This site sets no cookies. It keeps only the language and theme preferences you choose, in this browser, and does no tracking or profiling.",
+    vi: "Trang web này không đặt cookie. Trang chỉ giữ lựa chọn ngôn ngữ và giao diện của bạn, ngay trong trình duyệt này, và không theo dõi hay lập hồ sơ người xem.",
     zh: "本站不设置 Cookie；仅在访客明确选择语言或主题时于浏览器本地保存偏好，不进行跟踪或行为画像。",
     "zh-hant":
       "本站不設定 Cookie；僅在訪客明確選擇語言或主題時於瀏覽器本地儲存偏好，不進行追蹤或行為剖析。",
   },
   doesNotImply: {
-    en: "It does not establish that no data at all is processed: serving any website still requires infrastructure to handle network-level metadata such as IP addresses and request headers.",
-    vi: "Nó không xác lập rằng không có dữ liệu nào được xử lý: mọi trang web vẫn cần hạ tầng xử lý siêu dữ liệu mạng như địa chỉ IP và header yêu cầu (thông tin kỹ thuật trình duyệt tự gửi kèm).",
+    en: "It does not mean that no data is processed at all: any website needs infrastructure that handles network data such as IP addresses and request headers.",
+    vi: "Điều này không có nghĩa là không có dữ liệu nào được xử lý: trang web nào cũng cần hạ tầng xử lý dữ liệu mạng như địa chỉ IP và header yêu cầu (thông tin kỹ thuật trình duyệt tự gửi kèm).",
     zh: "这并不表示完全不会处理任何数据：提供任何网站服务仍需要基础设施处理网络层面元数据，例如 IP 地址和请求头。",
     "zh-hant":
       "這並不表示完全不會處理任何資料：提供任何網站服務仍需要基礎設施處理網路層級的中繼資料，例如 IP 位址和請求標頭。",
@@ -111,8 +111,8 @@ export const INTEGRITY_ENTRIES: readonly IntegrityEntry[] = [
     surface: "security",
     state: "source-linked",
     summary: {
-      en: "Vulnerability reports reach the maintainers through GitHub private advisories, and the security route publishes no unproven badges.",
-      vi: "Báo cáo lỗ hổng đến người bảo trì qua GitHub private advisories, và trang bảo mật không công bố huy hiệu nào khi chưa chứng minh.",
+      en: "Vulnerability reports reach the maintainers through GitHub's private advisories, and the security page shows no badge that has not been proven.",
+      vi: "Báo cáo lỗ hổng đến tay người bảo trì qua kênh báo cáo riêng tư của GitHub, và trang bảo mật không đăng huy hiệu nào chưa được chứng minh.",
       zh: "漏洞报告通过 GitHub 私有通告送达维护者，安全页面不发布未经证明的徽章。",
       "zh-hant":
         "漏洞報告透過 GitHub 私有通告送達維護者，安全頁面不發布未經證明的徽章。",
@@ -159,8 +159,8 @@ export const INTEGRITY_ENTRIES: readonly IntegrityEntry[] = [
     surface: "privacy",
     state: "source-linked",
     summary: {
-      en: "The privacy route states exactly what is and is not collected, and page speed is measured with Cloudflare Web Analytics, as described there.",
-      vi: "Trang quyền riêng tư nêu rõ điều gì được và không được thu thập, và tốc độ tải trang được đo bằng Cloudflare Web Analytics, như đã nêu ở đó.",
+      en: "The privacy page says exactly what is and is not collected, including how page speed is measured with Cloudflare Web Analytics.",
+      vi: "Trang quyền riêng tư nói rõ điều gì được thu thập và điều gì không, kể cả cách đo tốc độ tải trang bằng Cloudflare Web Analytics.",
       zh: "隐私页面明确说明收集与不收集的内容，页面加载速度通过 Cloudflare Web Analytics 测量，详见该页。",
       "zh-hant":
         "隱私頁面明確說明收集與不收集的內容，頁面載入速度透過 Cloudflare Web Analytics 測量，詳見該頁。",
@@ -206,8 +206,8 @@ export const INTEGRITY_ENTRIES: readonly IntegrityEntry[] = [
     surface: "products",
     state: "not-published",
     summary: {
-      en: "The public registry stays quiet by design: listings appear only when a product's evidence is ready to verify.",
-      vi: "Danh mục công khai giữ im lặng có chủ đích: mục chỉ xuất hiện khi bằng chứng của sản phẩm sẵn sàng để xác minh.",
+      en: "The public registry is sparse on purpose: a product is listed only when its evidence is ready to verify.",
+      vi: "Danh mục công khai cố ý để thưa: một sản phẩm chỉ được liệt kê khi bằng chứng của nó đã sẵn sàng để kiểm chứng.",
       zh: "公开登记表按设计保持静默：仅当产品的证据可核验时才显示条目。",
       "zh-hant":
         "公開登錄名單按設計保持靜默：僅當產品的證據可核驗時才顯示條目。",
@@ -259,12 +259,12 @@ export interface MirrorPair {
 export const MIRROR_PAIRS: readonly MirrorPair[] = [
   {
     id: "security-reporting",
-    en: "Private vulnerability reporting is available through GitHub security advisories, visible only to maintainers.",
-    vi: "Kênh báo cáo lỗ hổng riêng tư khả dụng qua GitHub security advisories (kênh báo lỗ hổng riêng tư của GitHub), chỉ người bảo trì nhìn thấy.",
+    en: "You can report a vulnerability privately through GitHub security advisories. Only the maintainers can see the report.",
+    vi: "Bạn có thể báo cáo lỗ hổng riêng tư qua GitHub security advisories (kênh báo lỗ hổng riêng tư của GitHub). Chỉ người bảo trì đọc được báo cáo.",
   },
   {
     id: "security-limits",
-    en: "Reporting does not establish a bug-bounty program, a response-time SLA, or a right to public disclosure.",
-    vi: "Việc báo cáo không xác lập chương trình bug-bounty, cam kết thời gian phản hồi, hay quyền công bố công khai.",
+    en: "Reporting does not create a bug-bounty program, a promised response time or a right to public disclosure.",
+    vi: "Gửi báo cáo không đồng nghĩa với chương trình thưởng lỗ hổng, cam kết thời gian phản hồi hay quyền công bố công khai.",
   },
 ];
