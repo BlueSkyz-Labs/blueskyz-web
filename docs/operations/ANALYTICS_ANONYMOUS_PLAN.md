@@ -30,3 +30,10 @@ Soạn 2026-11-17. Phạm vi: chỉ kế hoạch và ràng buộc. Chưa bật g
 - [ ] `/privacy/` (4 ngôn ngữ) cập nhật cùng PR, luật sư rà.
 - [ ] Test âm tính: gửi tên sự kiện ngoài danh sách, thuộc tính tự do, thuộc tính có email → bị từ chối.
 - [ ] Đọc lại sau deploy bằng trình duyệt thật: không có cookie, không có yêu cầu tới bên thứ ba.
+
+## Trạng thái triển khai (2026-11-17)
+
+- **Đã có (PR này):** `workers/analytics/`, Worker `blueskyz-analytics` nhận `POST blueskyzlabs.com/_e`, kiểm tra danh sách trắng giống `src/lib/analytics.ts`, ghi một điểm dữ liệu tổng hợp vào Workers Analytics Engine (dataset `blueskyz_events`, index chỉ là ngày UTC). Không đọc IP, user agent, cookie, referrer. Có test âm tính (13 ca). Dùng đường dẫn cùng origin nên không cần sửa CSP.
+- **Chưa bật:** client chưa gửi gì; `src/lib/analytics.ts` vẫn tắt truyền. Cần PR tiếp theo (client `sendBeacon` + cập nhật `/privacy/` 4 ngôn ngữ + test hiển thị), có thể chạm đường dẫn protected nên cần nhãn `owner-approved` của Chủ sở hữu.
+- **Triển khai Worker:** Workers Builds, root `workers/analytics`, deploy `npx wrangler deploy`. Analytics Engine miễn phí trong gói Workers hiện có. Chưa deploy.
+- Đọc số liệu: Cloudflare dashboard (Analytics Engine SQL API) → hiển thị trong Zenith sau.

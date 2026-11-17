@@ -1,0 +1,13 @@
+name = "blueskyz-analytics"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = false
+
+# Same-origin path on the site zone, so the site CSP (connect-src 'self') needs no change.
+[[routes]]
+pattern = "blueskyzlabs.com/_e"
+zone_name = "blueskyzlabs.com"
+
+[[analytics_engine_datasets]]
+binding = "EVENTS"
+dataset = "blueskyz_events"
