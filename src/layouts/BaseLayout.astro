@@ -300,11 +300,13 @@ const robotsContent =
       import { initFidelityEngine } from "@/scripts/fidelity-engine";
       import { initFragmentAnchor } from "@/scripts/fragment-anchor";
       import { initDepthLight } from "@/scripts/depth-light";
+      import { initTelemetryBeacon } from "@/scripts/telemetry-beacon";
 
       initAnalyticsBridge();
       initFidelityEngine();
       initFragmentAnchor();
       initDepthLight();
+      initTelemetryBeacon();
     </script>
     <main id="main-content" class="flex-1" tabindex="-1">
       <slot />
