@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trạng thái dịch vụ · Service status — BlueSkyz Labs</title>
+<meta name="description" content="Tình trạng các dịch vụ của BlueSkyz Labs. Service status for BlueSkyz Labs.">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#0b1020;--fg:#eef2fb;--mut:#9aa6c4;--card:#141b33;--line:#243056;--ok:#3ecf8e;--bad:#ff6b6b;--warn:#f5c451}
+@media (prefers-color-scheme:light){:root{--bg:#f6f7fb;--fg:#10162b;--mut:#4a5578;--card:#fff;--line:#dfe3ef;--ok:#14803c;--bad:#c62828;--warn:#8a6100}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,sans-serif}
+main{max-width:720px;margin:0 auto;padding:32px 16px 64px}
+h1{font:600 clamp(1.6rem,5vw,2.2rem)/1.2 "Noto Serif Display",Georgia,serif;margin:0 0 8px}
+.lede{color:var(--mut);margin:0 0 24px}
+.banner{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:16px;margin-bottom:24px;font-weight:600}
+.row{display:flex;justify-content:space-between;gap:12px;align-items:center;border:1px solid var(--line);background:var(--card);border-radius:12px;padding:14px 16px;margin-bottom:10px;min-height:44px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;background:var(--mut)}
+.up .dot{background:var(--ok)}.down .dot{background:var(--bad)}
+.st{color:var(--mut);font-size:.9rem}
+h2{font-size:1.1rem;margin:32px 0 12px}
+.inc{border-left:3px solid var(--line);padding:4px 0 4px 12px;margin-bottom:14px}
+.inc small{color:var(--mut)}
+a{color:inherit}footer{margin-top:40px;color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Trạng thái dịch vụ <span style="color:var(--mut);font-weight:400">· Service status</span></h1>
+<p class="lede">Kiểm tra trực tiếp từ trình duyệt của bạn, cộng lịch sử sự cố do BlueSkyz Labs ghi. <br>Checked live from your browser, plus an incident history we maintain.</p>
+<div id="banner" class="banner" role="status" aria-live="polite">Đang kiểm tra… · Checking…</div>
+<div id="components"></div>
+<h2>Sự cố gần đây · Recent incidents</h2>
+<div id="incidents"><p class="st">Chưa có sự cố nào được ghi. · No incidents recorded.</p></div>
+<footer>
+<p>Giám sát độc lập 24/7: <a id="monitor-link" href="#" rel="noopener">UptimeRobot (trang công khai)</a>. Liên hệ: <a href="https://blueskyzlabs.com/vi/support/">/support</a>.<br>
+Independent 24/7 monitoring above. Contact: <a href="https://blueskyzlabs.com/en/support/">/support</a>.</p>
+<p>Một lần kiểm tra từ trình duyệt chỉ cho biết máy chủ có phản hồi, không đo tốc độ hay lỗi bên trong. · A browser check only shows the server answers.</p>
+</footer>
+</main>
+<script>
+"use strict";
+// Components are public URLs only. No keys, no tokens, no visitor data is sent.
+fetch("./components.json",{cache:"no-store"}).then(r=>r.json()).then(async cfg=>{
+  const box=document.getElementById("components"),inc=document.getElementById("incidents"),banner=document.getElementById("banner");
+  if(cfg.monitor_url) document.getElementById("monitor-link").href=cfg.monitor_url;
+  const results=await Promise.all(cfg.components.map(async c=>{
+    const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),8000);
+    try{await fetch(c.url,{mode:"no-cors",cache:"no-store",signal:ctl.signal});return {c,up:true}}
+    catch(e){return {c,up:false}}finally{clearTimeout(t)}
+  }));
+  box.textContent="";
+  for(const {c,up} of results){
+    const d=document.createElement("div");d.className="row "+(up?"up":"down");
+    const l=document.createElement("span");const dot=document.createElement("span");dot.className="dot";
+    l.append(dot,c.name_vi+" · "+c.name_en);
+    const s=document.createElement("span");s.className="st";s.textContent=up?"Hoạt động · Operational":"Không phản hồi · No response";
+    d.append(l,s);box.append(d);
+  }
+  const down=results.filter(r=>!r.up).length;
+  banner.textContent=down===0?"Mọi dịch vụ đang hoạt động · All systems operational":(down+" dịch vụ không phản hồi · "+down+" service(s) not responding");
+  const incidents=cfg.incidents||[];
+  if(incidents.length){inc.textContent="";for(const i of incidents){
+    const d=document.createElement("div");d.className="inc";
+    const h=document.createElement("strong");h.textContent=i.title_vi+" · "+i.title_en;
+    const sm=document.createElement("small");sm.textContent=" "+i.date+" (GMT+7) — "+i.status;
+    const p=document.createElement("div");p.textContent=i.note_vi+" / "+i.note_en;
+    d.append(h,sm,p);inc.append(d);}}
+}).catch(()=>{document.getElementById("banner").textContent="Không tải được cấu hình. · Could not load configuration."});
+</script>
+</body>
+</html>
