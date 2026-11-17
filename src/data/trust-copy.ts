@@ -144,7 +144,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "This site sets no cookies. It stores only the language and theme you choose, in your browser, with no tracking or profiling.",
     collectedLead: "What is collected.",
     collectedBody:
-      "No accounts or forms. Server and CDN logs may record technical data such as your IP address, browser type and the page requested, for security, abuse prevention and reliable delivery, never advertising. Cloudflare Web Analytics measures page speed without cookies or storage, sending only load timings, page address, browser version, memory figures and a per-load random ID. Cloudflare keeps raw data 7 days, then about a 10% sample. No ad pixels or session recording.",
+      "No accounts or forms. Server and CDN logs may record technical data such as your IP address, browser type and the page requested, for security, abuse prevention and reliable delivery, never advertising. Cloudflare Web Analytics measures page speed without cookies or storage, sending only load timings, page address, browser version, memory figures and a per-load random ID. Cloudflare keeps raw data 7 days, then about a 10% sample. No ad pixels or session recording. We also count anonymous interactions, such as opening the command navigator: only the event name, your language and a daily total, with no cookie, IP address or identifier. Do Not Track or Global Privacy Control turns this off.",
     limitsLead: "Limits.",
     limitsBody:
       "This does not mean no data is processed. Any website needs infrastructure that handles network data such as IP addresses and request headers.",
@@ -163,7 +163,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "Trang web này không đặt cookie. Chỉ lưu ngôn ngữ và giao diện bạn chọn, trong trình duyệt của bạn; không theo dõi, không lập hồ sơ.",
     collectedLead: "Thu thập gì.",
     collectedBody:
-      "Không có tài khoản hay biểu mẫu. Nhật ký máy chủ và CDN có thể ghi dữ liệu kỹ thuật như địa chỉ IP, loại trình duyệt và trang được yêu cầu, để bảo mật, chống lạm dụng và phân phối ổn định, không cho quảng cáo. Cloudflare Web Analytics đo tốc độ tải trang, không dùng cookie hay bộ nhớ, chỉ gửi thời gian tải, địa chỉ trang, phiên bản trình duyệt, bộ nhớ và mã ngẫu nhiên mỗi lượt tải. Cloudflare giữ dữ liệu gốc 7 ngày, sau đó giữ mẫu khoảng 10%. Không pixel quảng cáo, không ghi phiên.",
+      "Không có tài khoản hay biểu mẫu. Nhật ký máy chủ và CDN có thể ghi dữ liệu kỹ thuật như địa chỉ IP, loại trình duyệt và trang được yêu cầu, để bảo mật, chống lạm dụng và phân phối ổn định, không cho quảng cáo. Cloudflare Web Analytics đo tốc độ tải trang, không dùng cookie hay bộ nhớ, chỉ gửi thời gian tải, địa chỉ trang, phiên bản trình duyệt, bộ nhớ và mã ngẫu nhiên mỗi lượt tải. Cloudflare giữ dữ liệu gốc 7 ngày, sau đó giữ mẫu khoảng 10%. Không pixel quảng cáo, không ghi phiên. Chúng tôi cũng đếm ẩn danh các lượt tương tác, ví dụ mở thanh điều hướng lệnh: chỉ giữ tên sự kiện, ngôn ngữ của bạn và tổng theo ngày, không cookie, không địa chỉ IP, không mã định danh. Do Not Track hoặc Global Privacy Control sẽ tắt việc đếm này.",
     limitsLead: "Giới hạn.",
     limitsBody:
       "Điều này không có nghĩa là không có dữ liệu nào được xử lý. Mọi trang web đều cần hạ tầng xử lý dữ liệu mạng như địa chỉ IP và header yêu cầu (thông tin kỹ thuật trình duyệt tự gửi kèm).",
@@ -182,7 +182,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "本站不设置 Cookie，只在你的浏览器中保存你选择的语言和主题，不跟踪、不做用户画像。",
     collectedLead: "收集什么。",
     collectedBody:
-      "没有账号或表单。服务器和 CDN 日志可能记录技术数据，如 IP 地址、浏览器类型和所访问的页面，用于安全、防滥用和稳定交付，而非广告。页面加载速度通过 Cloudflare Web Analytics 测量：不使用 Cookie 或浏览器本地存储。每次浏览页面时会发送加载耗时、页面地址、浏览器名称和版本、浏览器内存数据，以及仅用于该次页面加载的随机 ID（不会在页面之间关联）；Cloudflare 保留原始数据 7 天，之后仅保留约 10% 的样本。本站不使用广告像素或会话录制。",
+      "没有账号或表单。服务器和 CDN 日志可能记录技术数据，如 IP 地址、浏览器类型和所访问的页面，用于安全、防滥用和稳定交付，而非广告。页面加载速度通过 Cloudflare Web Analytics 测量：不使用 Cookie 或浏览器本地存储。每次浏览页面时会发送加载耗时、页面地址、浏览器名称和版本、浏览器内存数据，以及仅用于该次页面加载的随机 ID（不会在页面之间关联）；Cloudflare 保留原始数据 7 天，之后仅保留约 10% 的样本。本站不使用广告像素或会话录制。我们还会匿名统计页面互动，例如打开命令导航或信任页面链接：只保留事件名称、你的语言和每日合计，不使用 Cookie、不记录 IP 地址、不设标识符，也无法把事件关联到你个人。如果你的浏览器发送“请勿跟踪”或“全局隐私控制”信号，我们不做任何统计。",
     limitsLead: "限制。",
     limitsBody:
       "这不代表完全不处理任何数据。任何网站都需要基础设施处理 IP 地址、请求标头等网络数据。",
@@ -201,7 +201,7 @@ export const PRIVACY_COPY: PerLang<PrivacyCopy> = {
     lede: "本站不設定 Cookie，只在你的瀏覽器中儲存你選擇的語言與主題，不追蹤、不剖析。",
     collectedLead: "蒐集什麼。",
     collectedBody:
-      "沒有帳號或表單。伺服器與 CDN 記錄檔可能記錄技術資料，如 IP 位址、瀏覽器類型和所瀏覽的頁面，用於安全、防濫用和穩定傳送，而非廣告。頁面載入速度透過 Cloudflare Web Analytics 量測：不使用 Cookie 或瀏覽器本機儲存空間。每次瀏覽頁面時會傳送載入耗時、頁面網址、瀏覽器名稱與版本、瀏覽器記憶體資料，以及僅用於該次頁面載入的隨機 ID（不會在頁面之間關聯）；Cloudflare 保留原始資料 7 天，之後僅保留約 10% 的樣本。本站不使用廣告像素或工作階段側錄。",
+      "沒有帳號或表單。伺服器與 CDN 記錄檔可能記錄技術資料，如 IP 位址、瀏覽器類型和所瀏覽的頁面，用於安全、防濫用和穩定傳送，而非廣告。頁面載入速度透過 Cloudflare Web Analytics 量測：不使用 Cookie 或瀏覽器本機儲存空間。每次瀏覽頁面時會傳送載入耗時、頁面網址、瀏覽器名稱與版本、瀏覽器記憶體資料，以及僅用於該次頁面載入的隨機 ID（不會在頁面之間關聯）；Cloudflare 保留原始資料 7 天，之後僅保留約 10% 的樣本。本站不使用廣告像素或工作階段側錄。我們還會匿名統計頁面互動，例如開啟指令導覽或信任頁面連結：只保留事件名稱、你的語言與每日合計，不使用 Cookie、不記錄 IP 位址、不設識別碼，也無法把事件關聯到你個人。如果你的瀏覽器傳送「請勿追蹤」或「全域隱私控制」訊號，我們不做任何統計。",
     limitsLead: "限制。",
     limitsBody:
       "這不代表完全不處理任何資料。任何網站都需要基礎設施處理 IP 位址、請求標頭等網路資料。",
