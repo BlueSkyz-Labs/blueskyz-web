@@ -17,3 +17,8 @@ Trang tĩnh hai ngôn ngữ, không build, không secret. Kiểm tra từng dị
 ## Cấu hình triển khai
 
 `wrangler.toml` và `.assetsignore` trong thư mục này sẵn sàng cho Workers Builds (root directory `status-page`, deploy command `npx wrangler deploy`). Domain `status.blueskyzlabs.com` được gắn tự động theo `[[routes]]`. Agent không triển khai trực tiếp từ phiên làm việc; Chủ sở hữu tạo project Workers Builds một lần.
+
+## Bot protection và cache (2026-11-20)
+
+- `_headers`: cache ngắn (`max-age=30`, `s-maxage=60`, `stale-if-error=86400` để trang vẫn mở được khi nguồn lỗi) và header bảo mật. CSP dùng hash của script/style nội tuyến: sửa `index.html` thì tính lại hash (`sha256` của nội dung thẻ) trong `_headers`.
+- Chặn bot ở lớp Cloudflare (không thách thức khách xem trang, trình duyệt thật, UptimeRobot và bot được xác minh vẫn vào): WAF chặn phương thức lạ, UA rỗng và công cụ tấn công; quy tắc rate limit dùng chung (gói free chỉ có một quy tắc). Bot Fight Mode toàn zone KHÔNG bật vì sẽ thách thức API và ứng dụng di động của sản phẩm khác.
