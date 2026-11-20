@@ -1,0 +1,64 @@
+{
+  "schema": "sgps.finops-contract.v1",
+  "project": "blueskyz-web",
+  "harness": "SGPS:FinOps FULL",
+  "decisions": [
+    "SGPS-DEC-2026-050",
+    "SGPS-DEC-2026-051",
+    "SGPS-DEC-2026-053",
+    "SGPS-DEC-2026-054",
+    "SGPS-DEC-2026-059"
+  ],
+  "ledger_dir": "docs/finops",
+  "currency": "USD",
+  "kill_switches": [
+    "SGPS_MODEL_ROUTER_LEARNING",
+    "SGPS_MODEL_ROUTER_FREE",
+    "SGPS_MODEL_ROUTER_EXPLORE"
+  ],
+  "gates": {
+    "trailer_check": "python <sgps-core at sgps_ref>/tools/sgps_go_trailer.py check",
+    "doctor": "python <sgps-core at sgps_ref>/tools/sgps_finops.py doctor --project ."
+  },
+  "domains": {
+    "FIN-01": {
+      "name": "ai_model",
+      "status": "NOT_VERIFIED",
+      "next_source": "docs/finops/model-routing.jsonl once a lane routes model work for this repository"
+    },
+    "FIN-02": {
+      "name": "cloud_runtime",
+      "status": "NOT_VERIFIED",
+      "next_source": "provider usage read back by the Owner (portfolio FinOps room)"
+    },
+    "FIN-03": {
+      "name": "build_ci",
+      "status": "NOT_VERIFIED",
+      "next_source": "sgps_ci.py measure (portfolio ci-minutes projection)",
+      "ci_lanes": {
+        "gate_variable": "ACTIONS_ENABLED",
+        "always_on": []
+      }
+    },
+    "FIN-04": {
+      "name": "agent_context",
+      "status": "NOT_VERIFIED",
+      "next_source": "session listing in the weekly retro"
+    },
+    "FIN-05": {
+      "name": "unit_economics",
+      "status": "NOT_VERIFIED",
+      "next_source": "unit economics from the product's first paid plan"
+    },
+    "FIN-06": {
+      "name": "budgets_alerts",
+      "status": "NOT_VERIFIED",
+      "next_source": "monthly budget from the Owner; the portfolio FinOps room alerts at 70% and 100%"
+    },
+    "FIN-07": {
+      "name": "waste",
+      "status": "NOT_VERIFIED",
+      "next_source": "weekly retro checklist"
+    }
+  }
+}
