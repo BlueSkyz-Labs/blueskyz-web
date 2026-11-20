@@ -1,5 +1,7 @@
 # BlueSkyz Labs — security contact (RFC 9116).
 # Machine-readable policy for reporting vulnerabilities.
+# Email works. For anything sensitive, private reporting on GitHub is preferred.
+Contact: mailto:security@blueskyzlabs.com
 Contact: https://github.com/BlueSkyz-Labs/blueskyz-web/security/advisories/new
 Expires: 2027-09-12T00:00:00.000Z
 Preferred-Languages: en, vi
