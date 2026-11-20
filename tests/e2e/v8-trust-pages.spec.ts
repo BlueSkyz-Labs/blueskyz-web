@@ -23,7 +23,9 @@ const CAPS = {
   // en 198 (was 160), vi 282 (was 231): the notice must disclose the anonymous
   // aggregate event counter (golive analytics, Owner 2026-11-17); the addition
   // is one sentence per language (+38 en, +52 vi) and is the only growth.
-  privacy: { en: 198, vi: 282, zh: 160, "zh-hant": 160 },
+  // en 199, vi 289: the privacy@ line now renders (Owner 2026-11-20, DEC-038 §3);
+  // label plus address, +1 en and +7 vi words, and no other growth.
+  privacy: { en: 199, vi: 289, zh: 160, "zh-hant": 160 },
 } as const;
 
 async function words(page: Page): Promise<number> {
