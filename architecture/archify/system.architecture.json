@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "BlueSkyz Labs website",
+    "output": "system.html",
+    "visual_preset": "blueprint",
+    "animation": "trace",
+    "quality_profile": "showcase",
+    "engineering_profile": "deployment-ownership"
+  },
+  "components": [
+    {
+      "id": "visitor",
+      "type": "external",
+      "label": "Visitor",
+      "sublabel": "browser",
+      "pos": [
+        30,
+        300
+      ],
+      "size": [
+        126,
+        60
+      ],
+      "tag": "public"
+    },
+    {
+      "id": "edge",
+      "type": "security",
+      "label": "Cloudflare edge",
+      "sublabel": "blueskyzlabs.com, WAF",
+      "pos": [
+        220,
+        300
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "edge"
+    },
+    {
+      "id": "worker",
+      "type": "cloud",
+      "label": "Worker static assets",
+      "sublabel": "blueskyz-web, dist/",
+      "pos": [
+        470,
+        300
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "astro",
+      "type": "backend",
+      "label": "Astro static build",
+      "sublabel": "Workers Builds",
+      "pos": [
+        470,
+        500
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "registry",
+      "type": "database",
+      "label": "Product registry",
+      "sublabel": "public truth source",
+      "pos": [
+        800,
+        320
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "truth",
+      "type": "security",
+      "label": "Public truth gate",
+      "sublabel": "claims checked at build",
+      "pos": [
+        800,
+        520
+      ],
+      "size": [
+        170,
+        60
+      ],
+      "tag": "web"
+    },
+    {
+      "id": "assurance",
+      "type": "messagebus",
+      "label": "Source assurance",
+      "sublabel": "GitHub Actions, read-only",
+      "pos": [
+        1080,
+        120
+      ],
+      "size": [
+        180,
+        60
+      ],
+      "tag": "github"
+    },
+    {
+      "id": "repo",
+      "type": "database",
+      "label": "blueskyz-web main",
+      "sublabel": "PR + ruleset",
+      "pos": [
+        800,
+        120
+      ],
+      "size": [
+        160,
+        60
+      ],
+      "tag": "github"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Cloudflare / production",
+      "wraps": [
+        "edge",
+        "worker",
+        "astro"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "region",
+      "label": "GitHub / BlueSkyz-Labs",
+      "wraps": [
+        "assurance",
+        "repo",
+        "registry",
+        "truth"
+      ],
+      "pad": 20
+    },
+    {
+      "kind": "security-group",
+      "label": "source of truth",
+      "wraps": [
+        "registry",
+        "repo",
+        "truth"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "from": "visitor",
+      "to": "edge",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "from": "edge",
+      "to": "worker",
+      "label": "GET"
+    },
+    {
+      "from": "astro",
+      "to": "worker",
+      "label": "deploy"
+    },
+    {
+      "from": "astro",
+      "to": "registry",
+      "label": "reads"
+    },
+    {
+      "from": "truth",
+      "to": "registry",
+      "label": "validates"
+    },
+    {
+      "from": "assurance",
+      "to": "repo",
+      "label": "checks PR"
+    },
+    {
+      "from": "repo",
+      "to": "astro",
+      "label": "build on merge"
+    }
+  ]
+}
