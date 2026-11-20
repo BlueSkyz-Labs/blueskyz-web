@@ -1,0 +1,8 @@
+/*
+  Cache-Control: public, max-age=30, s-maxage=60, stale-while-revalidate=60, stale-if-error=86400
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin
+  Content-Security-Policy: default-src 'none'; script-src 'sha256-xgC0VtHRT6ezDetH8guE7XndI0JQuWE7jrz1OOcYFZw='; style-src 'sha256-6nja/9LsC936D6r2VfayU1O3SoRVG/InON/FtcZ9zMo='; style-src-attr 'unsafe-inline'; connect-src 'self' https:; img-src 'self' data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'
