@@ -33,10 +33,12 @@ primaryAction:
 # availability preview); the upstream sign-up permission is not mirrored or linked here.
 # Native apps mirror the upstream profile (Owner 2026-09-30): Android/iOS follow the web core
 # and sync with the same workspace; in development, no store link, until a native build ships.
-# Owner 2026-10-24 (O-03): publicSignup stays false, so no app link is offered (#575).
+# Owner 2026-11-22: public launch, no pilot ("không có, tôi chạy public luôn"). Production reports
+# registration enabled (GET /api/public/workspaces/registration-status, 2026-11-22), so
+# publicSignup is true and the page offers the app's origin (#575 still bars a sign-in link).
 appAccess:
   signInUrl: https://sotro.blueskyzlabs.com/login
-  publicSignup: false
+  publicSignup: true
   android:
     state: in-development
   ios:

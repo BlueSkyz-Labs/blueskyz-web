@@ -304,9 +304,15 @@ for (const lang of LOCALES) {
     await page.goto(`/${lang}/products/sotro/`);
     await expect(page.locator("[data-primary-action]")).toHaveCount(1);
     await expect(page.locator("[data-app-signin]")).toHaveCount(0);
+    // Public launch (Owner 2026-11-22): the one primary action opens the app
+    // origin; it is the only link to it.
     await expect(
       page.locator('main a[href^="https://sotro.blueskyzlabs.com"]'),
-    ).toHaveCount(0);
+    ).toHaveCount(1);
+    await expect(page.locator("[data-primary-action]")).toHaveAttribute(
+      "href",
+      "https://sotro.blueskyzlabs.com/",
+    );
   });
 
   test(`/${lang}/products/sotro/guide/ ends with Contact and no sign-in`, async ({
