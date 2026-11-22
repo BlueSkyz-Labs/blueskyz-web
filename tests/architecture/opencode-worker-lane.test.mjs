@@ -303,6 +303,7 @@ test("CLI wiring end to end with a fake studio worker and a fake OpenCode CLI", 
       OPENCODE_GO_API_KEY_3: fakeKey,
       OPENCODE_BIN: bin,
       FREE_POOL_FILE: pool,
+      MODEL_REGISTRY_FILE: join(dir, "no-registry.json"),
     };
     const run = (script, args, input) =>
       spawnSync(node, [script, ...args], { env, input, encoding: "utf8" });
