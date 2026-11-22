@@ -13,7 +13,7 @@
  */
 import { spawnSync } from "node:child_process";
 import { randomBytes } from "node:crypto";
-import { appendFileSync, mkdirSync, readFileSync } from "node:fs";
+import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -27,6 +27,7 @@ import {
   EXIT_BLOCKED,
   EXIT_CLAUDE_SUB,
   laneCommand,
+  ledgerBeatArgs,
   normalizeTask,
   planLanes,
   routeRow,
@@ -47,6 +48,22 @@ function parse(argv) {
   if (o.start !== undefined && (!Number.isInteger(o.start) || o.start < 0))
     throw new Error("--start must be a non-negative integer");
   return o;
+}
+
+const LEDGER_TOOL =
+  process.env.SGPS_LANES_TOOL ??
+  [join(here, "..", "..", "sgps-core", "tools", "sgps_lanes.py")].find((p) =>
+    existsSync(p),
+  );
+
+/** Best effort: a ledger failure must never change the real job. */
+function beat(thread, lane, state, blocker) {
+  try {
+    const a = ledgerBeatArgs(LEDGER_TOOL, thread, lane, state, blocker);
+    if (a) spawnSync("python3", a, { stdio: "ignore", timeout: 10000 });
+  } catch {
+    /* ledger is an observer */
+  }
 }
 
 function main() {
@@ -82,6 +99,7 @@ function main() {
     const [script, args] = laneCommand(lane, t, thread);
     if (lane === "free" && o.start !== undefined)
       args.push("--start", String(o.start));
+    beat(thread, lane, "working");
     const r = spawnSync(process.execPath, [join(here, script), ...args], {
       input: t.prompt,
       encoding: "utf8",
@@ -89,6 +107,12 @@ function main() {
       env: process.env,
     });
     attempts.push({ lane, exit: r.status ?? 2 });
+    beat(
+      thread,
+      lane,
+      r.status === 0 ? "done" : "failed",
+      r.status === 0 ? undefined : `exit ${r.status ?? 2}`,
+    );
     if (r.stderr)
       process.stderr.write(
         r.stderr

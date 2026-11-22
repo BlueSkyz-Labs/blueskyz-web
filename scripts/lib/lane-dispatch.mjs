@@ -103,3 +103,27 @@ export function routeRow({ id, ts, thread, t, attempts, lane, exit }) {
     exit,
   };
 }
+
+/**
+ * Lane-ledger beat (sgps-core `sgps_lanes.py beat`) so a dispatched lane shows
+ * on Zenith's live lane ledger. Returns the argv, or null when the tool path is
+ * unknown. The caller swallows every failure: the ledger only observes.
+ */
+export function ledgerBeatArgs(tool, thread, lane, state, blocker) {
+  if (!tool) return null;
+  const id = `web-${thread}-${lane}`
+    .replace(/[^A-Za-z0-9._-]/g, "-")
+    .slice(0, 80);
+  const a = [
+    tool,
+    "beat",
+    "--lane",
+    id,
+    "--state",
+    state,
+    "--task",
+    `lane-dispatch ${lane}`,
+  ];
+  if (blocker) a.push("--blocker", String(blocker).slice(0, 200));
+  return a;
+}
