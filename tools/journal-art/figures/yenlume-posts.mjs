@@ -3,7 +3,6 @@
  * already published on the product page (captured 2026-09-30 from a test build
  * with sample data, as the post says); the infographic restates the post body.
  */
-import { readFileSync } from "node:fs";
 import { COBALT, HATCH_DEFS, INK, TINT, page } from "../art-base.mjs";
 import { stampHtml } from "../stamp.mjs";
 
@@ -12,13 +11,7 @@ const SHOTS = new URL(
   "../../../public/products/sotro/showcase/",
   import.meta.url,
 ).href;
-const MARK = readFileSync(
-  new URL(
-    "../../../public/brand/blueskyz/v4/products/sotro.svg",
-    import.meta.url,
-  ),
-  "utf8",
-).replace(/<svg /, '<svg class="ig__mark" ');
+const MARK = `<img class="ig__mark" src="${SHOTS}launch-icon-512.webp" alt="">`;
 
 const POSTS = {
   "yenlume-so-tro-cho-chu-nha-tro": {
@@ -170,18 +163,18 @@ function hero() {
     <circle cx="1180" cy="460" r="330" fill="none" stroke="${COBALT}" stroke-width="3" stroke-dasharray="2 12"/>
     <path d="M40 820H1560" stroke="${INK}" stroke-width="3"/><rect x="40" y="824" width="1520" height="40" fill="url(#h-diag)" opacity="0.3"/></svg>`;
   const body = `${bg}
-  <div class="desk"><div class="desk__bar"><i></i><i></i><i></i></div><img src="${SHOTS}mgr-02-payments.webp" alt=""></div>
-  <div class="phone p1"><img src="${SHOTS}op-01-home.webp" alt=""></div>
-  <div class="phone p2"><img src="${SHOTS}op-02-payments.webp" alt=""></div>
+  <div class="desk"><div class="desk__bar"><i></i><i></i><i></i></div><img src="${SHOTS}launch-desktop-payments.webp" alt=""></div>
+  <div class="phone p1"><img src="${SHOTS}launch-phone-home.webp" alt=""></div>
+  <div class="phone p2"><img src="${SHOTS}launch-phone-payments.webp" alt=""></div>
   ${stampHtml({ year: YEAR, position: "left: 6%; bottom: 13%;" })}`;
   return page({ width: W, height: H, css, body });
 }
 
 function infographic(t) {
   const W = 1200,
-    H = 1260;
+    H = 1040;
   const css = `
-  .ig { position: absolute; inset: 0; padding: 72px 80px 200px; display: flex; flex-direction: column; gap: 34px; }
+  .ig { position: absolute; inset: 0; padding: 64px 80px 150px; display: flex; flex-direction: column; gap: 34px; }
   .ig__top { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; }
   .ig__mark { width: 104px; height: 104px; display: block; border-radius: 24px; }
   .ig__kicker { font-size: 20px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: ${COBALT}; }
@@ -224,7 +217,7 @@ export const FIGURES = Object.entries(POSTS).flatMap(([post, T]) =>
       lang,
       name: "infographic",
       width: 1200,
-      height: 1260,
+      height: 1040,
       year: YEAR,
       title: T[lang].title,
       html: () => infographic(T[lang]),

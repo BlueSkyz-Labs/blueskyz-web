@@ -1,99 +1,99 @@
 {
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.en-1200.webp": {
-    "sha256": "06716b78918156bea96b40ce2b3baebc7083ba10ed2c261e94ce275091d60bbc",
+    "sha256": "24df37c43cbbb4aec64815f7badf22e63676ece6b088998a3b5f96fac00d49bc",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.en-800.webp": {
-    "sha256": "c649f2567dc7d0ff1cf1f9528971483c6bce366e7bd73c21067de8be3aa7255d",
+    "sha256": "33f5144e1df77c35cb1c96919e64095a7628052b54e75d2c6bd8f9b3073a68e3",
     "width": 800,
     "height": 450,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.en.og.jpg": {
-    "sha256": "0130220eb633522bb537b73ca879b7b3f764975ba363a77aeeef2f8b3be78303",
+    "sha256": "043f6f06a7aee5f38282ad13d72be121b2691a1051669d1744bad4877d0907dc",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.en.webp": {
-    "sha256": "36dd9f6aef4d30bb6369fba386d36960f8cc2fe808aef9a96b777db1862a432f",
+    "sha256": "4d283376fd16f02132724b737e2141d0253b773ad946771cfe5d0f42e88be510",
     "width": 2400,
     "height": 1350,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.vi-1200.webp": {
-    "sha256": "6bb72be0b7124b138625313b4d59206bf32ea8904f15b8ed97ccc24f168b1bed",
+    "sha256": "7ae582aacaed66040c2b9d5735a97024b00aac6fc4d92dc3d846cf4b007fa498",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.vi-800.webp": {
-    "sha256": "50032cbfa261801e2c04b37e5ed5b906c63282dbe7c5aeb439346d021bff9cd5",
+    "sha256": "e5f89802ad6dbcf219f3550fec220fa98408e8dde66da73a5ed37eef0c1c95f0",
     "width": 800,
     "height": 450,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.vi.og.jpg": {
-    "sha256": "68d268ef00644b77d30abe25d38bb05e7658a43568c02bf9cd202f620ec17225",
+    "sha256": "86bc49407e2e01d9d73b1765cd780597a1f77e14ab5f21b5e3647b72f9be0f10",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/hero.vi.webp": {
-    "sha256": "26ac12efb7a35e734404e9b9f44b2232cee25fe71dab83e7c6e7f2e2bc477d51",
+    "sha256": "65e7064ce35b4509f2c6a3888e9ac6135fd14f5581598464cdd1150ba19d28c2",
     "width": 2400,
     "height": 1350,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.en-1200.webp": {
-    "sha256": "cf66f53c5f83e07e44465cabf0ee10e2bc246072e5ac781f8eca71b7c8ed266f",
+    "sha256": "dc545ef59813b4262c86a69e3c5613e4b00f82cc612b12529addea0599611ea8",
     "width": 1200,
-    "height": 1260,
+    "height": 1040,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.en-800.webp": {
-    "sha256": "bcba5bf39e0f1add02a647416964699ace4662d5d6c5c5c12ed1572541315aae",
+    "sha256": "ebd198074f5fa96458dceb40805e42fa6e6a4eedd81985c0ebcdf764127d1741",
     "width": 800,
-    "height": 840,
+    "height": 693,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.en.webp": {
-    "sha256": "6f4f516ce3acad5ba148b06fb19517403df8d1a7f39359ac4a7a2dba81cdd9db",
+    "sha256": "b4b176a437ae48bd07e70fcb48622b5c7211f28eb6ab39b8d3f57d7c065b150f",
     "width": 2400,
-    "height": 2520,
+    "height": 2080,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.vi-1200.webp": {
-    "sha256": "7e7087128a3ea57e5a3270c0fafb7cd8933bea161bef2a5c1cec26b7145a4b10",
+    "sha256": "ec2335210a6fe16cdbddfb2e70f66df6324027fbcb4c654d94ea9114d0577ab7",
     "width": 1200,
-    "height": 1260,
+    "height": 1040,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.vi-800.webp": {
-    "sha256": "b81509316791aef59e3250af0bdddf7110c8db3ffb86684aed32f6ef9494d545",
+    "sha256": "bf43b2e40cef0ccaddc06948668f9cab14dbfd1aa13fe12b48ab3e4c92df6467",
     "width": 800,
-    "height": 840,
+    "height": 693,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/mau-phieu-thu-tien-phong-tro/infographic.vi.webp": {
-    "sha256": "89c75a554e5d497b68d2ce2075f5ce3d5e21fb9e1aa1b366b446bce2aea8f19f",
+    "sha256": "f796f7878216a0cd996c06e214ac652f1a5783f5667ca10868990d4e24b512f3",
     "width": 2400,
-    "height": 2520,
+    "height": 2080,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
@@ -588,100 +588,100 @@
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.en-1200.webp": {
-    "sha256": "1499491394f7d231077faeef3f7de55e022d48dafc747656e27c914eb86cdccc",
+    "sha256": "d1f6fb76fa30d6555472e7e03b1470584040afa838715faad84dd00d05a30304",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.en-800.webp": {
-    "sha256": "5b0511929da125fdc7d5b393d810c2b88b09c8ad5c0eaa792bb2077a7c66d8fd",
+    "sha256": "a2ba138fa58a24d82ac509cc730299726bf2ef98f4a6c16f458b3ae308e6d808",
     "width": 800,
     "height": 450,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.en.og.jpg": {
-    "sha256": "e8294156c8d0e86e4cfe50032b2ed9f0b531c05906bebfbfa3de81deb5cc9cff",
+    "sha256": "5cdfb2227bdf48d469f2693a60e71acbeb79c5b781e7af810bc5384ebf28fa20",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.en.webp": {
-    "sha256": "632834296cd8bcc62a45b5896ee52b198546b6c0a37550a68f8644a141fe466b",
+    "sha256": "d5ba4a50459f5a5d1f99a85e869dff47220489f3df146368938904c50e6416ce",
     "width": 2400,
     "height": 1350,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.vi-1200.webp": {
-    "sha256": "a0ec567b2aea909738e517813c66b8efd69bc3a9a4040935bc53ad82900d56ce",
+    "sha256": "d5f9641316dd08cee401ced926e1e5acf8ec0ba825f60cc3f3e437a6027663e4",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.vi-800.webp": {
-    "sha256": "1a45c26ac7d548d70e1b66846c4b45129f18fd481da7dc3b21ab7632e32b7058",
+    "sha256": "a61583ec72229d8e55211901ebe64c3c8a6a179d8a606991a8ca9234357d8f66",
     "width": 800,
     "height": 450,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.vi.og.jpg": {
-    "sha256": "cc39e992998d045931dd98e8cee53abdddb555b88a81ac3d4a262734463da304",
+    "sha256": "c0aa3f9971ddccd9999ebe9f2ecbc44ced3c52ff4b35b66c90e753185f05fbe6",
     "width": 1200,
     "height": 675,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.vi.webp": {
-    "sha256": "6da5bd2cccc40b293f9d333209f326abc8965e2b721609acfe213457d3f76d1b",
+    "sha256": "a80b68942636eb0ae38c4edbdb03362b50753b71d56abbe1cb5a558d57dd845c",
     "width": 2400,
     "height": 1350,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.en-1200.webp": {
-    "sha256": "934ea4de630479c4bd01834e10ec3bf41a943358e9f6a01af59d4018d90f9705",
+    "sha256": "127d26879837eb66f15543507264af18900ac2d56f836f532488e034e428db84",
     "width": 1200,
-    "height": 1260,
+    "height": 1040,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.en-800.webp": {
-    "sha256": "c766633bd248dbf83e37c3072c4b5e7ee3f81b4e957a7e6aba7e13630383143b",
+    "sha256": "b04ae04eb57f08f14f002d603ed6100d5ac09cf2cbb9887022e6ef35e2647f00",
     "width": 800,
-    "height": 840,
+    "height": 693,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.en.webp": {
-    "sha256": "263c9516c506fcd56197d1ceca8ba35bac841bed1ea9e548ca80e6633a490982",
+    "sha256": "d4e07d718baf113b36e037d4144f5cb0472a3ffe0b5fe85a58354d418ade6b22",
     "width": 2400,
-    "height": 2520,
+    "height": 2080,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.vi-1200.webp": {
-    "sha256": "7f180ea28613e21a2f697a11e51053ea054142e53e0fbf5ffcf48e31dc310a2a",
+    "sha256": "bd1e114789d90a5f2cb1839cc0d43a6fe333aada56458ddbde94996493915b0b",
     "width": 1200,
-    "height": 1260,
+    "height": 1040,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.vi-800.webp": {
-    "sha256": "fbe56afb1cdb83ba6704c9b3b4272aed7ae8c3a1a00410c61b3e149f0f7f1d0e",
+    "sha256": "17c1246cf2752546a27ce8082fa3975bb021178a6db90df7477560884b4c609b",
     "width": 800,
-    "height": 840,
+    "height": 693,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   },
   "/images/journal/yenlume-so-tro-cho-chu-nha-tro/infographic.vi.webp": {
-    "sha256": "677943cc787515a600af2d417c68f35bd93d31ffb0018b25203123a37e95d8c5",
+    "sha256": "39536025df8b0dd0bfa37bac2ad7d2a8d4f0ebfc7ad5cb67d11e3c2da372da41",
     "width": 2400,
-    "height": 2520,
+    "height": 2080,
     "template": "tools/journal-art/figures/yenlume-posts.mjs",
     "rightsHolder": "BlueSkyz Labs"
   }
