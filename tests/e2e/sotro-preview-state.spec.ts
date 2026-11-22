@@ -45,10 +45,12 @@ for (const lang of LANGS) {
       "data-interim-state",
       "web-preview",
     );
-    // No sign-in or sign-up link on Marketing (Owner 2026-10-12, #575).
+    // Public launch (Owner 2026-11-22): publicSignup opens exactly one link to
+    // the app origin, the primary action. No separate sign-in link (#575).
     await expect(
       page.locator('main a[href*="sotro.blueskyzlabs.com"]'),
-    ).toHaveCount(0);
+    ).toHaveCount(1);
+    await expect(page.locator("[data-app-signin]")).toHaveCount(0);
 
     await page.goto(`/${lang}/products/sotam/`);
     await expect(page.locator("[data-web-state]")).toHaveAttribute(

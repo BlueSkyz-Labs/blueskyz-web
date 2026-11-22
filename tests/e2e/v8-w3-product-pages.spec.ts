@@ -50,7 +50,14 @@ for (const lang of LOCALES) {
         await page.goto(`/${lang}/products/${slug}/`);
         const primary = page.locator("[data-primary-action]");
         await expect(primary).toHaveCount(1);
-        await expect(primary).toHaveAttribute("href", "#profile-showcase");
+        // Sổ Trọ opened public sign-up (Owner 2026-11-22): its primary action
+        // opens the app origin. Sổ Tâm keeps the in-page anchor.
+        await expect(primary).toHaveAttribute(
+          "href",
+          slug === "sotro"
+            ? "https://sotro.blueskyzlabs.com/"
+            : "#profile-showcase",
+        );
         await expect(page.locator("#profile-showcase")).toHaveCount(1);
         // Owner 2026-10-12: no public app sign-in link.
         await expect(page.locator("[data-app-signin]")).toHaveCount(0);
