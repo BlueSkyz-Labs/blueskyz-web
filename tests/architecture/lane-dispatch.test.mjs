@@ -24,6 +24,7 @@ import {
 } from "../../scripts/lib/claude-api-worker.mjs";
 import {
   laneCommand,
+  ledgerBeatArgs,
   normalizeTask,
   planLanes,
 } from "../../scripts/lib/lane-dispatch.mjs";
@@ -122,7 +123,11 @@ test("routing: cheapest first, personal data and complexity 5 go to the lead, se
 
 function run(args, input, env) {
   return new Promise((done) => {
-    const c = spawn(node, args, { env, stdio: ["pipe", "pipe", "pipe"] });
+    // An empty tool path turns the lane ledger off so tests never write the shared ledger.
+    const c = spawn(node, args, {
+      env: { SGPS_LANES_TOOL: "", ...env },
+      stdio: ["pipe", "pipe", "pipe"],
+    });
     let out = "";
     let err = "";
     c.stdout.on("data", (d) => (out += d));
@@ -316,4 +321,93 @@ test("chain end to end: free and Go fail, Claude API settles within caps, then c
     server.close();
     rmSync(dir, { recursive: true, force: true });
   }
+});
+
+test("lane ledger: each lane beats working then done/failed; a broken ledger never changes the job", async () => {
+  const dir = mkdtempSync(join(tmpdir(), "lane-ledger-test-"));
+  try {
+    const studio = join(dir, "studio");
+    mkdirSync(join(studio, "framework", "finops"), { recursive: true });
+    writeFileSync(
+      join(studio, "framework", "finops", "go_first.py"),
+      "import sys\nsys.stdin.read()\nsys.exit(1)\n",
+    );
+    const bin = join(dir, "opencode");
+    writeFileSync(
+      bin,
+      "#!/usr/bin/env node\nconsole.error('Free usage limit reached');process.exit(1);\n",
+    );
+    chmodSync(bin, 0o755);
+    const pool = join(dir, "pool.json");
+    writeFileSync(
+      pool,
+      JSON.stringify({ models: [{ id: "only-free", privacy: "zdr" }] }),
+    );
+    const beats = join(dir, "beats.txt");
+    const good = join(dir, "good.py");
+    writeFileSync(
+      good,
+      `import sys\nopen(${JSON.stringify(beats)},"a").write(" ".join(sys.argv[1:])+"\\n")\n`,
+    );
+    const bad = join(dir, "bad.py");
+    writeFileSync(bad, "import sys\nsys.exit(7)\n");
+    const base = {
+      PATH: process.env.PATH,
+      BLUESKYZ_STUDIO_DIR: studio,
+      MEDIA_SPEND_LEDGER: join(dir, "finops", "go-calls.jsonl"),
+      OPENCODE_GO_ROTATION_STATE: join(dir, "finops", "rot.json"),
+      OPENCODE_BIN: bin,
+      FREE_POOL_FILE: pool,
+      ROUTE_LOG: join(dir, "finops", "route-log.jsonl"),
+    };
+    const task = JSON.stringify({
+      id: "t1",
+      task: "code_test",
+      complexity: 2,
+      prompt: "write a test",
+    });
+    const args = [
+      "scripts/lane-dispatch.mjs",
+      "--thread",
+      "lane",
+      "--max-lane",
+      "go",
+    ];
+
+    const withLedger = await run(args, task, {
+      ...base,
+      SGPS_LANES_TOOL: good,
+    });
+    const lines = readFileSync(beats, "utf8").trim().split("\n");
+    assert.deepEqual(
+      lines.map((l) => l.match(/--lane (\S+) --state (\S+)/).slice(1)),
+      [
+        ["web-lane.t1-free", "working"],
+        ["web-lane.t1-free", "failed"],
+        ["web-lane.t1-go", "working"],
+        ["web-lane.t1-go", "failed"],
+      ],
+    );
+
+    // Negative proof: a crashing ledger and a missing ledger give the same result.
+    const crashing = await run(args, task, { ...base, SGPS_LANES_TOOL: bad });
+    const missing = await run(args, task, {
+      ...base,
+      SGPS_LANES_TOOL: join(dir, "nope.py"),
+    });
+    for (const r of [crashing, missing]) {
+      assert.equal(r.status, withLedger.status);
+      assert.equal(r.stdout, withLedger.stdout);
+    }
+    assert.ok(withLedger.status !== 0);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test("ledgerBeatArgs: no tool means no beat, ids are sanitised", () => {
+  assert.equal(ledgerBeatArgs(undefined, "t", "go", "working"), null);
+  const a = ledgerBeatArgs("/x/l.py", "a b/c", "go", "failed", "exit 1");
+  assert.equal(a[a.indexOf("--lane") + 1], "web-a-b-c-go");
+  assert.equal(a[a.indexOf("--blocker") + 1], "exit 1");
 });
