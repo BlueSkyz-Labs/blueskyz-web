@@ -51,7 +51,7 @@ const POSTS = {
         ],
       ],
       footer:
-        "Bản web đang xem trước, số lượng có hạn. Ảnh chụp từ bản chạy thử, dữ liệu mẫu.",
+        "Bản web đang beta, mở đăng ký. Ảnh chụp từ bản chạy thử, dữ liệu mẫu.",
     },
     en: {
       heroTitle: "YENLUME on phone and desktop",
@@ -82,7 +82,7 @@ const POSTS = {
         ],
       ],
       footer:
-        "The web version is in preview, in limited numbers. Screenshots are from a test build with sample data.",
+        "The web version is in beta, open for sign-up. Screenshots are from a test build with sample data.",
     },
   },
   "mau-phieu-thu-tien-phong-tro": {

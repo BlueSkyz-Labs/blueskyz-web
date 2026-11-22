@@ -50,6 +50,6 @@ Khách mua trong giai đoạn sáng lập được giữ giá này. Chưa có qu
 
 ## Hiện trạng
 
-Bản web đang ở giai đoạn xem trước và nhận sổ mới với số lượng có hạn. Ứng dụng Android và iOS đang phát triển, chưa có trên cửa hàng ứng dụng. Ảnh màn hình chụp từ bản chạy thử, dùng dữ liệu mẫu.
+Bản web đang ở giai đoạn beta và mở đăng ký cho chủ trọ mới. Ứng dụng Android và iOS đang phát triển, chưa có trên cửa hàng ứng dụng. Ảnh màn hình chụp từ bản chạy thử, dùng dữ liệu mẫu.
 
 Xem thêm ảnh màn hình và video ngắn tại [trang Sổ Trọ](/vi/products/sotro/).

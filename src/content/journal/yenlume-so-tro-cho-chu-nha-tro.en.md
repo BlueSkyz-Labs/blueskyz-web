@@ -50,6 +50,6 @@ Customers who buy during the founding period keep this price. There are no ads i
 
 ## Where it stands
 
-The web version is in preview and accepts new workspaces in limited numbers. The Android and iOS apps are in development and are not in the app stores yet. The screenshots come from a test build with sample data.
+The web version is in beta and open for new landlords to sign up. The Android and iOS apps are in development and are not in the app stores yet. The screenshots come from a test build with sample data.
 
 See more screenshots and a short video on the [Sổ Trọ page](/en/products/sotro/).

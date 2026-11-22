@@ -57,9 +57,10 @@ test("publicSignup true but no or foreign sign-in URL: fail closed", () => {
   );
 });
 
-test("the schema defaults publicSignup to false and Sổ Trọ records false", () => {
+test("the schema defaults publicSignup to false; Sổ Trọ opted in for the public launch (Owner 2026-11-22)", () => {
   const record = readFileSync("src/content/products/sotro.yaml", "utf8");
-  assert.match(record, /^ {2}publicSignup: false$/m);
+  assert.match(record, /^ {2}publicSignup: true$/m);
+  assert.match(record, /signInUrl: https:\/\/sotro\.blueskyzlabs\.com\/login/);
   const parsed = productSchema.safeParse({
     slug: "sotro",
     name: "Fixture",
