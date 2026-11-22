@@ -1,4 +1,4 @@
-name = "blueskyz-web"
+name = "web-production"
 compatibility_date = "2026-09-04"
 # The canonical production hostname is managed through custom domains.
 # Keep the generated workers.dev route disabled so a future deploy cannot

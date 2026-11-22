@@ -21,3 +21,9 @@ test("Workers serves the Astro static build", () => {
   assert.doesNotMatch(wrangler, /pages_build_output_dir/);
   assert.equal(existsSync(".github/workflows/qa.yml"), false);
 });
+
+test("Worker names follow PNS 1.1 ({role}-{environment})", () => {
+  const analytics = readFileSync("workers/analytics/wrangler.toml", "utf8");
+  assert.match(wrangler, /^name = "web-production"$/m);
+  assert.match(analytics, /^name = "analytics-production"$/m);
+});
