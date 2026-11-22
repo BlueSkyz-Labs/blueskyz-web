@@ -9,7 +9,7 @@ import { readFileSync } from "node:fs";
 
 const LOGO = readFileSync(
   new URL(
-    "../../public/brand/blueskyz/v4/logos/horizontal-flat-light.svg",
+    "../../public/brand/blueskyz/v5/logos/lockup-compact-labs-paper.svg",
     import.meta.url,
   ),
   "utf8",
