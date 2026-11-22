@@ -33,23 +33,23 @@ YENLUME is made for people like her, with one rule: if an older person cannot us
 - **Itemised receipts.** Rent, electricity, water and other charges each have their own line, and meter readings carry their units. The tenant sees what they are paying for.
 - **VietQR and Zalo.** The receipt carries a VietQR transfer code and can be sent through Zalo.
 - **One close for the whole row.** Enter each room's readings, then close the month in one go. Sending receipts for the whole row starts at the Sân plan; the Hiên plan sends room by room.
-- **Review before saving.** The final confirmation step repeats the amount, the room and the way it was collected.
+- **Review before saving.** The final confirmation step repeats the amount, the room and how it was paid (cash or transfer).
 - **Closed books stay closed.** A correction goes in as a separate line that both sides can see.
 - **Large text, big buttons.** There is a light and a dark mode, and the interface works in Vietnamese, English, 简体中文 and 繁體中文.
 
 ## Plans
 
-| Plan | Rooms     | Price                              |
-| ---- | --------- | ---------------------------------- |
-| Hiên | up to 15  | free                               |
-| Sân  | up to 50  | 99,000 VND/month (founding price)  |
-| Ngõ  | up to 200 | 199,000 VND/month (founding price) |
-| Khu  | up to 500 | 499,000 VND/month (founding price) |
+| Plan | Rooms     | Price                                                     |
+| ---- | --------- | --------------------------------------------------------- |
+| Hiên | up to 15  | free                                                      |
+| Sân  | up to 50  | 99,000 VND/month (founding price; list price 149,000 VND) |
+| Ngõ  | up to 200 | 199,000 VND/month                                         |
+| Khu  | up to 500 | 499,000 VND/month                                         |
 
-Customers who buy during the founding period keep this price. There are no ads in the product.
+The Sân founding price is for the first 100 paying customers, who keep it. The product has no ads today.
 
 ## Where it stands
 
 The web version is in beta and open for new landlords to sign up. The Android and iOS apps are in development and are not in the app stores yet. The screenshots come from a test build with sample data.
 
-See more screenshots and a short video on the [Sổ Trọ page](/en/products/sotro/).
+See more screenshots on the [Sổ Trọ page](/en/products/sotro/).

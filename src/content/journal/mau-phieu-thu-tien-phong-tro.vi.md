@@ -51,6 +51,6 @@ Gửi qua Zalo kèm mã chuyển khoản để người thuê trả ngay, rồi 
 
 ## Khi có nhiều phòng
 
-Ra từng phiếu bằng tay cho cả dãy rất dễ lệch số. YENLUME cho nhập số từng phòng rồi chốt một lượt, phiếu ghi đủ từng khoản kèm mã VietQR. Gói Hiên miễn phí đến 15 phòng và gửi từng phòng; gửi phiếu cả dãy có từ gói Sân (99.000đ/tháng, giá sáng lập). Xem thêm ở [trang Sổ Trọ](/vi/products/sotro/).
+Ra từng phiếu bằng tay cho cả dãy rất dễ lệch số. YENLUME cho nhập số từng phòng rồi chốt một lượt, phiếu ghi đủ từng khoản kèm mã VietQR. Gói Hiên miễn phí đến 15 phòng và gửi từng phòng; gửi phiếu cả dãy có từ gói Sân (99.000đ/tháng, giá sáng lập cho 100 khách trả tiền đầu tiên). Xem thêm ở [trang Sổ Trọ](/vi/products/sotro/).
 
 Đây là mẫu tham khảo, không phải tư vấn pháp lý hay thuế.

@@ -20,7 +20,7 @@ infographic:
 draft: false
 ---
 
-YENLUME (đọc là _yên-lum_) là sổ ghi tiền trọ của BlueSkyz Labs, làm cho chủ nhà trọ ở Việt Nam. Bài này kể sản phẩm ra đời để giải quyết việc gì, hiện làm được gì và có những gói nào.
+YENLUME (đọc là _yen-loom_) là sổ ghi tiền trọ của BlueSkyz Labs, làm cho chủ nhà trọ ở Việt Nam. Bài này kể sản phẩm ra đời để giải quyết việc gì, hiện làm được gì và có những gói nào.
 
 ## Cuối tháng ở một dãy trọ
 
@@ -33,23 +33,23 @@ YENLUME được làm cho những người như vậy, với một nguyên tắc
 - **Phiếu thu ghi từng khoản.** Tiền phòng, điện, nước và các khoản khác nằm trên từng dòng, số điện nước có đơn vị đo. Người thuê biết mình trả gì.
 - **Mã VietQR và Zalo.** Phiếu có mã chuyển khoản VietQR và gửi được qua Zalo.
 - **Chốt sổ cả dãy.** Nhập số từng phòng rồi chốt một lượt. Gửi phiếu cả dãy có từ gói Sân; gói Hiên gửi từng phòng.
-- **Xem lại trước khi lưu.** Bước xác nhận cuối nhắc lại số tiền, phòng và cách thu.
+- **Xem lại trước khi lưu.** Bước xác nhận cuối nhắc lại số tiền, phòng và cách thanh toán (tiền mặt hay chuyển khoản).
 - **Sổ đã chốt giữ nguyên.** Muốn điều chỉnh thì ghi thành một dòng riêng, hai bên cùng thấy.
 - **Chữ to, nút lớn.** Giao diện có chế độ sáng và tối, dùng được bằng tiếng Việt, English, 简体中文 và 繁體中文.
 
 ## Các gói
 
-| Gói  | Số phòng | Giá                           |
-| ---- | -------- | ----------------------------- |
-| Hiên | đến 15   | miễn phí                      |
-| Sân  | đến 50   | 99.000đ/tháng (giá sáng lập)  |
-| Ngõ  | đến 200  | 199.000đ/tháng (giá sáng lập) |
-| Khu  | đến 500  | 499.000đ/tháng (giá sáng lập) |
+| Gói  | Số phòng | Giá                                                 |
+| ---- | -------- | --------------------------------------------------- |
+| Hiên | đến 15   | miễn phí                                            |
+| Sân  | đến 50   | 99.000đ/tháng (giá sáng lập; giá niêm yết 149.000đ) |
+| Ngõ  | đến 200  | 199.000đ/tháng                                      |
+| Khu  | đến 500  | 499.000đ/tháng                                      |
 
-Khách mua trong giai đoạn sáng lập được giữ giá này. Chưa có quảng cáo trong sản phẩm.
+Giá sáng lập của gói Sân dành cho 100 khách trả tiền đầu tiên và được giữ nguyên. Hiện sản phẩm không có quảng cáo.
 
 ## Hiện trạng
 
 Bản web đang ở giai đoạn beta và mở đăng ký cho chủ trọ mới. Ứng dụng Android và iOS đang phát triển, chưa có trên cửa hàng ứng dụng. Ảnh màn hình chụp từ bản chạy thử, dùng dữ liệu mẫu.
 
-Xem thêm ảnh màn hình và video ngắn tại [trang Sổ Trọ](/vi/products/sotro/).
+Xem thêm ảnh màn hình tại [trang Sổ Trọ](/vi/products/sotro/).

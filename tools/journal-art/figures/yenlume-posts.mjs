@@ -38,7 +38,7 @@ const POSTS = {
         ],
         [
           "Xem lại trước khi lưu",
-          "Màn hình xác nhận nhắc số tiền, phòng và cách thu.",
+          "Màn hình xác nhận nhắc số tiền, phòng và cách thanh toán.",
         ],
         ["Chữ to, nút lớn", "Chế độ sáng và tối; bốn ngôn ngữ."],
       ],
@@ -47,7 +47,7 @@ const POSTS = {
         ["Hiên", "Miễn phí đến 15 phòng."],
         [
           "Sân, Ngõ, Khu",
-          "99.000đ, 199.000đ, 499.000đ mỗi tháng (giá sáng lập), đến 50, 200, 500 phòng.",
+          "99.000đ (giá sáng lập cho 100 khách đầu), 199.000đ, 499.000đ mỗi tháng; đến 50, 200, 500 phòng.",
         ],
       ],
       footer:
@@ -69,7 +69,7 @@ const POSTS = {
         ],
         [
           "Review before saving",
-          "The confirmation screen repeats amount, room and method.",
+          "The confirmation screen repeats amount, room and how it was paid.",
         ],
         ["Large text, big buttons", "Light and dark mode; four languages."],
       ],
@@ -78,7 +78,7 @@ const POSTS = {
         ["Hiên", "Free up to 15 rooms."],
         [
           "Sân, Ngõ, Khu",
-          "99,000, 199,000 and 499,000 VND a month (founding price), up to 50, 200, 500 rooms.",
+          "99,000 (founding price for the first 100), 199,000 and 499,000 VND a month; up to 50, 200, 500 rooms.",
         ],
       ],
       footer:

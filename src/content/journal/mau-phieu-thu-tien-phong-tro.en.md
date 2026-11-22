@@ -47,10 +47,10 @@ The electricity and water price charged to a tenant follows the tenancy agreemen
 
 ## How to send it
 
-Send it through Zalo with a transfer code so the tenant can pay straight away, then note the date you received the money. A closed receipt should not be edited quietly. If something changes, add a correction line that both sides can see.
+Send it through Zalo with a payment QR code so the tenant can pay straight away, then note the date you received the money. A closed receipt should not be edited quietly. If something changes, add a correction line that both sides can see.
 
 ## When there are many rooms
 
-Writing every receipt by hand for a whole row drifts easily. YENLUME lets you enter each room's readings and close the month in one go, with receipts that itemise each charge and carry a VietQR code. The Hiên plan is free up to 15 rooms and sends room by room; sending receipts for the whole row starts at the Sân plan (99,000 VND/month, founding price). See the [Sổ Trọ page](/en/products/sotro/).
+Writing every receipt by hand for a whole row makes it easy for numbers to slip. YENLUME lets you enter each room's readings and close the month in one go, with receipts that itemise each charge and carry a VietQR code. The Hiên plan is free up to 15 rooms and sends room by room; sending receipts for the whole row starts at the Sân plan (99,000 VND/month, founding price for the first 100 paying customers). See the [Sổ Trọ page](/en/products/sotro/).
 
 This is a reference template, not legal or tax advice.
