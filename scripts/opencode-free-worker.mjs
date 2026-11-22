@@ -31,6 +31,11 @@ import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { rotate } from "./lib/opencode-fanout.mjs";
 import {
+  DEFAULT_REGISTRY,
+  filterCallable,
+  loadRegistry,
+} from "./lib/model-registry.mjs";
+import {
   DEFAULT_LEDGER,
   assertDataClass,
   assertTask,
@@ -117,6 +122,24 @@ function main() {
   const ledger = process.env.MEDIA_SPEND_LEDGER ?? DEFAULT_LEDGER;
   const bin = process.env.OPENCODE_BIN ?? "opencode";
   const keyVar = process.env.OPENCODE_FREE_KEY_VAR ?? DEFAULT_KEY_VAR;
+  // Portfolio model registry (sgps-core tools/sgps_model_registry.py): an id the live listing does
+  // not serve on the key's endpoint is never called (HTTP 400 Generation.ModelNotInGo, 2026-11-22).
+  // A Go key is served by the Go endpoint, so its ids must be on the Go list.
+  const registry = loadRegistry(
+    process.env.MODEL_REGISTRY_FILE ?? DEFAULT_REGISTRY,
+  );
+  const filtered = filterCallable(
+    models,
+    registry,
+    keyVar.startsWith("OPENCODE_GO") ? "go" : "zen",
+  );
+  if (!filtered.registryUsed)
+    console.error(
+      "model registry missing or unreadable: free models not filtered (NOT VERIFIED)",
+    );
+  for (const s of filtered.skipped)
+    console.error(`free model skipped: ${s.reason}`);
+  models = filtered.allowed;
   const timeoutS = Number(process.env.FREE_ATTEMPT_TIMEOUT_S ?? 180);
   const timeout =
     Number.isFinite(timeoutS) && timeoutS >= 10 && timeoutS <= 600
