@@ -92,3 +92,13 @@ Architecture-affecting changes must regenerate/check derived views with `pnpm ar
 ## LONG-RUNNING — LUẬT TOÀN HERMES (Owner chốt 2026-09-19, BẮT BUỘC mọi dự án/mọi agent)
 
 Còn wave/plan/task ACTIONABLE → chạy end-to-end, KHÔNG dừng hỏi/báo cáo; hết wave tự mở wave mới, tự merge an toàn (branch→PR→exact-head gate→merge). Chỉ dừng khi EXTERNAL/MANUAL/BLOCKED-SAFETY hoặc Owner lệnh dừng. Precedence: Safety/Policy/Provider > Mandatory SGPS > Product Truth > ADR/Spec mới > active Plan > repo contracts > impl > conventions. SGPS = discover-everything / ACTIVATE-applicable, exact-identity.
+
+## Harness-first default (SGPS-HFD-1, MANDATORY for every agent: Claude, Codex, Antigravity, Gemini, Hermes, DeepSeek, Cursor, any other)
+
+- The session model directs and reviews; the SGPS harness does hands-on work (code to a spec, drafts, scans, digests, tests) through `scripts/sgps-free-worker.mjs` or the project's `lane-dispatch`: free, then OpenCode Go, then Mistral, then Claude API. No Owner reminder is needed.
+- Session model keeps only strategy, security, money, auth, architecture, guards, incidents, public copy and final review. No hand-called model CLI/SDK; model ids come from the registry (control-plane `projections/model-registry.json`), never hard-coded.
+- Commits over 30 code lines carry `Drafted-by:` or `No-Go: <category> <reason>`; `scripts/sgps-verify.sh` enforces it for any agent. A missing key/pool/permission goes to the Owner the same turn. Final report states lane runs. Standard: sgps-core `standards/finops/HARNESS_FIRST_DEFAULT_STANDARD.md`.
+
+## Security review ladder (SGPS-SMR-1)
+
+- Review by rung: free pool, sublead (Go/Mistral), lead, manager frontier (registry ids). Mythos once, only as final verify after every pre-golive gate passes. Standard section 8 of `standards/finops/HARNESS_FIRST_DEFAULT_STANDARD.md`.
