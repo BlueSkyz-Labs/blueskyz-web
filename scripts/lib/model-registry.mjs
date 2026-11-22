@@ -1,4 +1,7 @@
-import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { readFileSync, statSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 /** Where the scheduled model scan leaves the portfolio registry (control-plane projections/model-registry.json). */
 export const DEFAULT_REGISTRY =
@@ -116,4 +119,88 @@ export function loadRegistry(path, readFile = readFileSync) {
   } catch {
     return null;
   }
+}
+
+const CONTROL_PLANE_FILE =
+  "repos/BlueSkyz-Labs/sgps-control-plane/contents/projections/model-registry.json";
+const CACHE_MAX_AGE_MS = 6 * 3600 * 1000;
+
+/** @param {ModelRegistry | null} r @param {number} nowMs */
+function fresh(r, nowMs) {
+  return (
+    r !== null &&
+    r.kind === "model_registry" &&
+    Date.parse(r.stale_after ?? "") > nowMs
+  );
+}
+
+/**
+ * Find the portfolio registry without anyone placing a file: an explicit MODEL_REGISTRY_FILE; else a
+ * control-plane checkout (SGPS_CONTROL_PLANE_DIR or a sibling `sgps-control-plane`) or the shared mount;
+ * else a local cache (6 h); else one read of the control-plane file through `gh api` (15 s limit), cached.
+ * Only a fresh registry from the automatic sources is used; none found returns null (the caller warns).
+ * An explicit MODEL_REGISTRY_FILE is returned as read, stale or not, so a stale one still fails closed.
+ *
+ * @param {Record<string, string | undefined>} [env]
+ * @param {{ now?: number, readFile?: (p: string) => string | Buffer, mtime?: (p: string) => number,
+ *   fetchRemote?: () => string | null, writeFile?: (p: string, t: string) => void, cwd?: string }} [deps]
+ * @returns {ModelRegistry | null}
+ */
+export function resolveRegistry(env = process.env, deps = {}) {
+  const now = deps.now ?? Date.now();
+  const readFile = deps.readFile ?? readFileSync;
+  const mtime = deps.mtime ?? ((p) => statSync(p).mtimeMs);
+  const writeFile = deps.writeFile ?? writeFileSync;
+  const cwd = deps.cwd ?? process.cwd();
+  if (env.MODEL_REGISTRY_FILE)
+    return loadRegistry(env.MODEL_REGISTRY_FILE, readFile);
+
+  const rel = join("projections", "model-registry.json");
+  const candidates = [
+    env.SGPS_CONTROL_PLANE_DIR ? join(env.SGPS_CONTROL_PLANE_DIR, rel) : "",
+    join(cwd, "..", "sgps-control-plane", rel),
+    DEFAULT_REGISTRY,
+  ].filter(Boolean);
+  for (const path of candidates) {
+    const r = loadRegistry(path, readFile);
+    if (fresh(r, now)) return r;
+  }
+
+  const cache = join(tmpdir(), "sgps-model-registry.json");
+  try {
+    if (now - mtime(cache) < CACHE_MAX_AGE_MS) {
+      const r = loadRegistry(cache, readFile);
+      if (fresh(r, now)) return r;
+    }
+  } catch {
+    /* no cache yet */
+  }
+
+  const fetchRemote =
+    deps.fetchRemote ??
+    (() => {
+      const out = spawnSync(
+        "gh",
+        ["api", "-H", "Accept: application/vnd.github.raw", CONTROL_PLANE_FILE],
+        { encoding: "utf8", timeout: 15_000 },
+      );
+      return out.status === 0 ? out.stdout : null;
+    });
+  try {
+    const text = fetchRemote();
+    if (text) {
+      const r = JSON.parse(text);
+      if (fresh(r, now)) {
+        try {
+          writeFile(cache, text);
+        } catch {
+          /* cache is best effort */
+        }
+        return r;
+      }
+    }
+  } catch {
+    /* unreachable or unreadable: caller warns, nothing is blocked */
+  }
+  return null;
 }
