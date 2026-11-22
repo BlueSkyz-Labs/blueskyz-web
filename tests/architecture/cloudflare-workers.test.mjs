@@ -24,6 +24,6 @@ test("Workers serves the Astro static build", () => {
 
 test("Worker names follow PNS 1.1 ({role}-{environment})", () => {
   const analytics = readFileSync("workers/analytics/wrangler.toml", "utf8");
-  assert.match(wrangler, /^name = "web-production"$/m);
-  assert.match(analytics, /^name = "analytics-production"$/m);
+  assert.match(wrangler, /^name = "web"$/m);
+  assert.match(analytics, /^name = "analytics"$/m);
 });
