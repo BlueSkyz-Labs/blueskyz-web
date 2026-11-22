@@ -4,13 +4,14 @@
  * Pure helpers; the CLI is scripts/lane-dispatch.mjs.
  *
  * Channel order, cheapest first: free pool -> OpenCode Go (DeepSeek Flash)
- * -> Claude API (Haiku 5.5 / Sonnet 5.5, capped) -> Claude subscription
+ * -> Mistral credit (public/synthetic data only; Owner 2026-11-22) -> Claude API (Haiku 5.5 / Sonnet 5.5, capped) -> Claude subscription
  * (the lead or its own subagents). Each step runs only if the previous one
  * produced nothing. Work that is never delegated returns "claude_sub" at once.
  */
 import { DATA_CLASSES, TASKS } from "./opencode-go-worker.mjs";
+import { MISTRAL_DATA_CLASSES } from "./mistral-worker.mjs";
 
-export const LANES = ["free", "go", "claude_api", "claude_sub"];
+export const LANES = ["free", "go", "mistral", "claude_api", "claude_sub"];
 export const EXIT_CLAUDE_SUB = 4;
 export const EXIT_BLOCKED = 5;
 const ID_RE = /^[A-Za-z0-9._-]{1,40}$/;
@@ -53,7 +54,10 @@ export function planLanes(t, maxLane = "claude_api") {
     return ["claude_sub"];
   const chain = [];
   if (t.complexity <= 3) chain.push("free");
-  chain.push("go", "claude_api", "claude_sub");
+  chain.push("go");
+  // Mistral terms are NOT VERIFIED: public and synthetic data only.
+  if (MISTRAL_DATA_CLASSES.includes(t.dataClass)) chain.push("mistral");
+  chain.push("claude_api", "claude_sub");
   const stop = LANES.indexOf(maxLane);
   return chain.filter((l) => l === "claude_sub" || LANES.indexOf(l) <= stop);
 }
@@ -70,6 +74,11 @@ export function laneCommand(lane, t, thread) {
   ];
   if (lane === "free") return ["opencode-free-worker.mjs", common];
   if (lane === "go") return ["opencode-go-worker.mjs", common];
+  if (lane === "mistral")
+    return [
+      "mistral-worker.mjs",
+      [...common, "--complexity", String(t.complexity)],
+    ];
   if (lane === "claude_api")
     return [
       "claude-api-worker.mjs",
