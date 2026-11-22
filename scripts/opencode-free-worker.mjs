@@ -30,11 +30,7 @@ import { dirname, join, resolve } from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
 import { rotate } from "./lib/opencode-fanout.mjs";
-import {
-  DEFAULT_REGISTRY,
-  filterCallable,
-  loadRegistry,
-} from "./lib/model-registry.mjs";
+import { filterCallable, resolveRegistry } from "./lib/model-registry.mjs";
 import {
   DEFAULT_LEDGER,
   assertDataClass,
@@ -125,9 +121,7 @@ function main() {
   // Portfolio model registry (sgps-core tools/sgps_model_registry.py): an id the live listing does
   // not serve on the key's endpoint is never called (HTTP 400 Generation.ModelNotInGo, 2026-11-22).
   // A Go key is served by the Go endpoint, so its ids must be on the Go list.
-  const registry = loadRegistry(
-    process.env.MODEL_REGISTRY_FILE ?? DEFAULT_REGISTRY,
-  );
+  const registry = resolveRegistry(process.env);
   const filtered = filterCallable(
     models,
     registry,
