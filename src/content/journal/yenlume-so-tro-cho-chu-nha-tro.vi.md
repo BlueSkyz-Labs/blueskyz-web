@@ -9,7 +9,7 @@ author: tony-nguyen
 aiAssisted: true
 sources:
   - https://blueskyzlabs.com/vi/products/sotro/
-ownerApproval: https://github.com/BlueSkyz-Labs/blueskyz-web/pull/1
+ownerApproval: https://github.com/BlueSkyz-Labs/blueskyz-web/pull/762
 hero:
   src: /images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.vi.webp
   alt: "Ảnh màn hình YENLUME: trang Thu tiền trên máy tính và hai màn hình điện thoại, Hôm nay và Thu tiền."

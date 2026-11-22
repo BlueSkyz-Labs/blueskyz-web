@@ -9,7 +9,7 @@ author: tony-nguyen
 aiAssisted: true
 sources:
   - https://blueskyzlabs.com/en/products/sotro/
-ownerApproval: https://github.com/BlueSkyz-Labs/blueskyz-web/pull/1
+ownerApproval: https://github.com/BlueSkyz-Labs/blueskyz-web/pull/762
 hero:
   src: /images/journal/yenlume-so-tro-cho-chu-nha-tro/hero.en.webp
   alt: "YENLUME screenshots: the Collect rent page on desktop and two phone screens, Today and Collect rent."
