@@ -259,6 +259,7 @@ const awaitingScreens = !showcase && isIdentityArt;
             lang="vi"
             web={data.platforms.includes("web")}
             webPreview={webPreviewOpen(data)}
+            webOpen={data.availability === "public"}
           />
           {appLanguage ? (
             <p

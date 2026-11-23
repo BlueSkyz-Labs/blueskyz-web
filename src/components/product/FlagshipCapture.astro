@@ -43,6 +43,8 @@ interface Props {
    * small slot; nothing is redrawn and the alt/provenance stay the record's.
    */
   crop?: { x: number; y: number; width: number; height: number } | undefined;
+  /** The product is public under a new name; the capture still shows the old one. */
+  renamed?: boolean;
   class?: string;
 }
 
@@ -56,6 +58,7 @@ const {
   sizes,
   smallSrc,
   crop,
+  renamed = false,
   class: className = "",
 } = Astro.props;
 
@@ -90,7 +93,14 @@ const LABEL: Record<Language, string> = {
   zh: "开发版本 · 示例数据",
   "zh-hant": "開發版本 · 範例資料",
 };
-const label = LABEL[lang];
+// A public product's captures predate its public name: say so (Owner 2026-11-23).
+const LABEL_RENAMED: Record<Language, string> = {
+  en: "Captured when the product was still named Sổ Trọ · sample data",
+  vi: "Ảnh chụp khi sản phẩm còn tên Sổ Trọ · dữ liệu mẫu",
+  zh: "截图时产品名为 Sổ Trọ · 示例数据",
+  "zh-hant": "截圖時產品名為 Sổ Trọ · 範例資料",
+};
+const label = (renamed ? LABEL_RENAMED : LABEL)[lang];
 ---
 
 <figure

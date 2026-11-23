@@ -17,6 +17,19 @@ const HOME_LINE = {
     "已開放：YENLUME，給房東用的收租帳本。開發中：Sổ Tâm，只屬於你的私密日記。",
 } as const;
 
+const OPEN_LABEL = {
+  en: "open to everyone",
+  vi: "đã mở cho mọi người",
+  zh: "已开放使用",
+  "zh-hant": "已開放使用",
+} as const;
+const PREVIEW_LABEL = {
+  en: "open preview, limited places",
+  vi: "bản xem trước đã mở, số chỗ có hạn",
+  zh: "预览版已开放，名额有限",
+  "zh-hant": "預覽版已開放，名額有限",
+} as const;
+
 test("negative proof: webPreviewOpen needs web, an early-or-later lifecycle and a listing", () => {
   const base = {
     platforms: ["web"],
@@ -39,8 +52,13 @@ for (const lang of LANGS) {
     await page.goto(`/${lang}/products/sotro/`);
     await expect(page.locator("[data-web-state]")).toHaveAttribute(
       "data-web-state",
-      "preview",
+      "open",
     );
+    // Public availability: the line says "open to everyone" and never the
+    // preview wording (Lead bug 2026-11-23).
+    const line = page.locator("[data-app-access]");
+    await expect(line).toContainText(OPEN_LABEL[lang]);
+    await expect(line).not.toContainText(PREVIEW_LABEL[lang]);
     await expect(page.locator("[data-interim-note]")).toHaveAttribute(
       "data-interim-state",
       "web-preview",
