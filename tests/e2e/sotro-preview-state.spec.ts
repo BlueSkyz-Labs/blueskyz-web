@@ -88,3 +88,56 @@ for (const lang of LANGS) {
     await expect(page.locator("main")).toContainText(HOME_LINE[lang]);
   });
 }
+
+// Open product: captures are described as taken under the old name; the
+// other products keep the development-build wording (Lead 2026-11-23).
+const SHOWCASE_NOTE = {
+  en: "when the product was still named Sổ Trọ. Sample data only",
+  vi: "khi sản phẩm còn tên Sổ Trọ. Chỉ dùng dữ liệu mẫu",
+  zh: "当时产品名为 Sổ Trọ。仅使用示例数据",
+  "zh-hant": "當時產品名為 Sổ Trọ。僅使用範例資料",
+} as const;
+const OLD_SHOWCASE = {
+  en: "Screens from the development build",
+  vi: "Giao diện của bản đang phát triển",
+  zh: "开发版本的界面",
+  "zh-hant": "開發版本的畫面",
+} as const;
+const GUIDE_STATUS = {
+  en: "Steps may change in later updates.",
+  vi: "Các bước có thể thay đổi ở những bản cập nhật sau.",
+  zh: "后续更新中步骤可能会有调整。",
+  "zh-hant": "後續更新中步驟可能會有調整。",
+} as const;
+const GUIDE_NOTE = {
+  en: "when the product was still named Sổ Trọ.",
+  vi: "khi sản phẩm còn tên Sổ Trọ.",
+  zh: "当时产品名为 Sổ Trọ。",
+  "zh-hant": "當時產品名為 Sổ Trọ。",
+} as const;
+const OLD_GUIDE_STATUS = /Preview\.|Bản xem trước|预览版|預覽版/;
+
+for (const lang of LANGS) {
+  test(`${lang}: YENLUME screens and guide say the captures predate the rename`, async ({
+    page,
+  }) => {
+    await page.goto(`/${lang}/products/sotro/`);
+    const note = page.locator("[data-showcase-disclosure]").first();
+    await expect(note).toContainText(SHOWCASE_NOTE[lang]);
+    await expect(note).not.toContainText(OLD_SHOWCASE[lang]);
+
+    await page.goto(`/${lang}/products/sotro/guide/`);
+    const status = page.locator(".guide__status");
+    await expect(status).toHaveText(GUIDE_STATUS[lang]);
+    await expect(status).not.toContainText(OLD_GUIDE_STATUS);
+    await expect(page.locator(".guide__disclosure")).toContainText(
+      GUIDE_NOTE[lang],
+    );
+
+    // Sổ Tâm is still in development: its wording does not change.
+    await page.goto(`/${lang}/products/sotam/`);
+    await expect(
+      page.locator("[data-showcase-disclosure]").first(),
+    ).toContainText(OLD_SHOWCASE[lang]);
+  });
+}
