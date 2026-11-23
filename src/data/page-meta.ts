@@ -154,7 +154,7 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     home: {
       title: "BlueSkyz Labs | YENLUME 已开放，Sổ Tâm 开发中",
       description:
-        "BlueSkyz Labs 的两款产品：给越南房东的收租账本 YENLUME 现已开放使用；存在手机上的私密日记 Sổ Tâm 仍在开发中。",
+        "BlueSkyz Labs 的两款产品：给越南房东的收租账本 YENLUME 现已开放给所有人；保存在手机上的私密日记 Sổ Tâm 仍在开发中。",
     },
     about: {
       title: "关于我们",
@@ -180,7 +180,7 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     products: {
       title: "产品：YENLUME 已开放，Sổ Tâm 开发中",
       description:
-        "看看 YENLUME 与 Sổ Tâm 能为你做什么：给越南房东的收租账本，现已开放使用；以及存在手机上的私密日记，仍在开发中。",
+        "看看 YENLUME 与 Sổ Tâm 能为你做什么：给越南房东的收租账本，现已开放使用；以及保存在手机上的私密日记，仍在开发中。",
     },
     verify: {
       title: "核验我们的声明：信任通道与证据",
@@ -213,7 +213,7 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     home: {
       title: "BlueSkyz Labs | YENLUME 已開放，Sổ Tâm 開發中",
       description:
-        "BlueSkyz Labs 的兩款產品：給越南房東的收租帳本 YENLUME 現已開放使用；存在手機裡的私密日記 Sổ Tâm 仍在開發中。",
+        "BlueSkyz Labs 的兩款產品：給越南房東的收租帳本 YENLUME 現已開放給所有人；儲存在手機裡的私密日記 Sổ Tâm 仍在開發中。",
     },
     about: {
       title: "關於我們",
@@ -239,7 +239,7 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     products: {
       title: "產品：YENLUME 已開放，Sổ Tâm 開發中",
       description:
-        "看看 YENLUME 與 Sổ Tâm 能為你做什麼：給越南房東的收租帳本，現已開放使用；以及存在手機裡的私密日記，仍在開發中。",
+        "看看 YENLUME 與 Sổ Tâm 能為你做什麼：給越南房東的收租帳本，現已開放使用；以及儲存在手機裡的私密日記，仍在開發中。",
     },
     verify: {
       title: "核驗我們的聲明：信任通道與證據",
@@ -285,12 +285,12 @@ export const PRODUCT_META: Record<string, Record<Language, PageMeta>> = {
     zh: {
       title: "YENLUME：房东的收租账本",
       description:
-        "YENLUME 是给越南房东的收租账本：一眼看出谁还没交租，每笔租金只记一次，收据可发到 Zalo。截图使用示例数据。",
+        "YENLUME 是给越南房东的收租账本：一眼看出谁还没交租，收租后每笔款项只需确认一次，收据可直接发到 Zalo。截图使用示例数据。",
     },
     "zh-hant": {
       title: "YENLUME：房東的收租帳本",
       description:
-        "YENLUME 是給越南房東的收租帳本：一眼看出誰還沒繳租，每筆房租只記一次，收據可傳到 Zalo。畫面使用範例資料。",
+        "YENLUME 是給越南房東的收租帳本：一眼看出誰還沒繳租，收租後每筆款項只需確認一次，收據可直接傳到 Zalo。畫面使用範例資料。",
     },
   },
   sotam: {
