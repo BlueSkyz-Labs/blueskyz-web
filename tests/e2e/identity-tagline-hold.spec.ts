@@ -40,8 +40,29 @@ test.describe("identity art with a held tagline", () => {
     });
   }
 
-  test("Sổ Trọ keeps its identity strip (no hold)", async ({ page }) => {
+  test("YENLUME's proof media is not held: the page cites the capture", async ({
+    page,
+  }) => {
     await page.goto("/en/products/sotro/");
-    await expect(page.locator("[data-profile-identity-stage]")).toHaveCount(1);
+    expect(await page.content()).toContain(
+      "/products/sotro/showcase/launch-phone-home",
+    );
   });
+
+  // YENLUME (slug sotro) is live since 2026-11-23: its proof media is a real
+  // capture, so the strip, whose caption says "brand identity", must not
+  // render and the old identity art must not be served on the page.
+  for (const lang of LOCALES) {
+    test(`${lang}: a live product never shows a capture as identity art`, async ({
+      page,
+    }) => {
+      await page.goto(`/${lang}/products/sotro/`);
+      await expect(page.locator("[data-profile-identity-stage]")).toHaveCount(
+        0,
+      );
+      await expect(
+        page.locator('img[src*="/products/sotro/identity"]'),
+      ).toHaveCount(0);
+    });
+  }
 });
