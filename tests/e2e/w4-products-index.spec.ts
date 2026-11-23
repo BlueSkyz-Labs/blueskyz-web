@@ -4,11 +4,10 @@ import { expect, test } from "@playwright/test";
 
 const LOCALES = ["en", "vi", "zh", "zh-hant"] as const;
 const SOTRO_CUSTOMER_OUTCOME = {
-  en: "A rent book for people who rent out rooms, apartments or a house in Vietnam: open it to see who still owes this month and what needs doing today.",
-  vi: "Sổ thu tiền cho người có phòng trọ, căn hộ hay nhà cho thuê ở Việt Nam: mở ra là biết tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
-  zh: "越南房东的收租账本，适用于出租房间、公寓或整栋房子：打开就知道本月还有谁没交租、今天要处理什么。",
-  "zh-hant":
-    "越南房東的收租帳本，適用於出租房間、公寓或整棟房子：打開就知道本月還有誰沒繳租、今天要處理什麼。",
+  en: "A rent book for landlords in Vietnam: open it to see who still owes this month and what needs doing today.",
+  vi: "Sổ thu tiền cho chủ nhà ở Việt Nam: mở ra là biết tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
+  zh: "越南房东的收租账本：打开就知道本月还有谁没交租、今天要处理什么。",
+  "zh-hant": "越南房東的收租帳本：打開就知道本月還有誰沒繳租、今天要處理什麼。",
 } as const;
 
 for (const lang of LOCALES) {
