@@ -66,8 +66,8 @@ featuredTier: hero
 displayOrder: 1
 public: true
 # Sotro revision of the vendored public profile (src/data/upstream/README.md):
-# PENDING: head of BlueSkyz-Labs/Sotro#2427; re-pin to its squash merge on main.
-sourceRevision: d29b76156a73bea2c4466166cb221dd2de71b8c9
+# the squash merge of BlueSkyz-Labs/Sotro#2427 on main.
+sourceRevision: 6c4b8ef9a6f2bce1c7b34d8bf82471f22b412066
 lastReviewedAt: 2026-11-23
 # Localized copy: faithful translations of the English claims above; the
 # English record stays canonical for claim/proof binding. Native VI/ZH review
