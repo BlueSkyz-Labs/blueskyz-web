@@ -13,7 +13,7 @@ import {
 
 test("approved product sign-in shapes stay usable", () => {
   const approved = [
-    ["sotro", "https://sotro.blueskyzlabs.com/login"],
+    ["sotro", "https://yenlume.blueskyzlabs.com/login"],
     ["sotam", "https://sotam.blueskyzlabs.com/auth/login"],
   ];
   for (const [slug, url] of approved) {
@@ -23,21 +23,47 @@ test("approved product sign-in shapes stay usable", () => {
 
 test("sign-in rejects deceptive destinations and parameters", () => {
   const invalid = [
-    "http://sotro.blueskyzlabs.com/login",
+    "http://yenlume.blueskyzlabs.com/login",
     "https://sotam.blueskyzlabs.com/login",
-    "https://sotro.blueskyzlabs.com.attacker.invalid/login",
-    "https://sotro.blueskyzlabs.com@attacker.invalid/login",
-    "https://visitor@sotro.blueskyzlabs.com/login",
-    "https://sotro.blueskyzlabs.com:444/login",
-    "https://sotro.blueskyzlabs.com/",
-    "https://sotro.blueskyzlabs.com/login?redirect=attacker.invalid",
-    "https://sotro.blueskyzlabs.com/login#session",
-    " https://sotro.blueskyzlabs.com/login",
+    "https://yenlume.blueskyzlabs.com.attacker.invalid/login",
+    "https://yenlume.blueskyzlabs.com@attacker.invalid/login",
+    "https://visitor@yenlume.blueskyzlabs.com/login",
+    "https://yenlume.blueskyzlabs.com:444/login",
+    "https://yenlume.blueskyzlabs.com/",
+    "https://yenlume.blueskyzlabs.com/login?redirect=attacker.invalid",
+    "https://yenlume.blueskyzlabs.com/login#session",
+    " https://yenlume.blueskyzlabs.com/login",
     "not a URL",
   ];
   for (const candidate of invalid) {
     assert.equal(isCanonicalAppSignInUrl("sotro", candidate), false, candidate);
   }
+  // ADR 0006 exception: YENLUME (slug sotro) lives on its named host, so the
+  // slug host is no longer a sign-in authority for it, and its host is not
+  // one for any other product.
+  for (const retired of [
+    "https://sotro.blueskyzlabs.com/login",
+    "https://yenlume.blueskyzlabs.com.attacker.invalid/login",
+    "https://xyenlume.blueskyzlabs.com/login",
+    "https://yenlume.blueskyzlabs.co/login",
+  ]) {
+    assert.equal(isCanonicalAppSignInUrl("sotro", retired), false, retired);
+  }
+  assert.equal(
+    isCanonicalAppSignInUrl("sotam", "https://yenlume.blueskyzlabs.com/login"),
+    false,
+  );
+  assert.equal(
+    isCanonicalAppSignInUrl("yenlume", "https://sotro.blueskyzlabs.com/login"),
+    false,
+  );
+  assert.equal(
+    isCanonicalAppSignInUrl(
+      "constructor",
+      "https://yenlume.blueskyzlabs.com/login",
+    ),
+    false,
+  );
   const badSlug = "sotro.attacker";
   const badUrl = "https://sotro.attacker.blueskyzlabs.com/login";
   assert.equal(isCanonicalAppSignInUrl(badSlug, badUrl), false);
@@ -115,7 +141,7 @@ function syntheticProduct(appAccess, publicState = true) {
 
 test("canonical schema fails closed on deceptive product records", () => {
   const good = {
-    signInUrl: "https://sotro.blueskyzlabs.com/login",
+    signInUrl: "https://yenlume.blueskyzlabs.com/login",
     android: {
       state: "available",
       storeUrl: "https://play.google.com/store/apps/details?id=x",

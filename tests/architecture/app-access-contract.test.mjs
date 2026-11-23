@@ -13,6 +13,7 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { test } from "node:test";
+import { productAppHost } from "../../src/lib/app-access-url.ts";
 
 const DIR = "src/content/products";
 const PUBLISHED = ["sotam", "sotro", "vungtaylai"];
@@ -72,9 +73,11 @@ export function signInViolation(slug, text) {
   const url = text.match(/^ {2}signInUrl:\s*(\S+)/m)?.[1];
   if (!url) return "missing signInUrl";
   const { protocol, hostname } = new URL(url);
-  // ADR 0006: each product lives on its own <slug>.blueskyzlabs.com host.
-  if (protocol !== "https:" || hostname !== `${slug}.blueskyzlabs.com`)
-    return `sign-in must be on https://${slug}.blueskyzlabs.com`;
+  // ADR 0006: each product lives on its own blueskyzlabs.com host, the slug
+  // host unless the product names one (YENLUME, slug sotro).
+  const host = productAppHost(slug);
+  if (protocol !== "https:" || hostname !== host)
+    return `sign-in must be on https://${host}`;
   return null;
 }
 
@@ -89,6 +92,14 @@ test("negative proof: a foreign or retired sign-in host is rejected", () => {
   const retired = "appAccess:\n  signInUrl: https://sotro.tonydemo.com/login\n";
   const swapped =
     "appAccess:\n  signInUrl: https://sotam.blueskyzlabs.com/auth/login\n";
+  const slugHost =
+    "appAccess:\n  signInUrl: https://sotro.blueskyzlabs.com/login\n";
+  const named =
+    "appAccess:\n  signInUrl: https://yenlume.blueskyzlabs.com/login\n";
+  assert.equal(signInViolation("sotro", named), null);
+  assert.ok(signInViolation("sotro", slugHost));
+  assert.ok(signInViolation("sotam", named));
+  assert.equal(productAppHost("sotam"), "sotam.blueskyzlabs.com");
   assert.ok(signInViolation("sotro", retired));
   assert.ok(signInViolation("sotro", swapped));
   assert.ok(signInViolation("sotro", "appAccess:\n"));

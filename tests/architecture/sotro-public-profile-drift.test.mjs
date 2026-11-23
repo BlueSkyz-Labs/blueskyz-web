@@ -96,6 +96,8 @@ export function readRecord(text) {
 
 const PRICE_TEXT =
   /₫|\bVND\b|\bUSD\b|\$\s?\d|\d\s?(?:đ|đồng)\b|\b(?:price|prices|pricing|subscription|free trial|per month)\b|\/\s?(?:month|tháng)|(?:^|\s)gói (?:cước|trả phí)|定价|价格|收费|订阅/i;
+/** An amount of money; the profile's own `paid` note may say "prices" but never a figure. */
+const PRICE_AMOUNT = /₫|\bVND\b|\bUSD\b|\$\s?\d|\d\s?(?:đ|đồng)(?![\p{L}])/iu;
 const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+/;
 
 export function recordedRevision(readme) {
@@ -144,7 +146,9 @@ export function driftViolations(recordText, profile, readme) {
       out.push("pricing key present while the profile has no pricing");
     const hit = PRICE_TEXT.exec(body);
     if (hit)
-      out.push(`price/pricing text present ("${hit[0]}") while paid is closed`);
+      out.push(
+        `price/pricing text present ("${hit[0]}") while the profile has no pricing`,
+      );
   }
   if (profile.supportEmail === null) {
     if (/^\s*supportEmail:/m.test(body)) out.push("supportEmail key present");
@@ -194,22 +198,38 @@ test("sotro.yaml mirrors the upstream public profile", () => {
   assert.deepEqual(driftViolations(record, profile, readme), []);
 });
 
-test("profile paid closed and no support email are actually in force", () => {
-  assert.equal(profile.paid.status, "closed");
+test("paid is open, yet no pricing and no support email are in force", () => {
+  // Owner 2026-11-23: the product is open and sells on its own site. This site
+  // links there and never repeats a price, so `pricing` stays null and the
+  // price-text guard in driftViolations() stays armed whatever paid.status is.
+  assert.equal(profile.paid.status, "open");
   assert.equal(profile.pricing, null);
   assert.equal(profile.supportEmail, null);
+  assert.doesNotMatch(JSON.stringify(profile.paid), PRICE_AMOUNT);
+});
+
+test("negative proof: the price guard holds for every paid status while pricing is null", () => {
+  const priced = `${record}pricing:\n  monthly: 99000 VND\n`;
+  for (const status of ["open", "closed"]) {
+    const variant = { ...profile, paid: { ...profile.paid, status } };
+    assert.ok(
+      driftViolations(priced, variant, readme).some((v) => /pricing/.test(v)),
+      `paid ${status}: a pricing key must be rejected`,
+    );
+  }
+  assert.match('{"reason":"from 99.000 đ a month"}', PRICE_AMOUNT);
 });
 
 test("negative proof: changing any mirrored claim is detected", () => {
   const mutations = {
     availability: record.replace(
-      "availability: preview",
       "availability: public",
+      "availability: preview",
     ),
-    lifecycle: record.replace("lifecycle: beta", "lifecycle: active"),
+    lifecycle: record.replace("lifecycle: active", "lifecycle: beta"),
     publicLabel: record.replace(
-      "publicLabel: Preview",
       "publicLabel: Available",
+      "publicLabel: Preview",
     ),
     // Anchored to the jobs list item: shortDescription repeats this phrase,
     // and a bare replace() would mutate that field instead.
@@ -227,8 +247,8 @@ test("negative proof: changing any mirrored claim is detected", () => {
       "biên nhận tự động gửi qua Zalo",
     ),
     "appAccess.signInUrl": record.replace(
-      "sotro.blueskyzlabs.com/login",
-      "sotro.blueskyzlabs.com/signup",
+      "yenlume.blueskyzlabs.com/login",
+      "yenlume.blueskyzlabs.com/signup",
     ),
     "appAccess.android": record.replace(
       "  android:\n    state: in-development\n",

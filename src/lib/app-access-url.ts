@@ -28,6 +28,25 @@ function parsePublicDestination(value: string): URL | null {
   }
 }
 
+/**
+ * ADR 0006 gives each product the host `<slug>.blueskyzlabs.com`. A product
+ * whose public name differs from its registry slug lists its one app host
+ * here; the slug host then stops being accepted for it. Exact host, one per
+ * product, no wildcard. YENLUME keeps the registry slug `sotro` (Owner
+ * 2026-11-22: the app lives on yenlume.blueskyzlabs.com).
+ */
+const PRODUCT_APP_HOSTS: Readonly<Record<string, string>> = Object.freeze({
+  sotro: "yenlume.blueskyzlabs.com",
+});
+
+/** The single first-party app host of a product. */
+export function productAppHost(productSlug: string): string {
+  const named = Object.hasOwn(PRODUCT_APP_HOSTS, productSlug)
+    ? PRODUCT_APP_HOSTS[productSlug]
+    : undefined;
+  return named ?? `${productSlug}.blueskyzlabs.com`;
+}
+
 /** Sign-in links cannot silently cross from a product to another authority. */
 export function isCanonicalAppSignInUrl(
   productSlug: string,
@@ -37,7 +56,7 @@ export function isCanonicalAppSignInUrl(
   const url = parsePublicDestination(value);
   return (
     url !== null &&
-    url.hostname === `${productSlug}.blueskyzlabs.com` &&
+    url.hostname === productAppHost(productSlug) &&
     url.pathname !== "/" &&
     url.search === ""
   );
@@ -58,7 +77,7 @@ export function isProductAppOriginUrl(
   const url = parsePublicDestination(value);
   return (
     url !== null &&
-    url.hostname === `${productSlug}.blueskyzlabs.com` &&
+    url.hostname === productAppHost(productSlug) &&
     url.search === ""
   );
 }

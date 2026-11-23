@@ -2,10 +2,10 @@
   "schema": "sotro-public-profile/1",
   "_contract": "Single source of truth for what the BlueSkyz Labs portfolio website may publicly say about Sổ Trọ. The SGPS-Marketing repo (src/content/products/sotro.yaml) vendors a snapshot of this file pinned to an exact Sotro main revision and fails its own tests on drift. To change any public claim, change this file FIRST (via a reviewed Sotro PR), then re-vendor it in SGPS-Marketing at the new exact revision. Fields prefixed with an underscore are documentation for maintainers and must not be rendered publicly. Guard: tests/unit/public-profile.test.ts.",
   "_rationale": {
-    "availability": "Committed production config (wrangler.jsonc env.production.vars) is PUBLIC_EXPOSURE_LEVEL=L4_PAID with SELF_REGISTRATION_ENABLED=true, TURNSTILE_ENABLED=true and PUBLIC_WORKSPACE_CAP=9, and src/app/router.tsx serves the public /dang-ky sign-up page. So a new landlord can create a workspace today, but only a small, capped number of workspaces exist. Owner 2026-10-15 asked to present Sổ Trọ as a preview that is close to Go-Live: lifecycle 'beta' + availability 'preview' + publicLabel 'Preview' says exactly that (an early, open-to-try web product with limited places), not 'Available'. Do not move to 'public'/'Available' until the workspace cap is lifted and Go-Live is approved. Guard (c) and (h) in tests/unit/public-profile.test.ts tie these values to the committed config.",
-    "paid": "Paid Go-Live is not approved. PAID_ORDERS_ENABLED=true in production only serves a bounded, server-enforced canary (PAYMENT_CANARY_MODE=ENFORCE, one designated workspace, a fixed window); docs/release/L4_PROMOTION_RECORD_2026-10-12.md is a DRAFT. No price, plan or purchase claim may be published.",
+    "availability": "Committed production config (wrangler.jsonc env.production.vars) is PUBLIC_EXPOSURE_LEVEL=L4_PAID with SELF_REGISTRATION_ENABLED=true and TURNSTILE_ENABLED=true, and the app serves the public /dang-ky sign-up page. Owner 2026-11-22: public launch with no pilot group. Owner 2026-11-23 chose how the portfolio website presents YENLUME: open to everyone, with no prices repeated there. So lifecycle is 'active', availability 'public' and publicLabel 'Available'. PUBLIC_WORKSPACE_CAP still bounds how many workspaces can exist; if sign-up is ever closed, guards (c) and (h) in tests/unit/public-profile.test.ts fail until these values move back.",
+    "paid": "Owner 2026-11-16 opened web sales and production runs PAID_ORDERS_ENABLED=true with PAYMENT_CANARY_MODE=GENERAL, so paid.status is 'open'. pricing stays null on purpose (Owner 2026-11-23): the founding price changes when its places run out, so prices live only on the product's own pricing page and the portfolio website links to it. No price, plan name or purchase claim may be copied into the website record.",
     "capabilities": "Only behaviour that is merged on main, routed in production and has code plus a test in this repo (feature census 2026-10-15 at main 2f29c772). Deliberately NOT claimed: tiered electricity billing (invoices use the landlord's flat rate; the tier breakdown is only an advisory comparison), automatic sending of reminders or receipts (both are copy-only), automatic bank matching (the transfer QR only shows a code; the landlord still confirms the money), a PIN to reveal ID numbers (none exists), full offline use, and anything from the dormant premium work. Public strings and evidence paths avoid bank-QR standard names because the website's no-payment-authority guard scans the vendored copy.",
-    "signInUrl": "Committed production APP_BASE_URL is https://sotro.blueskyzlabs.com and src/app/router.tsx serves /login on the main (non-admin, non-super) host.",
+    "signInUrl": "Committed production APP_BASE_URL is https://yenlume.blueskyzlabs.com and src/app/router.tsx serves /login on the main (non-admin, non-super) host.",
     "listing": "Owner 2026-09-30: Sổ Trọ is the portfolio flagship and the first product planned for Go-Live, so it stays listed (public, hero, first) rather than hidden. Listing it is not a claim of open access: availability/publicLabel above still govern what a visitor can do.",
     "nativeApps": "Owner 2026-09-30: native Android and iOS apps are planned after the web core is complete and will sync with the same workspace. No native project exists in this repo yet, so both are 'in-development' with no store link, and platforms stays ['web'].",
     "signUpUrl": "SELF_REGISTRATION_ENABLED=true and TURNSTILE_ENABLED=true in production, and src/app/router.tsx serves path=\"/dang-ky\" (public Register page, tests/e2e/public/register-page.spec.ts). The link is published only while self-registration is on; guard (h) removes the permission the moment the flag is turned off."
@@ -17,15 +17,15 @@
     "src/app/router.tsx"
   ],
   "slug": "sotro",
-  "name": "Sổ Trọ",
-  "lifecycle": "beta",
-  "availability": "preview",
-  "publicLabel": "Preview",
+  "name": "YENLUME",
+  "lifecycle": "active",
+  "availability": "public",
+  "publicLabel": "Available",
   "audience": ["professional", "business"],
   "jobs": [
     "See at a glance who still owes rent this month and what needs doing today",
     "Collect rent and record each payment once, correctly, without a spreadsheet",
-    "Keep rooms, tenants, meter readings and the residence register in one place"
+    "Keep rooms and apartments, tenants with their residence registration, and meter readings in one place"
   ],
   "capabilities": [
     {
@@ -62,8 +62,8 @@
   ],
   "platforms": ["web"],
   "appAccess": {
-    "signInUrl": "https://sotro.blueskyzlabs.com/login",
-    "signUpUrl": "https://sotro.blueskyzlabs.com/dang-ky",
+    "signInUrl": "https://yenlume.blueskyzlabs.com/login",
+    "signUpUrl": "https://yenlume.blueskyzlabs.com/dang-ky",
     "_source": "wrangler.jsonc env.production.vars (APP_BASE_URL, SELF_REGISTRATION_ENABLED) + src/app/router.tsx (/login, /dang-ky routes)",
     "android": {
       "state": "in-development"
@@ -78,17 +78,17 @@
     "displayOrder": 1
   },
   "paid": {
-    "status": "closed",
-    "reason": "Paid plans are not open; Paid Go-Live is not approved"
+    "status": "open",
+    "reason": "Paid plans are sold on the product's own site; the portfolio website links there and does not repeat prices"
   },
   "pricing": null,
   "supportEmail": null,
   "i18n": {
     "vi": {
       "jobs": [
-        "Nhìn một lần là biết tháng này phòng nào còn nợ tiền và hôm nay cần làm gì",
+        "Nhìn một lần là biết tháng này phòng hay căn nào chưa đóng tiền và hôm nay cần làm gì",
         "Thu tiền và ghi nhận mỗi khoản đúng một lần, không cần sổ tay hay bảng tính",
-        "Giữ phòng, người thuê, chỉ số điện nước và sổ tạm trú ở cùng một nơi"
+        "Giữ phòng và căn cho thuê, người thuê cùng thông tin tạm trú, chỉ số điện nước ở cùng một nơi"
       ],
       "capabilities": [
         "Thu tiền có bước xem lại rồi mới xác nhận, mã QR chuyển khoản ngân hàng và biên nhận sao chép gửi qua Zalo",
@@ -97,5 +97,5 @@
       ]
     }
   },
-  "claimsReviewedAt": "2026-10-15"
+  "claimsReviewedAt": "2026-11-23"
 }
