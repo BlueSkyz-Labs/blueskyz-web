@@ -48,7 +48,7 @@ for (const lang of ["en", "vi"] as const) {
     const heading = page.locator("#profile-showcase");
     await expect(heading).toHaveText(
       lang === "en"
-        ? "A landlord’s month in Sổ Trọ"
+        ? "A landlord’s month in YENLUME"
         : /^Một tháng của chủ nhà cùng \S.*$/,
     );
   });
