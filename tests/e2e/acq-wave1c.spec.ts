@@ -92,11 +92,13 @@ test.describe("ACQ-02 task words find the product", () => {
     ["vi", "thu tiền"],
     ["vi", "nhà trọ"],
     ["vi", "điện nước"],
+    ["vi", "phòng trọ"],
+    ["vi", "chủ nhà"],
   ];
   for (const [lang, q] of cases) {
-    test(`${lang} "${q}" returns Sổ Trọ first`, async ({ page }) => {
+    test(`${lang} "${q}" returns YENLUME first`, async ({ page }) => {
       const links = await results(page, lang, q);
-      await expect(links.first()).toHaveText("Sổ Trọ");
+      await expect(links.first()).toHaveText("YENLUME");
     });
   }
 

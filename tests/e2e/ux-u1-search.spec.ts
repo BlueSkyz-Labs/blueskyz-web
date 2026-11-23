@@ -5,13 +5,13 @@ import { expect, test } from "@playwright/test";
 test.use({ viewport: { width: 1280, height: 800 } });
 
 // Preview 2026-10-15: the status line names each product's own state from the
-// registry, so an open preview is never called "in development".
+// registry, so an open product is never called "in development".
 const STATUS: Record<string, RegExp> = {
-  en: /^Sổ Trọ: open preview, limited places; Sổ Tâm: in development; Vững Tay Lái: in development; Android and iOS: no store release\.$/,
-  vi: /^Sổ Trọ: bản xem trước đã mở, số chỗ có hạn; Sổ Tâm: đang phát triển; Vững Tay Lái: đang phát triển; Android và iOS: chưa có bản trên cửa hàng ứng dụng\.$/,
-  zh: /^Sổ Trọ：预览版已开放，名额有限；Sổ Tâm：开发中；Vững Tay Lái：开发中；Android 与 iOS：尚未上架应用商店\.$/,
+  en: /^YENLUME: open to everyone; Sổ Tâm: in development; Vững Tay Lái: in development; Android and iOS: no store release\.$/,
+  vi: /^YENLUME: đã mở cho mọi người; Sổ Tâm: đang phát triển; Vững Tay Lái: đang phát triển; Android và iOS: chưa có bản trên cửa hàng ứng dụng\.$/,
+  zh: /^YENLUME：已开放使用；Sổ Tâm：开发中；Vững Tay Lái：开发中；Android 与 iOS：尚未上架应用商店\.$/,
   "zh-hant":
-    /^Sổ Trọ：預覽版已開放，名額有限；Sổ Tâm：開發中；Vững Tay Lái：開發中；Android 與 iOS：尚未上架應用程式商店\.$/,
+    /^YENLUME：已開放使用；Sổ Tâm：開發中；Vững Tay Lái：開發中；Android 與 iOS：尚未上架應用程式商店\.$/,
 };
 
 async function search(
@@ -82,11 +82,11 @@ for (const [lang, queries] of [
 // the product instead of the fallback. 'zalo' (a receipt channel) is such a
 // word; the no-hit, no-status case is pinned above with 'zzqx'.
 for (const lang of ["en", "vi"] as const) {
-  test(`${lang} 'zalo' finds Sổ Trọ from its published text`, async ({
+  test(`${lang} 'zalo' finds YENLUME from its published text`, async ({
     page,
   }) => {
     await search(page, lang, "zalo");
-    await expect(items(page).first()).toContainText("Sổ Trọ");
+    await expect(items(page).first()).toContainText("YENLUME");
     await expect(page.locator("[data-command-fallback]")).toBeHidden();
     await expect(page.locator("[data-command-status]")).toBeHidden();
   });
@@ -96,11 +96,11 @@ for (const lang of ["en", "vi"] as const) {
 // also finds a product: EN 'download' matches the published "spreadsheet to
 // download" capability, but the visitor asking to download the app must still
 // read "no store release".
-test("en 'download' finds Sổ Trọ and keeps the status line", async ({
+test("en 'download' finds YENLUME and keeps the status line", async ({
   page,
 }) => {
   await search(page, "en", "download");
-  await expect(items(page).first()).toContainText("Sổ Trọ");
+  await expect(items(page).first()).toContainText("YENLUME");
   const status = page.locator("[data-command-status]");
   await expect(status).toBeVisible();
   await expect(status).toHaveText(STATUS.en!);
@@ -110,7 +110,7 @@ test("negative proof: results without a status-intent word show no status line",
   page,
 }) => {
   await search(page, "en", "rent");
-  await expect(items(page).first()).toContainText("Sổ Trọ");
+  await expect(items(page).first()).toContainText("YENLUME");
   await expect(page.locator("[data-command-status]")).toBeHidden();
 });
 

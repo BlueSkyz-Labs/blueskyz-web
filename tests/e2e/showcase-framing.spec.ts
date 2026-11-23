@@ -8,7 +8,7 @@ import { expect, test } from "@playwright/test";
  */
 const LANDLORD_WORDS: Record<"en" | "vi", RegExp> = {
   en: /landlord|tenant|owner’s computer|family phone/i,
-  vi: /chủ trọ|người thuê|người nhà/i,
+  vi: /chủ trọ|chủ nhà|người thuê|người nhà/i,
 };
 
 /** Landlord words found in a text, or [] when the text is neutral. */
@@ -21,6 +21,9 @@ test("negative proof: the landlord-word scan catches the old heading", () => {
   ]);
   expect(landlordWords("vi", "Một tháng làm chủ trọ cùng Sổ Tâm")).toEqual([
     "chủ trọ",
+  ]);
+  expect(landlordWords("vi", "Một tháng của chủ nhà cùng Sổ Tâm")).toEqual([
+    "chủ nhà",
   ]);
   expect(landlordWords("en", "Vững Tay Lái, screen by screen")).toEqual([]);
 });
@@ -45,8 +48,8 @@ for (const lang of ["en", "vi"] as const) {
     const heading = page.locator("#profile-showcase");
     await expect(heading).toHaveText(
       lang === "en"
-        ? "A landlord’s month in Sổ Trọ"
-        : "Một tháng làm chủ trọ cùng Sổ Trọ",
+        ? "A landlord’s month in YENLUME"
+        : /^Một tháng của chủ nhà cùng \S.*$/,
     );
   });
 }

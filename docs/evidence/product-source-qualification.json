@@ -32,8 +32,8 @@
     "sotro": {
       "repository": "BlueSkyz-Labs/Sotro",
       "defaultBranch": "main",
-      "sourceRevision": "e6fc6c5573e202dea084eba778ed01cd826d2c3e",
-      "checkedDefaultHead": "e6fc6c5573e202dea084eba778ed01cd826d2c3e",
+      "sourceRevision": "6c4b8ef9a6f2bce1c7b34d8bf82471f22b412066",
+      "checkedDefaultHead": "6c4b8ef9a6f2bce1c7b34d8bf82471f22b412066",
       "relationship": "EXACT_DEFAULT_HEAD"
     },
     "vungtaylai": {

@@ -75,16 +75,39 @@ test.describe("raster magic bytes", () => {
   });
 });
 
-test("identity image renders on /en/products/sotro/", async ({ page }) => {
+// YENLUME (2026-11-23): the product page no longer renders the identity lockup
+// as an in-page <img> (the hero shows the real app captures), so decode every
+// shipped variant in the browser from that page; the lockup is still the
+// identity art for metadata and the product index.
+test("YENLUME identity variants decode on /en/products/sotro/", async ({
+  page,
+}) => {
   await page.goto("/en/products/sotro/");
-  const img = page.locator("[data-product-visual] img").first();
-  await expect(img).toHaveCount(1);
-  await img.scrollIntoViewIfNeeded();
-  await expect
-    .poll(() => img.evaluate((el: HTMLImageElement) => el.naturalWidth))
-    .toBeGreaterThan(0);
-  const src = await img.evaluate((el: HTMLImageElement) => el.currentSrc);
-  expect(src).toContain("identity");
+  const widths = await page.evaluate(async () => {
+    const out: Record<string, number> = {};
+    for (const f of [
+      "identity-480.webp",
+      "identity-768.webp",
+      "identity.webp",
+      "identity.png",
+    ]) {
+      const im = new Image();
+      im.src = `/products/sotro/${f}`;
+      try {
+        await im.decode();
+      } catch {
+        /* leave 0 */
+      }
+      out[f] = im.naturalWidth;
+    }
+    return out;
+  });
+  expect(widths).toEqual({
+    "identity-480.webp": 480,
+    "identity-768.webp": 768,
+    "identity.webp": 1800,
+    "identity.png": 1800,
+  });
 });
 
 // /en/products/sotam/ declares its identity art only in metadata (no in-page

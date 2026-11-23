@@ -18,21 +18,19 @@ const SLUGS = ["sotro", "sotam"] as const;
 // Every string here already exists in product-page-copy.ts (AVAILABILITY).
 const LINE: Record<Lang, Record<(typeof SLUGS)[number], string>> = {
   en: {
-    sotro:
-      "Web: open preview, limited places · Android and iOS: in development.",
+    sotro: "Web: open to everyone · Android and iOS: in development.",
     sotam: "Web: in development · Android and iOS: in development.",
   },
   vi: {
-    sotro:
-      "Web: bản xem trước đã mở, số chỗ có hạn · Android và iOS: đang phát triển.",
+    sotro: "Web: đã mở cho mọi người · Android và iOS: đang phát triển.",
     sotam: "Web: đang phát triển · Android và iOS: đang phát triển.",
   },
   zh: {
-    sotro: "网页：预览版已开放，名额有限 · Android 与 iOS：开发中。",
+    sotro: "网页：已开放使用 · Android 与 iOS：开发中。",
     sotam: "网页：开发中 · Android 与 iOS：开发中。",
   },
   "zh-hant": {
-    sotro: "網頁：預覽版已開放，名額有限 · Android 與 iOS：開發中。",
+    sotro: "網頁：已開放使用 · Android 與 iOS：開發中。",
     sotam: "網頁：開發中 · Android 與 iOS：開發中。",
   },
 };

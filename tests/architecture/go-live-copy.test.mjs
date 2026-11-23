@@ -61,9 +61,11 @@ test("negative proof: a legacy decision-room title is detected", () => {
   assert.notEqual("Decision Room", PAGE_META.en.decisionRoom.title);
 });
 
-test("vi Sổ Trọ description says 'khoản tiền chưa thu' within 120-160 chars", () => {
+test("vi product description says which payments are still unpaid within 120-160 chars", () => {
+  // Copy v1 2026-11-23: "khoản nào chưa thu" (which payment is not yet collected)
+  // replaces "khoản tiền chưa thu"; both name the unpaid payment, never "tiền phòng".
   const { description } = PRODUCT_META.sotro.vi;
-  assert.ok(description.includes("khoản tiền chưa thu"));
+  assert.ok(description.includes("khoản nào chưa thu"));
   assert.ok(!description.includes("tiền phòng chưa thu"));
   const length = [...description].length;
   assert.ok(length >= 120 && length <= 160, `length ${length}`);

@@ -35,14 +35,14 @@ export type StaticPageKey =
 export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
   vi: {
     home: {
-      title: "BlueSkyz Labs | Sổ Trọ xem trước, Sổ Tâm đang phát triển",
+      title: "BlueSkyz Labs | YENLUME đã mở, Sổ Tâm đang phát triển",
       description:
-        "BlueSkyz Labs đang xây dựng Sổ Trọ, sổ tay điện tử cho chủ trọ ở Việt Nam, đang mở bản xem trước, và Sổ Tâm, nhật ký riêng tư lưu trên máy, đang phát triển.",
+        "YENLUME, sổ thu tiền cho người có nhà cho thuê ở Việt Nam, đã mở cho mọi người. Sổ Tâm, nhật ký riêng tư lưu trên máy, đang phát triển.",
     },
     about: {
       title: "Về BlueSkyz",
       description:
-        "BlueSkyz Labs đang làm Sổ Trọ và Sổ Tâm. Tìm hiểu cách chúng tôi làm việc và tự kiểm chứng từng điều chúng tôi nói qua nguồn công khai.",
+        "BlueSkyz Labs đang làm YENLUME và Sổ Tâm. Tìm hiểu cách chúng tôi làm việc và tự kiểm chứng từng điều chúng tôi nói qua nguồn công khai.",
     },
     contact: {
       title: "Liên hệ: hợp tác và câu hỏi chung",
@@ -57,13 +57,13 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     support: {
       title: "Hỗ trợ: cách được trợ giúp",
       description: hasSupportEmail
-        ? "Cách nhận trợ giúp cho Sổ Trọ và Sổ Tâm: gửi email đến hộp thư hỗ trợ. Kênh báo cáo bảo mật riêng tư chỉ dành cho lỗ hổng bảo mật."
-        : "Cách nhận trợ giúp cho Sổ Trọ và Sổ Tâm. Hiện chưa có hộp thư hỗ trợ chung; kênh báo cáo bảo mật riêng tư chỉ dành cho lỗ hổng bảo mật.",
+        ? "Cách nhận trợ giúp cho YENLUME và Sổ Tâm: gửi email đến hộp thư hỗ trợ. Kênh báo cáo bảo mật riêng tư chỉ dành cho lỗ hổng bảo mật."
+        : "Cách nhận trợ giúp cho YENLUME và Sổ Tâm. Hiện chưa có hộp thư hỗ trợ chung; kênh báo cáo bảo mật riêng tư chỉ dành cho lỗ hổng bảo mật.",
     },
     products: {
-      title: "Sản phẩm: Sổ Trọ xem trước và Sổ Tâm",
+      title: "Sản phẩm: YENLUME và Sổ Tâm",
       description:
-        "Xem Sổ Trọ và Sổ Tâm giúp bạn được gì: sổ thu tiền phòng cho chủ trọ Việt Nam, đang mở bản xem trước, và nhật ký riêng tư lưu trên máy, đang phát triển.",
+        "YENLUME và Sổ Tâm giúp bạn việc gì: sổ thu tiền cho người có nhà cho thuê, đã mở cho mọi người, và nhật ký riêng tư lưu trên máy, đang phát triển.",
     },
     verify: {
       title: "Kiểm chứng: tự đối chiếu điều chúng tôi nói",
@@ -93,9 +93,9 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
   },
   en: {
     home: {
-      title: "BlueSkyz Labs | Sổ Trọ in preview, Sổ Tâm in development",
+      title: "BlueSkyz Labs | YENLUME is open, Sổ Tâm in development",
       description:
-        "BlueSkyz Labs is building Sổ Trọ, a digital notebook for landlords in Vietnam, now in preview, and Sổ Tâm, a private local-first journal, in development.",
+        "YENLUME, a rent ledger for landlords in Vietnam, is open to everyone. Sổ Tâm, a private journal kept on your phone, is in development.",
     },
     about: {
       title: "About us",
@@ -115,13 +115,13 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     support: {
       title: "Support: how to get help",
       description: hasSupportEmail
-        ? "How to get help with Sổ Trọ and Sổ Tâm: email our support mailbox. Private security reporting is for vulnerabilities only."
-        : "How to get help with Sổ Trọ and Sổ Tâm. No general support mailbox has been published yet; private security reporting is for vulnerabilities only.",
+        ? "How to get help with YENLUME and Sổ Tâm: email our support mailbox. Private security reporting is for vulnerabilities only."
+        : "How to get help with YENLUME and Sổ Tâm. No general support mailbox has been published yet; private security reporting is for vulnerabilities only.",
     },
     products: {
-      title: "Products: Sổ Trọ in preview and Sổ Tâm",
+      title: "Products: YENLUME and Sổ Tâm",
       description:
-        "See what Sổ Trọ and Sổ Tâm do for you: a rent notebook for landlords in Vietnam, now in preview, and a private local-first journal, in development.",
+        "What YENLUME and Sổ Tâm do for you: a rent ledger for landlords in Vietnam, open to everyone, and a private journal kept on your phone, in development.",
     },
     verify: {
       title: "Verify our claims: trust routes and evidence",
@@ -152,9 +152,9 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
   // zh: NOT VERIFIED (native review pending).
   zh: {
     home: {
-      title: "BlueSkyz Labs | Sổ Trọ 预览中，Sổ Tâm 开发中",
+      title: "BlueSkyz Labs | YENLUME 已开放，Sổ Tâm 开发中",
       description:
-        "BlueSkyz Labs 正在打造两款产品：面向越南房东的电子记事本 Sổ Trọ，现已开放预览；本地优先的私密日记 Sổ Tâm，仍在开发中。",
+        "BlueSkyz Labs 的两款产品：给越南房东的收租账本 YENLUME 现已开放使用；存在手机上的私密日记 Sổ Tâm 仍在开发中。",
     },
     about: {
       title: "关于我们",
@@ -174,13 +174,13 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     support: {
       title: "帮助与支持：如何获得帮助",
       description: hasSupportEmail
-        ? "如何获得 Sổ Trọ 与 Sổ Tâm 的帮助：请发邮件至支持邮箱。安全漏洞请走私密报告通道，而非支持渠道。"
-        : "如何获得 Sổ Trọ 与 Sổ Tâm 的帮助：目前尚未公布通用支持邮箱。安全漏洞请走私密报告通道，而非支持渠道。",
+        ? "如何获得 YENLUME 与 Sổ Tâm 的帮助：请发邮件至支持邮箱。安全漏洞请走私密报告通道，而非支持渠道。"
+        : "如何获得 YENLUME 与 Sổ Tâm 的帮助：目前尚未公布通用支持邮箱。安全漏洞请走私密报告通道，而非支持渠道。",
     },
     products: {
-      title: "产品：Sổ Trọ 预览中，Sổ Tâm 开发中",
+      title: "产品：YENLUME 已开放，Sổ Tâm 开发中",
       description:
-        "看看 Sổ Trọ 与 Sổ Tâm 能为你做什么：为越南房东收租的记事本，现已开放预览；以及本地优先的私密日记，仍在开发中。",
+        "看看 YENLUME 与 Sổ Tâm 能为你做什么：给越南房东的收租账本，现已开放使用；以及存在手机上的私密日记，仍在开发中。",
     },
     verify: {
       title: "核验我们的声明：信任通道与证据",
@@ -211,9 +211,9 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
   // zh-hant: NOT VERIFIED (native review pending).
   "zh-hant": {
     home: {
-      title: "BlueSkyz Labs | Sổ Trọ 預覽中，Sổ Tâm 開發中",
+      title: "BlueSkyz Labs | YENLUME 已開放，Sổ Tâm 開發中",
       description:
-        "BlueSkyz Labs 正在打造兩項產品：給越南房東的數位記事本 Sổ Trọ，現已開放預覽；本機優先的私密日記 Sổ Tâm，仍在開發中。",
+        "BlueSkyz Labs 的兩款產品：給越南房東的收租帳本 YENLUME 現已開放使用；存在手機裡的私密日記 Sổ Tâm 仍在開發中。",
     },
     about: {
       title: "關於我們",
@@ -233,13 +233,13 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
     support: {
       title: "協助與支援：如何取得協助",
       description: hasSupportEmail
-        ? "如何取得 Sổ Trọ 與 Sổ Tâm 的協助：請來信至支援信箱。資安漏洞請走私密通報管道，而非支援管道。"
-        : "如何取得 Sổ Trọ 與 Sổ Tâm 的協助：目前尚未公布通用支援信箱。資安漏洞請走私密通報管道，而非支援管道。",
+        ? "如何取得 YENLUME 與 Sổ Tâm 的協助：請來信至支援信箱。資安漏洞請走私密通報管道，而非支援管道。"
+        : "如何取得 YENLUME 與 Sổ Tâm 的協助：目前尚未公布通用支援信箱。資安漏洞請走私密通報管道，而非支援管道。",
     },
     products: {
-      title: "產品：Sổ Trọ 預覽中，Sổ Tâm 開發中",
+      title: "產品：YENLUME 已開放，Sổ Tâm 開發中",
       description:
-        "看看 Sổ Trọ 與 Sổ Tâm 能為你做什麼：為越南房東收租的記事本，現已開放預覽；以及本機優先的私密日記，仍在開發中。",
+        "看看 YENLUME 與 Sổ Tâm 能為你做什麼：給越南房東的收租帳本，現已開放使用；以及存在手機裡的私密日記，仍在開發中。",
     },
     verify: {
       title: "核驗我們的聲明：信任通道與證據",
@@ -273,24 +273,24 @@ export const PAGE_META: Record<Language, Record<StaticPageKey, PageMeta>> = {
 export const PRODUCT_META: Record<string, Record<Language, PageMeta>> = {
   sotro: {
     vi: {
-      title: "Sổ Trọ – sổ tay điện tử cho chủ trọ",
+      title: "YENLUME: sổ thu tiền nhà cho thuê",
       description:
-        "Sổ Trọ giúp chủ trọ nắm khoản tiền chưa thu, thu và xác nhận mỗi khoản đúng một lần, có biên nhận gửi Zalo. Bản xem trước; ảnh chụp từ bản thử, dữ liệu mẫu.",
+        "YENLUME giúp chủ nhà biết khoản nào chưa thu, thu và xác nhận mỗi khoản đúng một lần, có biên nhận gửi Zalo. Ảnh chụp từ bản thử, dữ liệu mẫu.",
     },
     en: {
-      title: "Sổ Trọ: a digital notebook for landlords",
+      title: "YENLUME: a rent ledger for landlords",
       description:
-        "For landlords in Vietnam: see who still owes, collect rent and confirm each payment once, with a receipt ready for Zalo. Sổ Trọ is now in preview.",
+        "For landlords in Vietnam: see who still owes, collect rent and confirm each payment once, with a receipt ready for Zalo. Screenshots use sample data.",
     },
     zh: {
-      title: "Sổ Trọ：房东电子记事本",
+      title: "YENLUME：房东的收租账本",
       description:
-        "Sổ Trọ 是面向越南房东的电子记事本：谁还欠租、收租并只确认一次、收据可发到 Zalo。预览中，截图来自使用示例数据的测试版本。",
+        "YENLUME 是给越南房东的收租账本：一眼看出谁还没交租，每笔租金只记一次，收据可发到 Zalo。截图使用示例数据。",
     },
     "zh-hant": {
-      title: "Sổ Trọ：房東數位記事本",
+      title: "YENLUME：房東的收租帳本",
       description:
-        "Sổ Trọ 是給越南房東的數位記事本：誰還欠租、收租並只確認一次、收據可傳到 Zalo。預覽中，畫面來自使用範例資料的測試版本。",
+        "YENLUME 是給越南房東的收租帳本：一眼看出誰還沒繳租，每筆房租只記一次，收據可傳到 Zalo。畫面使用範例資料。",
     },
   },
   sotam: {
@@ -317,28 +317,28 @@ export const PRODUCT_META: Record<string, Record<Language, PageMeta>> = {
   },
 };
 
-/** Sổ Trọ getting-started guide, keyed by registry slug then locale. */
+/** YENLUME getting-started guide, keyed by registry slug then locale. */
 export const GUIDE_META: Record<string, Record<Language, PageMeta>> = {
   sotro: {
     vi: {
-      title: "Bắt đầu với Sổ Trọ (bản đang phát triển)",
+      title: "Bắt đầu với YENLUME",
       description:
-        "Hướng dẫn từng bước cho bản Sổ Trọ đang phát triển: tạo dãy trọ, ghép điện thoại cho người nhà, ghi điện nước và thu tiền phòng. Các bước có thể thay đổi.",
+        "Hướng dẫn từng bước cho YENLUME: tạo nhà cho thuê, ghép điện thoại cho người nhà, ghi điện nước và thu tiền. Các bước có thể thay đổi.",
     },
     en: {
-      title: "Sổ Trọ getting-started guide",
+      title: "YENLUME getting-started guide",
       description:
-        "Step-by-step guide to the Sổ Trọ development build: set up a building, pair family phones, record meter readings and collect rent. Steps may change.",
+        "Step-by-step guide to YENLUME: set up a building, pair family phones, record meter readings and collect rent. Steps may change.",
     },
     zh: {
-      title: "Sổ Trọ 入门指南",
+      title: "YENLUME 入门指南",
       description:
-        "Sổ Trọ 开发版分步指南：创建楼栋、为家人配对手机、记录水电表读数并收租。正式发布前步骤可能调整。",
+        "YENLUME 分步指南：创建楼栋、为家人配对手机、记录水电表读数并收租。步骤可能调整。",
     },
     "zh-hant": {
-      title: "Sổ Trọ 入門指南",
+      title: "YENLUME 入門指南",
       description:
-        "Sổ Trọ 開發版的逐步指南：建立樓棟、為家人配對手機、記錄水電表度數並收租。正式發布前步驟可能調整。",
+        "YENLUME 的逐步指南：建立樓棟、為家人配對手機、記錄水電表度數並收租。步驟可能調整。",
     },
   },
 };

@@ -13,11 +13,11 @@ type Lang = (typeof LANGS)[number];
 
 // First sentence of `guide.intro` in src/content/showcases/sotro.yaml.
 const SIDES: Record<Lang, string> = {
-  en: "Sổ Trọ has two sides: the owner sets things up on a computer, and family members do the daily work on a paired phone.",
-  vi: "Sổ Trọ có hai phía: chủ trọ thiết lập trên máy tính, người nhà làm việc hằng ngày trên điện thoại đã ghép.",
-  zh: "Sổ Trọ 分两端：房东在电脑上设置，家人在已配对的手机上处理日常事务。",
+  en: "YENLUME has two sides: the owner sets things up on a computer, and family members do the daily work on a paired phone.",
+  vi: "YENLUME có hai phía: chủ nhà thiết lập trên máy tính, người nhà làm việc hằng ngày trên điện thoại đã kết nối.",
+  zh: "YENLUME 分两端：房东在电脑上设置，家人在已配对的手机上处理日常事务。",
   "zh-hant":
-    "Sổ Trọ 分兩端：房東在電腦上設定，家人在已配對的手機上處理日常事務。",
+    "YENLUME 分兩端：房東在電腦上設定，家人在已配對的手機上處理日常事務。",
 };
 
 // Full-page heights at origin/main 441bb03, reduced motion (before numbers).

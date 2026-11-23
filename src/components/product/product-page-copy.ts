@@ -27,7 +27,7 @@ const DECK: Record<
   sotro: {
     en: {
       oneLiner:
-        "Collect rent room by room, confirm each payment once, receipt ready for Zalo. Made for landlords in Vietnam.",
+        "Record rent for each room or home, count each payment once, send a receipt on Zalo. Made for landlords in Vietnam.",
       whatItDoes: [
         "See at a glance who still owes this month and what needs doing today",
         "Review, then confirm: each payment is recorded once",
@@ -38,17 +38,18 @@ const DECK: Record<
     },
     vi: {
       oneLiner:
-        "Thu tiền từng phòng, mỗi khoản xác nhận đúng một lần, có biên nhận gửi Zalo. Làm riêng cho chủ trọ Việt Nam.",
+        "Ghi tiền thu từng phòng, từng căn, mỗi khoản chỉ ghi một lần, có biên nhận gửi qua Zalo. Làm cho người có nhà cho thuê ở Việt Nam.",
       whatItDoes: [
-        "Nhìn một lần là biết tháng này ai còn nợ và hôm nay cần làm gì",
+        "Nhìn một lần là biết tháng này phòng trọ, căn hộ nào còn nợ và hôm nay cần làm gì",
         "Xem lại rồi mới xác nhận: mỗi khoản thu chỉ ghi một lần",
         "Mã QR chuyển khoản ngân hàng, và ảnh biên nhận sao chép gửi qua Zalo",
-        "Chữ to, nút lớn; người nhà tham gia chỉ bằng cách quét mã QR",
-        "Chỉ số điện nước, khoản thu hằng tháng và bảng C06 tạm trú",
+        "Chữ to, nút lớn cho chủ nhà lớn tuổi; người nhà tham gia chỉ bằng cách quét mã QR",
+        "Chỉ số điện nước, khoản thu hằng tháng của nhà trọ hay căn hộ, và bảng C06 tạm trú",
       ],
     },
     zh: {
-      oneLiner: "逐间收租，每笔只确认一次，收据可发到 Zalo。为越南房东打造。",
+      oneLiner:
+        "逐间、逐套记下租金，每笔只记一次，收据可发到 Zalo。为越南房东打造。",
       whatItDoes: [
         "本月谁还欠租、今天要做什么",
         "先核对再确认：每笔收款只记一次",
@@ -58,7 +59,8 @@ const DECK: Record<
       ],
     },
     "zh-hant": {
-      oneLiner: "逐間收租，每筆只確認一次，收據可傳到 Zalo。為越南房東打造。",
+      oneLiner:
+        "逐間、逐戶記下房租，每筆只記一次，收據可傳到 Zalo。為越南房東打造。",
       whatItDoes: [
         "本月誰還欠租、今天要做什麼",
         "先核對再確認：每筆收款只記一次",
@@ -196,6 +198,13 @@ export const AVAILABILITY = {
     "预览版已开放，名额有限",
     "預覽版已開放，名額有限",
   ),
+  // Public availability (Owner 2026-11-23): the web app is open to everyone.
+  open: S(
+    "open to everyone",
+    "đã mở cho mọi người",
+    "已开放使用",
+    "已開放使用",
+  ),
   native: S(
     "Android and iOS",
     "Android và iOS",
@@ -222,6 +231,13 @@ export function webPreviewOpen(data: ProductData): boolean {
     ["beta", "active", "maintenance"].includes(data.lifecycle) &&
     ["preview", "public"].includes(data.availability)
   );
+}
+
+/** Web availability wording: `open` when public, `preview` while limited. */
+export function webStateLabel(data: ProductData, lang: Language): string {
+  return data.availability === "public"
+    ? AVAILABILITY.open[lang]
+    : AVAILABILITY.preview[lang];
 }
 
 /**

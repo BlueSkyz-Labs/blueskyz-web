@@ -21,8 +21,14 @@ test.describe("U10 VI home, tagline and verify label", () => {
     await expect(page.locator("h1")).toContainText(NEW_H1);
     // Copy polish 2026-11-11 (Owner asked for customer-centred editing)
     // replaces the 2026-10-15 preview sub-line; the 2026-10-12 line stays gone.
+    // Copy v1 2026-11-23 (flagship Lead): the product is open, positioned as
+    // a rent ledger for people with homes to rent. The product name comes from
+    // the registry, so it is matched, not pinned.
     await expect(body).toContainText(
-      "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
+      /Đã mở: \S.*, cuốn sổ thu tiền cho người có nhà cho thuê\. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn\./,
+    );
+    await expect(body).not.toContainText(
+      "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng.",
     );
     await expect(body).not.toContainText(
       "Đang phát triển: Sổ Trọ, sổ tay cho chủ trọ; Sổ Tâm, nhật ký riêng tư.",

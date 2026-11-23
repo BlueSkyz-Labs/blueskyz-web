@@ -152,7 +152,10 @@ test("descriptions fall in their length band (EN/VI 120-160, CJK 40-85)", () => 
 test("Vietnamese home description does not start in English", () => {
   const { description } = PAGE_META.vi.home;
   assert.doesNotMatch(description, /^Intelligence/);
-  assert.match(description, /^BlueSkyz Labs đang xây dựng/);
+  // Copy v1 2026-11-23: the description opens with the open product's name and
+  // its Vietnamese one-line meaning, not with an English sentence.
+  assert.match(description, /^YENLUME, sổ thu tiền cho người có nhà cho thuê/);
+  assert.match(description, /đã mở cho mọi người/);
 });
 
 /** Stage words per language, keyed by the registry stage of a product. */
@@ -169,23 +172,40 @@ const STAGE = {
     zh: /预览/,
     "zh-hant": /預覽/,
   },
+  // A product open to everyone: the home description says so, and a product's
+  // own description never keeps the older "preview" wording.
+  open: {
+    en: /is open/i,
+    vi: /đã mở/i,
+    zh: /已开放/,
+    "zh-hant": /已開放/,
+  },
 };
 
-/** "preview" once the registry lists the web app as open, else "development". */
+/** "open" for an active public product, "preview" for an open preview, else "development". */
 function registryStage(slug) {
   const record = readFileSync(`src/content/products/${slug}.yaml`, "utf8");
   const lifecycle = /^lifecycle:\s*(\S+)/m.exec(record)?.[1];
   const availability = /^availability:\s*(\S+)/m.exec(record)?.[1];
-  const open =
+  if (
+    ["active", "maintenance"].includes(lifecycle) &&
+    availability === "public"
+  )
+    return "open";
+  const preview =
     ["beta", "active", "maintenance"].includes(lifecycle) &&
     ["preview", "public"].includes(availability);
-  return open ? "preview" : "development";
+  return preview ? "preview" : "development";
 }
 
 /** Products whose description in `lang` does not state their registry stage. */
 function missingStage(meta, lang, stages) {
   return Object.entries(stages)
-    .filter(([slug, stage]) => !STAGE[stage][lang].test(meta[slug]))
+    .filter(([slug, stage]) =>
+      stage === "open"
+        ? STAGE.preview[lang].test(meta[slug])
+        : !STAGE[stage][lang].test(meta[slug]),
+    )
     .map(([slug]) => slug);
 }
 
@@ -224,6 +244,22 @@ test("negative proof: a description without its product's stage is rejected", ()
       stages,
     ),
     ["sotam"],
+  );
+});
+
+test("negative proof: an open product's description that keeps the preview wording is rejected", () => {
+  const stages = { sotro: "open" };
+  assert.deepEqual(
+    missingStage({ sotro: "YENLUME is now in preview." }, "en", stages),
+    ["sotro"],
+  );
+  assert.deepEqual(
+    missingStage({ sotro: "YENLUME đang mở bản xem trước." }, "vi", stages),
+    ["sotro"],
+  );
+  assert.deepEqual(
+    missingStage({ sotro: "YENLUME: see who still owes." }, "en", stages),
+    [],
   );
 });
 

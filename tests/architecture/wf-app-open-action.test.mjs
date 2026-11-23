@@ -10,7 +10,7 @@ import { appOpenAction } from "../../src/lib/app-open-action.ts";
 import { lifecycleCtaVerbLabel } from "../../src/lib/lifecycle-cta.ts";
 import { productSchema } from "../../src/lib/product-schema.ts";
 
-const SIGN_IN = "https://sotro.blueskyzlabs.com/login";
+const SIGN_IN = "https://yenlume.blueskyzlabs.com/login";
 const LANGS = ["en", "vi", "zh", "zh-hant"];
 
 test("publicSignup false or absent: no action (decision #575 holds)", () => {
@@ -32,7 +32,7 @@ test("publicSignup true: the action points at the origin, with the existing labe
       lang,
     );
     assert.deepEqual(action, {
-      href: "https://sotro.blueskyzlabs.com/",
+      href: "https://yenlume.blueskyzlabs.com/",
       label: lifecycleCtaVerbLabel("try", lang),
     });
   }
@@ -45,7 +45,7 @@ test("publicSignup true but no or foreign sign-in URL: fail closed", () => {
       "sotro",
       {
         publicSignup: true,
-        signInUrl: "https://sotro.blueskyzlabs.com.evil.test/login",
+        signInUrl: "https://yenlume.blueskyzlabs.com.evil.test/login",
       },
       "en",
     ),
@@ -55,12 +55,24 @@ test("publicSignup true but no or foreign sign-in URL: fail closed", () => {
     appOpenAction("sotam", { publicSignup: true, signInUrl: SIGN_IN }, "en"),
     null,
   );
+  // The retired slug host is no longer this product's app origin.
+  assert.equal(
+    appOpenAction(
+      "sotro",
+      { publicSignup: true, signInUrl: "https://sotro.blueskyzlabs.com/login" },
+      "en",
+    ),
+    null,
+  );
 });
 
 test("the schema defaults publicSignup to false; Sổ Trọ opted in for the public launch (Owner 2026-11-22)", () => {
   const record = readFileSync("src/content/products/sotro.yaml", "utf8");
   assert.match(record, /^ {2}publicSignup: true$/m);
-  assert.match(record, /signInUrl: https:\/\/sotro\.blueskyzlabs\.com\/login/);
+  assert.match(
+    record,
+    /signInUrl: https:\/\/yenlume\.blueskyzlabs\.com\/login/,
+  );
   const parsed = productSchema.safeParse({
     slug: "sotro",
     name: "Fixture",

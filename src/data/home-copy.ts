@@ -18,23 +18,23 @@ export const HOME_PRODUCT_LINE: Record<
   { lead: string; a: string; b: string }
 > = {
   en: {
-    lead: "Now in preview: ",
-    a: ", a landlord's notebook for their rooms. In development: ",
+    lead: "Now open: ",
+    a: ", a rent ledger for landlords. In development: ",
     b: ", a private journal.",
   },
   vi: {
-    lead: "Đang mở bản xem trước: ",
-    a: ", sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: ",
+    lead: "Đã mở: ",
+    a: ", cuốn sổ thu tiền cho người có nhà cho thuê. Đang phát triển: ",
     b: ", cuốn nhật ký của riêng bạn.",
   },
   zh: {
-    lead: "预览中：",
-    a: "，帮房东管理出租房间的记事本。开发中：",
+    lead: "已开放：",
+    a: "，给房东用的收租账本。开发中：",
     b: "，只属于你的私密日记。",
   },
   "zh-hant": {
-    lead: "預覽中：",
-    a: "，幫房東管理出租房間的記事本。開發中：",
+    lead: "已開放：",
+    a: "，給房東用的收租帳本。開發中：",
     b: "，只屬於你的私密日記。",
   },
 };
@@ -54,10 +54,11 @@ export const HOME_ONE_LINER: Record<
   Partial<Record<Language, string>> | undefined
 > = {
   sotro: {
-    en: "For landlords in Vietnam: see what is still unpaid this month and what needs doing today.",
-    vi: "Dành cho chủ trọ ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
-    zh: "给越南房东：查看本月还有谁没交租、今天要处理什么。",
-    "zh-hant": "給越南房東：查看本月還有誰沒繳租、今天要處理什麼。",
+    en: "For people who rent out rooms, apartments or a house in Vietnam: see who still owes this month and what needs doing today.",
+    vi: "Dành cho người có phòng, căn hộ hay nhà cho thuê ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
+    zh: "给在越南出租房间、公寓或整栋房子的房东：查看本月还有谁没交租、今天要处理什么。",
+    "zh-hant":
+      "給在越南出租房間、套房或整棟房子的房東：查看本月還有誰沒繳租、今天要處理什麼。",
   },
   sotam: {
     en: "A private journal, kept on your own device first.",

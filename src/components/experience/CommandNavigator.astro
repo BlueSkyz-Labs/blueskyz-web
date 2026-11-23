@@ -9,6 +9,7 @@ import { getCollection } from "astro:content";
 import {
   AVAILABILITY,
   webPreviewOpen,
+  webStateLabel,
 } from "@/components/product/product-page-copy";
 import BlueSkyzIcon from "@/components/icon/BlueSkyzIcon.astro";
 
@@ -124,7 +125,7 @@ const statusLine = publicProducts.some((entry) => webPreviewOpen(entry.data))
         (entry) =>
           `${entry.data.name}${colon}${
             webPreviewOpen(entry.data)
-              ? AVAILABILITY.preview[lang]
+              ? webStateLabel(entry.data, lang)
               : AVAILABILITY.inDevelopment[lang]
           }`,
       ),

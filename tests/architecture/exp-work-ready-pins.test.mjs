@@ -162,11 +162,22 @@ test("identity-art proof renders the not-a-screenshot disclosure", () => {
   );
   assert.match(theatre, /proofCaptionForKind\(media\.kind, lang\)/);
   assert.match(theatre, /<figcaption>/);
-  for (const slug of ["sotro", "sotam"]) {
+  for (const slug of ["sotam"]) {
     const yaml = readFileSync(`src/content/products/${slug}.yaml`, "utf8");
     assert.match(yaml, /kind: identity-art/);
     assert.doesNotMatch(yaml, /screenshot/i, slug);
   }
+  // YENLUME (slug sotro) is listed live since 2026-11-23, so DEC-039 Part B
+  // requires the opposite: a real capture, never identity art, bound to the
+  // product's gate record. The two kinds stay mutually exclusive in a record.
+  const live = readFileSync("src/content/products/sotro.yaml", "utf8");
+  assert.match(live, /^lifecycle: active$/m);
+  assert.match(live, /^ {4}kind: ui-screenshot$/m);
+  assert.doesNotMatch(live, /kind: identity-art/);
+  assert.doesNotMatch(live, /^ {4}src: .*identity/m);
+  assert.doesNotMatch(live, /^ {4}alt: .*\b(?:identity|artwork)\b/im);
+  assert.match(live, /^releaseGate:\n {2}record: https:\/\/github\.com\//m);
+  assert.match(live, /^ {2}deployedSha: [0-9a-f]{40}$/m);
 });
 
 /**

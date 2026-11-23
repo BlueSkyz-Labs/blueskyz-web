@@ -251,6 +251,7 @@ const awaitingScreens = !showcase && isIdentityArt;
             lang="zh"
             web={data.platforms.includes("web")}
             webPreview={webPreviewOpen(data)}
+            webOpen={data.availability === "public"}
           />
           {appLanguage ? (
             <p
@@ -306,7 +307,9 @@ const awaitingScreens = !showcase && isIdentityArt;
         />
       ) : null}
 
-      {shownMedia && showcase ? (
+      {/* The strip is brand identity art and its caption says so; a record
+           whose proof is a real capture (live products) never renders it. */}
+      {shownMedia && showcase && isIdentityArt ? (
         <figure class="m-0 mt-14 max-w-lg" data-profile-identity-stage>
           <ProductVisual
             sizes="(min-width: 32rem) 32rem, calc(100vw - 2.5rem)"
@@ -361,6 +364,11 @@ const awaitingScreens = !showcase && isIdentityArt;
   .profile-trust-link {
     min-width: 2.75rem;
     justify-content: center;
+  }
+  /* A one-word name (YENLUME) cannot wrap at 200% text: break inside it
+     rather than scroll the page sideways. */
+  .profile-title {
+    overflow-wrap: anywhere;
   }
   /* F3: the profile H1 steps up to the d1 size from 768 px so it outranks
      the 32 px section headings; phones keep 32 px. */

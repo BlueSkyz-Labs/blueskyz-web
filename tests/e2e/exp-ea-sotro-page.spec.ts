@@ -176,7 +176,7 @@ for (const lang of LANGS) {
     expect(r.index).toBe(0);
     expect(r.lead).toBe(0);
   });
-  test(`${lang}: the guide is a secondary button right after the video, the identity card is a strip`, async ({
+  test(`${lang}: the guide is a secondary button right after the video, no identity strip on a live product`, async ({
     page,
   }) => {
     await open(page, lang, 1440);
@@ -185,9 +185,6 @@ for (const lang of LANGS) {
       const guide = document.querySelector<HTMLAnchorElement>(
         "a[data-showcase-guide-link]",
       );
-      const strip = document
-        .querySelector("[data-profile-identity-stage]")!
-        .getBoundingClientRect();
       const v = video.getBoundingClientRect();
       return {
         variant: guide?.getAttribute("data-button-variant"),
@@ -199,9 +196,8 @@ for (const lang of LANGS) {
             )
           : false,
         gap: guide ? guide.getBoundingClientRect().top - v.bottom : -1,
-        stripWidth: strip.width,
-        stripLeft: Math.abs(strip.left - v.left),
-        videoWidth: v.width,
+        strips: document.querySelectorAll("[data-profile-identity-stage]")
+          .length,
       };
     });
     expect(r.variant).toBe("secondary");
@@ -209,9 +205,9 @@ for (const lang of LANGS) {
     expect(r.follows).toBe(true);
     expect(r.gap).toBeGreaterThanOrEqual(0);
     expect(r.gap).toBeLessThanOrEqual(48);
-    expect(r.stripWidth).toBeLessThanOrEqual(512 + 1);
-    expect(r.stripWidth).toBeLessThan(r.videoWidth);
-    expect(r.stripLeft).toBeLessThanOrEqual(1);
+    // Live since 2026-11-23: proof media is a real capture, shown in the
+    // showcase above; the brand-identity strip must not render it.
+    expect(r.strips).toBe(0);
   });
   test(`${lang}: every "view larger image" link has a unique name that names its step`, async ({
     page,

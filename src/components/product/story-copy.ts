@@ -21,9 +21,9 @@ export const STORY_COPY = {
     viewerClose: "Close",
   },
   vi: {
-    title: (name: string) => `Một tháng làm chủ trọ cùng ${name}`,
-    lead: "Từ việc cần làm hôm nay đến máy tính của chủ trọ, theo nhịp một tháng.",
-    desktop: "Trên máy tính của chủ trọ",
+    title: (name: string) => `Một tháng của chủ nhà cùng ${name}`,
+    lead: "Từ việc cần làm hôm nay đến máy tính của chủ nhà, lần lượt từ đầu tháng đến cuối tháng.",
+    desktop: "Trên máy tính của chủ nhà",
     inspect: "Xem ảnh lớn (dữ liệu mẫu)",
     inspectOpens: "mở ảnh trong thẻ mới",
     viewerClose: "Đóng",

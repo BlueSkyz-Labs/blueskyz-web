@@ -138,10 +138,10 @@ for (const lang of LOCALES) {
         "[data-about-composition] [data-about-product]",
       );
       await expect(products).toHaveCount(3);
-      // Preview 2026-10-15: Sổ Trọ is in preview, Sổ Tâm in development.
+      // Public launch 2026-11-23: YENLUME is available, Sổ Tâm in development.
       // Owner 2026-10-24 adds Vững Tay Lái, also In development.
       for (const [status, count] of [
-        ["Preview", 1],
+        ["Available", 1],
         ["In development", 2],
       ] as const)
         await expect(

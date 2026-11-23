@@ -1,15 +1,15 @@
 slug: sotro
-name: Sổ Trọ
-shortDescription: "For landlords in Vietnam: see what is still unpaid this month and what needs doing today."
-lifecycle: beta
-availability: preview
-publicLabel: Preview
+name: YENLUME
+shortDescription: "For people who rent out rooms, apartments or a house in Vietnam: see who still owes this month and what needs doing today."
+lifecycle: active
+availability: public
+publicLabel: Available
 audience:
   - individual
 jobs:
   - See at a glance who still owes rent this month and what needs doing today
   - Collect rent and record each payment once, correctly, without a spreadsheet
-  - Keep rooms, tenants, meter readings and the residence register in one place
+  - Keep rooms and apartments, tenants with their residence registration, and meter readings in one place
 capabilities:
   - Collect rent with a review-then-confirm step, a bank-transfer QR code and a receipt to copy into Zalo
   - Large text and big buttons built for older landlords; a family helper's phone joins by scanning a QR code
@@ -19,13 +19,13 @@ platforms:
 # schema.org SoftwareApplication category (Owner delegated best practice, 2026-10-04):
 # rent, utilities and receipts for a landlord's rental business.
 applicationCategory: BusinessApplication
-# Owner 2026-10-24 (O-04): the app interface is Vietnamese (sotro.blueskyzlabs.com serves
+# Owner 2026-10-24 (O-04): the app interface is Vietnamese (yenlume.blueskyzlabs.com serves
 # <html lang="vi">). A local fact, not mirrored from the upstream profile.
 appLanguages:
   - vi
 primaryAction:
-  type: preview
-  label: Preview Sổ Trọ
+  type: explore
+  label: Explore YENLUME
   href: https://blueskyzlabs.com/en/products/sotro/
 # Sign-in link mirrors the upstream public profile (appAccess.signInUrl; ADR 0006 product
 # subdomain). It is not rendered (Owner 2026-10-12, #575: no public app sign-in). Preview
@@ -37,67 +37,73 @@ primaryAction:
 # registration enabled (GET /api/public/workspaces/registration-status, 2026-11-22), so
 # publicSignup is true and the page offers the app's origin (#575 still bars a sign-in link).
 appAccess:
-  signInUrl: https://sotro.blueskyzlabs.com/login
+  signInUrl: https://yenlume.blueskyzlabs.com/login
   publicSignup: true
   android:
     state: in-development
   ios:
     state: in-development
 proof:
+  # SGPS-DEC-2026-039 Part B: a live listing shows a real capture of the app.
   media:
-    kind: identity-art
-    src: /products/sotro/identity.png
-    alt: Sổ Trọ by BlueSkyz Labs — brand identity
-    width: 1800
-    height: 504
+    kind: ui-screenshot
+    src: /products/sotro/showcase/launch-phone-home.webp
+    alt: YENLUME on a phone, the Today screen with the amount still to collect and the Collect rent button, sample data
+    width: 780
+    height: 1688
   repositoryUrl: https://github.com/BlueSkyz-Labs/Sotro
   publicUrl: https://blueskyzlabs.com/en/products/sotro/
   privacyUrl: https://blueskyzlabs.com/en/privacy/
   securityUrl: https://blueskyzlabs.com/en/security/
   supportUrl: https://blueskyzlabs.com/en/support/
+# SGPS-DEC-2026-039 Part B: the product's merged gate record and the exact
+# commit production served when this record was reviewed.
+releaseGate:
+  record: https://github.com/BlueSkyz-Labs/Sotro/blob/main/docs/release/2026-11-23-YENLUME-PUBLIC-AVAILABILITY-GATE.md
+  deployedSha: 4fb7b750c52e1bbec53c4e2db0d99b5bd5b7c6b6
 endorsement: A BlueSkyz Labs product
 featuredTier: hero
 displayOrder: 1
 public: true
 # Sotro revision of the vendored public profile (src/data/upstream/README.md):
-# the squash merge of BlueSkyz-Labs/Sotro#1849 on main.
-sourceRevision: e6fc6c5573e202dea084eba778ed01cd826d2c3e
-lastReviewedAt: 2026-10-15
+# the squash merge of BlueSkyz-Labs/Sotro#2427 on main.
+sourceRevision: 6c4b8ef9a6f2bce1c7b34d8bf82471f22b412066
+lastReviewedAt: 2026-11-23
 # Localized copy: faithful translations of the English claims above; the
 # English record stays canonical for claim/proof binding. Native VI/ZH review
 # is an Owner feedback checkpoint (plan v5 W3.4).
 i18n:
   vi:
-    shortDescription: "Dành cho chủ trọ ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì."
+    shortDescription: "Dành cho người có phòng, căn hộ hay nhà cho thuê ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì."
     jobs:
-      - "Nhìn một lần là biết tháng này phòng nào còn nợ tiền và hôm nay cần làm gì"
+      - "Nhìn một lần là biết tháng này phòng hay căn nào chưa đóng tiền và hôm nay cần làm gì"
       - "Thu tiền và ghi nhận mỗi khoản đúng một lần, không cần sổ tay hay bảng tính"
-      - "Giữ phòng, người thuê, chỉ số điện nước và sổ tạm trú ở cùng một nơi"
+      - "Giữ phòng và căn cho thuê, người thuê cùng thông tin tạm trú, chỉ số điện nước ở cùng một nơi"
     capabilities:
       - "Thu tiền có bước xem lại rồi mới xác nhận, mã QR chuyển khoản ngân hàng và biên nhận sao chép gửi qua Zalo"
       - "Chữ to, nút lớn, làm cho người lớn tuổi; điện thoại của người nhà tham gia chỉ bằng cách quét mã QR"
       - "Màn hình sẵn sàng cuối tháng: ai còn nợ, việc gì đến hạn, kèm bảng C06 tạm trú tải về ngay"
-    primaryActionLabel: "Xem trước Sổ Trọ"
+    primaryActionLabel: "Xem YENLUME"
   zh:
-    shortDescription: "给越南房东：查看本月还有谁没交租、今天要处理什么。"
+    shortDescription: "给在越南出租房间、公寓或整栋房子的房东：查看本月还有谁没交租、今天要处理什么。"
     jobs:
       - "一眼看清本月谁还欠租、今天要处理什么"
       - "收租并把每笔款项准确记录一次，不再需要表格"
-      - "把房间、租客、水电表读数和暂住登记集中在一处"
+      - "把房间和公寓、租客和他们的暂住登记、水电表读数都放在一个地方"
     capabilities:
       - "收租先核对再确认，提供银行转账二维码，收据可复制到 Zalo"
       - "为年长房东设计的大字号与大按钮；家人的手机扫描二维码即可加入"
       - "月末就绪视图：谁还欠租、哪些到期，并可下载 C06 暂住登记表"
-    primaryActionLabel: "预览 Sổ Trọ"
+    primaryActionLabel: "了解 YENLUME"
   # zh-Hant copy: machine-assisted (OpenCC s2twp), pending native review.
   zh-hant:
-    shortDescription: "給越南房東：查看本月還有誰沒繳租、今天要處理什麼。"
+    shortDescription: "給在越南出租房間、套房或整棟房子的房東：查看本月還有誰沒繳租、今天要處理什麼。"
     jobs:
       - "一眼看清本月誰還欠租、今天要處理什麼"
       - "收租並把每筆款項準確記錄一次，不再需要試算表"
-      - "把房間、房客、水電表度數和暫住登記集中在一處"
+      - "把房間和套房、房客和他們的暫住登記、水電表度數都放在同一個地方"
     capabilities:
       - "收租先核對再確認，提供銀行轉帳 QR 碼，收據可複製到 Zalo"
       - "為年長房東設計的大字級與大按鈕；家人的手機掃描 QR 碼即可加入"
       - "月底就緒檢視：誰還欠租、哪些到期，並可下載 C06 暫住申報表"
-    primaryActionLabel: "預覽 Sổ Trọ"
+    primaryActionLabel: "了解 YENLUME"

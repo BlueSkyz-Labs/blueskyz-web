@@ -77,7 +77,10 @@ test.describe("text zoom reflow at 320px", () => {
     const broken = await overflow(
       page,
       "header:has([data-product-profile-title]){flex-wrap:nowrap!important}" +
-        "header:has([data-product-profile-title])>div:last-child{flex:0 1 auto!important}",
+        "header:has([data-product-profile-title])>div:last-child{flex:0 1 auto!important}" +
+        // The title now breaks inside a one-word name (YENLUME); restore the
+        // old behaviour so this still proves the header check can fail.
+        "[data-product-profile-title]{overflow-wrap:normal!important}",
     );
     expect(broken).toBeGreaterThan(1);
   });

@@ -296,6 +296,7 @@ const supportingLine = flagship ? null : proposition;
           <span class="hero-stage__horizon" aria-hidden="true"></span>
           <div class="hero-focal" data-hero-focal>
             <FlagshipCapture
+              renamed={flagship.data.availability === "public"}
               slug={flagship.data.slug}
               screen="today"
               lang={lang}
