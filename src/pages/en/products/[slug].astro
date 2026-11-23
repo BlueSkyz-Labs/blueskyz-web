@@ -14,6 +14,7 @@ import NoCaptureStage from "@/components/empty-state/NoCaptureStage.astro";
 import ProductVisual from "@/components/product/ProductVisual.astro";
 import ProductJournalLink from "@/components/product/ProductJournalLink.astro";
 import ProductSides from "@/components/product/ProductSides.astro";
+import ProductMaker from "@/components/product/ProductMaker.astro";
 import {
   AVAILABILITY,
   PAGE_LABELS,
@@ -329,6 +330,8 @@ const awaitingScreens = !showcase && isIdentityArt;
           </figcaption>
         </figure>
       ) : null}
+
+      <ProductMaker slug={data.slug} lang="en" />
 
       <ProductJournalLink lang="en" posts={journalPosts} />
 

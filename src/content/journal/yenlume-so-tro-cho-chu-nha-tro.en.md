@@ -5,6 +5,8 @@ branch: news
 title: "YENLUME: Sổ Trọ, a rent book for landlords"
 description: "YENLUME is a large-text rent book for landlords in Vietnam: itemised receipts, a VietQR code, sending through Zalo, and a free Hiên plan up to 15 rooms."
 datePublished: "2026-11-22"
+dateModified: "2026-11-23"
+updateNote: "Updated 23 November 2026: the web version is now open to everyone and is no longer in beta."
 author: tony-nguyen
 aiAssisted: true
 sources:
@@ -50,6 +52,6 @@ The Sân founding price is for the first 100 paying customers, who keep it. The 
 
 ## Where it stands
 
-The web version is in beta and open for new landlords to sign up. The Android and iOS apps are in development and are not in the app stores yet. The screenshots come from a test build with sample data.
+The web version is open to everyone, and a new landlord can sign up and start using it. The Android and iOS apps are in development and are not in the app stores yet. The screenshots come from a test build with sample data, captured when the product was still named Sổ Trọ.
 
-See more screenshots on the [Sổ Trọ page](/en/products/sotro/).
+See more screenshots on the [YENLUME page](/en/products/sotro/).
