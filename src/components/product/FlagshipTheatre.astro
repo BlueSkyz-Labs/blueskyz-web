@@ -501,6 +501,12 @@ const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
   }
 
   /* ---- v10 E6 BB-02: visible link affordance on the compact heading ---- */
+  /* A one-word product name cannot wrap at 200% text; let the link shrink and
+     break inside the word instead of pushing the page sideways. */
+  .c2-flagship-theatre__title-link {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
   .c2-flagship-theatre__title-arrow {
     flex: none;
     width: 0.75em;

@@ -10,7 +10,7 @@ import { webPreviewOpen } from "../../src/components/product/product-page-copy";
 const LANGS = ["en", "vi", "zh", "zh-hant"] as const;
 
 const HOME_LINE = {
-  en: "Now open: YENLUME, a rent ledger for people who rent out rooms and homes. In development: Sổ Tâm, a private journal.",
+  en: "Now open: YENLUME, a rent ledger for landlords. In development: Sổ Tâm, a private journal.",
   vi: "Đã mở: YENLUME, cuốn sổ thu tiền cho người có nhà cho thuê. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
   zh: "已开放：YENLUME，给房东用的收租账本。开发中：Sổ Tâm，只属于你的私密日记。",
   "zh-hant":

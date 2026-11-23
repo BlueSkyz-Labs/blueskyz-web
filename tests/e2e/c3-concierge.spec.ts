@@ -43,7 +43,7 @@ test("a surface is found by what its published claims say", async ({
 test("a product is found by its locale's own description", async ({ page }) => {
   await page.goto("/vi/");
   await page.keyboard.press("Control+k");
-  await page.locator("[data-command-input]").fill("chủ trọ");
+  await page.locator("[data-command-input]").fill("nhà cho thuê");
   const items = page.locator(visible);
   await expect(items).toHaveCount(1);
   await expect(items.first().locator("a")).toHaveAttribute(

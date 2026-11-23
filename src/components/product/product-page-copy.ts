@@ -40,11 +40,11 @@ const DECK: Record<
       oneLiner:
         "Ghi tiền thu từng phòng, từng căn, mỗi khoản chỉ ghi một lần, có biên nhận gửi qua Zalo. Làm cho người có nhà cho thuê ở Việt Nam.",
       whatItDoes: [
-        "Nhìn một lần là biết tháng này ai còn nợ và hôm nay cần làm gì",
+        "Nhìn một lần là biết tháng này phòng trọ, căn hộ nào còn nợ và hôm nay cần làm gì",
         "Xem lại rồi mới xác nhận: mỗi khoản thu chỉ ghi một lần",
         "Mã QR chuyển khoản ngân hàng, và ảnh biên nhận sao chép gửi qua Zalo",
-        "Chữ to, nút lớn; người nhà tham gia chỉ bằng cách quét mã QR",
-        "Chỉ số điện nước, khoản thu hằng tháng và bảng C06 tạm trú",
+        "Chữ to, nút lớn cho chủ nhà lớn tuổi; người nhà tham gia chỉ bằng cách quét mã QR",
+        "Chỉ số điện nước, khoản thu hằng tháng của nhà trọ hay căn hộ, và bảng C06 tạm trú",
       ],
     },
     zh: {

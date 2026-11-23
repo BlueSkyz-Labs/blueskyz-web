@@ -78,9 +78,7 @@ test("lede is the short deck line and nothing overflows at 390px", async ({
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/en/products/");
   await expect(
-    page.getByText(
-      "Each product shows its stage, what works today and what is planned.",
-    ),
+    page.getByText("Each product shows its stage and what works today."),
   ).toBeVisible();
   const overflow = await page.evaluate(
     () => document.documentElement.scrollWidth - window.innerWidth,

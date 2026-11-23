@@ -19,7 +19,7 @@ export const HOME_PRODUCT_LINE: Record<
 > = {
   en: {
     lead: "Now open: ",
-    a: ", a rent ledger for people who rent out rooms and homes. In development: ",
+    a: ", a rent ledger for landlords. In development: ",
     b: ", a private journal.",
   },
   vi: {
