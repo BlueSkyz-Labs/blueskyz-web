@@ -306,7 +306,9 @@ const awaitingScreens = !showcase && isIdentityArt;
         />
       ) : null}
 
-      {shownMedia && showcase ? (
+      {/* The strip is brand identity art and its caption says so; a record
+           whose proof is a real capture (live products) never renders it. */}
+      {shownMedia && showcase && isIdentityArt ? (
         <figure class="m-0 mt-14 max-w-lg" data-profile-identity-stage>
           <ProductVisual
             sizes="(min-width: 32rem) 32rem, calc(100vw - 2.5rem)"
