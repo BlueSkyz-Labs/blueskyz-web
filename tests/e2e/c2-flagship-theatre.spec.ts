@@ -228,18 +228,18 @@ test.describe("public flagship capture presentation (Experience v6 S2)", () => {
     {
       lang: "en",
       path: "/en/",
-      label: /^Development build · sample data/,
+      label: /^Captured when the product was still named Sổ Trọ · sample data/,
     },
     {
       lang: "vi",
       path: "/vi/",
-      label: /^Bản đang phát triển · dữ liệu mẫu/,
+      label: /^Ảnh chụp khi sản phẩm còn tên Sổ Trọ · dữ liệu mẫu/,
     },
-    { lang: "zh", path: "/zh/", label: /^开发版本 · 示例数据/ },
+    { lang: "zh", path: "/zh/", label: /^截图时产品名为 Sổ Trọ · 示例数据/ },
     {
       lang: "zh-hant",
       path: "/zh-hant/",
-      label: /^開發版本 · 範例資料/,
+      label: /^截圖時產品名為 Sổ Trọ · 範例資料/,
     },
   ]) {
     test(`${locale.lang}: homepage shows a labelled real Sổ Trọ capture, no app chrome, no identity art`, async ({
@@ -249,7 +249,7 @@ test.describe("public flagship capture presentation (Experience v6 S2)", () => {
       await page.goto(locale.path);
 
       const theatre = page.locator(THEATRE);
-      await expect(theatre.locator(TITLE)).toHaveText("Sổ Trọ");
+      await expect(theatre.locator(TITLE)).toHaveText("YENLUME");
       await expect(theatre.locator("[data-flagship-ink-stage]")).toHaveCount(1);
       await expect(
         theatre.locator(".c2-flagship-theatre__device-frame"),

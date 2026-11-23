@@ -27,9 +27,17 @@ interface Props {
   web?: boolean;
   /** The web app is open to new users as a preview. */
   webPreview?: boolean;
+  /** The web app is open to everyone (availability public). */
+  webOpen?: boolean;
 }
 
-const { appAccess, lang, web = true, webPreview = false } = Astro.props;
+const {
+  appAccess,
+  lang,
+  web = true,
+  webPreview = false,
+  webOpen = false,
+} = Astro.props;
 const A = AVAILABILITY;
 
 const STORES = [
@@ -60,10 +68,18 @@ const N = CONTACT_NOTE[lang];
     data-app-access
   >
     {web ? (
-      <span data-web-state={webPreview ? "preview" : "in-development"}>
+      <span
+        data-web-state={
+          webOpen ? "open" : webPreview ? "preview" : "in-development"
+        }
+      >
         {A.web[lang]}
         {colon}
-        {webPreview ? A.preview[lang] : A.inDevelopment[lang]}
+        {webOpen
+          ? A.open[lang]
+          : webPreview
+            ? A.preview[lang]
+            : A.inDevelopment[lang]}
       </span>
     ) : null}
     {pending.length > 0 ? (

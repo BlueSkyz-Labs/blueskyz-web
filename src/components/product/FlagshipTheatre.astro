@@ -323,6 +323,7 @@ const ctaIsExternal = cta.external || /^https?:\/\//i.test(cta.href);
           data-flagship-ink-stage
         >
           <FlagshipCapture
+            renamed={data.availability === "public"}
             slug={data.slug}
             screen="owner-collect"
             lang={lang}

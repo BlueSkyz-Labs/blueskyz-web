@@ -17,9 +17,9 @@ const IN_DEVELOPMENT: Record<string, string> = {
   en: "In development",
   vi: "Đang phát triển",
 };
-// Preview 2026-10-15: Sổ Trọ's web app is open as a preview; Sổ Tâm is not.
+// Owner 2026-11-23: YENLUME's web app is open to everyone; Sổ Tâm is not.
 const WEB_LINE: Record<string, [string, string]> = {
-  sotro: ["preview", "Web: bản xem trước đã mở, số chỗ có hạn"],
+  sotro: ["open", "Web: đã mở cho mọi người"],
   sotam: ["in-development", "Web: đang phát triển"],
 };
 
