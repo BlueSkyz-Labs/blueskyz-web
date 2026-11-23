@@ -307,11 +307,11 @@ for (const lang of LOCALES) {
     // Public launch (Owner 2026-11-22): the one primary action opens the app
     // origin; it is the only link to it.
     await expect(
-      page.locator('main a[href^="https://sotro.blueskyzlabs.com"]'),
+      page.locator('main a[href^="https://yenlume.blueskyzlabs.com"]'),
     ).toHaveCount(1);
     await expect(page.locator("[data-primary-action]")).toHaveAttribute(
       "href",
-      "https://sotro.blueskyzlabs.com/",
+      "https://yenlume.blueskyzlabs.com/",
     );
   });
 

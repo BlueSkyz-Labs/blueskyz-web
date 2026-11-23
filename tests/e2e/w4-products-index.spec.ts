@@ -4,10 +4,11 @@ import { expect, test } from "@playwright/test";
 
 const LOCALES = ["en", "vi", "zh", "zh-hant"] as const;
 const SOTRO_CUSTOMER_OUTCOME = {
-  en: "For landlords in Vietnam: see what is still unpaid this month and what needs doing today.",
-  vi: "Dành cho chủ trọ ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
-  zh: "给越南房东：查看本月还有谁没交租、今天要处理什么。",
-  "zh-hant": "給越南房東：查看本月還有誰沒繳租、今天要處理什麼。",
+  en: "For people who rent out rooms, apartments or a house in Vietnam: see who still owes this month and what needs doing today.",
+  vi: "Dành cho người có phòng, căn hộ hay nhà cho thuê ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì.",
+  zh: "给在越南出租房间、公寓或整栋房子的房东：查看本月还有谁没交租、今天要处理什么。",
+  "zh-hant":
+    "給在越南出租房間、套房或整棟房子的房東：查看本月還有誰沒繳租、今天要處理什麼。",
 } as const;
 
 for (const lang of LOCALES) {
@@ -29,7 +30,7 @@ for (const lang of LOCALES) {
       await expect(card.locator("[data-product-status]")).toHaveCount(1);
     }
 
-    const sotro = cards.filter({ hasText: "Sổ Trọ" });
+    const sotro = cards.filter({ hasText: "YENLUME" });
     await expect(sotro.locator(".product-card__body p")).toHaveText(
       SOTRO_CUSTOMER_OUTCOME[lang],
     );
@@ -43,13 +44,13 @@ for (const lang of LOCALES) {
   });
 }
 
-test("Sổ Trọ shows its real capture, Sổ Tâm the icon composition", async ({
+test("YENLUME shows its real capture, Sổ Tâm the icon composition", async ({
   page,
 }) => {
   await page.goto("/en/products/");
   const sotro = page
     .locator("[data-product-card]")
-    .filter({ hasText: "Sổ Trọ" });
+    .filter({ hasText: "YENLUME" });
   await expect(sotro.locator("[data-product-thumb]")).toHaveAttribute(
     "data-product-thumb",
     "capture",
@@ -65,7 +66,9 @@ test("Sổ Trọ shows its real capture, Sổ Tâm the icon composition", async 
     "data-product-thumb",
     "icon",
   );
-  await expect(sotro.locator("[data-product-cta]")).toContainText("See Sổ Trọ");
+  await expect(sotro.locator("[data-product-cta]")).toContainText(
+    "See YENLUME",
+  );
   await expect(sotam.locator("[data-product-cta]")).toContainText("See Sổ Tâm");
 });
 

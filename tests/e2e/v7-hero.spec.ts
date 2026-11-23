@@ -85,7 +85,7 @@ test("CTA accessible name carries the product and starts with the visible label"
   const visible = (await cta.innerText()).trim();
   const name = (await cta.getAttribute("aria-label")) ?? "";
   expect(name.startsWith(visible)).toBe(true);
-  expect(name).toContain("Sổ Trọ");
+  expect(name).toContain("YENLUME");
 });
 
 test("1440: the capture renders at a legible width", async ({ page }) => {
@@ -150,7 +150,7 @@ test("product line sits directly under the H1 and names both products as plain t
   // through the hero CTA and the second-product entry chip.
   await expect(line.locator("a")).toHaveCount(0);
   await expect(line.locator("[data-hero-product-name]")).toHaveText([
-    "Sổ Trọ",
+    "YENLUME",
     "Sổ Tâm",
   ]);
   await expect(

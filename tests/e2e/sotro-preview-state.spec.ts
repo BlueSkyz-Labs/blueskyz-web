@@ -10,11 +10,11 @@ import { webPreviewOpen } from "../../src/components/product/product-page-copy";
 const LANGS = ["en", "vi", "zh", "zh-hant"] as const;
 
 const HOME_LINE = {
-  en: "Now in preview: Sổ Trọ, a landlord's notebook for their rooms. In development: Sổ Tâm, a private journal.",
-  vi: "Đang mở bản xem trước: Sổ Trọ, sổ tay giúp chủ trọ quản lý phòng. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
-  zh: "预览中：Sổ Trọ，帮房东管理出租房间的记事本。开发中：Sổ Tâm，只属于你的私密日记。",
+  en: "Now open: YENLUME, a rent ledger for people who rent out rooms and homes. In development: Sổ Tâm, a private journal.",
+  vi: "Đã mở: YENLUME, cuốn sổ thu tiền cho người có nhà cho thuê. Đang phát triển: Sổ Tâm, cuốn nhật ký của riêng bạn.",
+  zh: "已开放：YENLUME，给房东用的收租账本。开发中：Sổ Tâm，只属于你的私密日记。",
   "zh-hant":
-    "預覽中：Sổ Trọ，幫房東管理出租房間的記事本。開發中：Sổ Tâm，只屬於你的私密日記。",
+    "已開放：YENLUME，給房東用的收租帳本。開發中：Sổ Tâm，只屬於你的私密日記。",
 } as const;
 
 test("negative proof: webPreviewOpen needs web, an early-or-later lifecycle and a listing", () => {
@@ -48,7 +48,7 @@ for (const lang of LANGS) {
     // Public launch (Owner 2026-11-22): publicSignup opens exactly one link to
     // the app origin, the primary action. No separate sign-in link (#575).
     await expect(
-      page.locator('main a[href*="sotro.blueskyzlabs.com"]'),
+      page.locator('main a[href*="yenlume.blueskyzlabs.com"]'),
     ).toHaveCount(1);
     await expect(page.locator("[data-app-signin]")).toHaveCount(0);
 
@@ -63,7 +63,7 @@ for (const lang of LANGS) {
     );
   });
 
-  test(`${lang}: home names Sổ Trọ in preview and Sổ Tâm in development`, async ({
+  test(`${lang}: home names YENLUME as open and Sổ Tâm in development`, async ({
     page,
   }) => {
     await page.goto(`/${lang}/`);

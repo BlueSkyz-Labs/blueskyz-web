@@ -15,7 +15,7 @@ const sitemap = readFileSync("src/pages/sitemap.xml.ts", "utf8");
 
 const TITLE = "BlueSkyz Labs | Choose your language";
 const DESCRIPTION =
-  "Choose a language for BlueSkyz Labs, which is building Sổ Trọ, now in preview, and Sổ Tâm, in development: English, Tiếng Việt, 简体中文 or 繁體中文.";
+  "Choose a language for BlueSkyz Labs, maker of YENLUME, now open, and Sổ Tâm, in development: English, Tiếng Việt, 简体中文 or 繁體中文.";
 
 const gatewayIsIndexable = (src) =>
   !/content="noindex, follow"/.test(src) &&

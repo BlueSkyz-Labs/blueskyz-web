@@ -9,7 +9,7 @@ import type { Language } from "../lib/i18n.ts";
  *   2026-11-10 (GMT+7) from a local test build of the revision in `CAPTURE`,
  *   with synthetic demo data only: no real tenant, journal text or account.
  *   Phone screens are 390 CSS px wide at 2x; the unfolded-screen captures
- *   are 768 (Sổ Trọ, Vững Tay Lái) and 700 (Sổ Tâm) CSS px wide at 2x.
+ *   are 768 (YENLUME, Vững Tay Lái) and 700 (Sổ Tâm) CSS px wide at 2x.
  * - The device frames (status strip, camera cut-out, hinge) are illustration
  *   drawn in CSS around the captures; they name no device maker or model.
  * - Each sentence describes only what its screen shows at that revision. The
@@ -57,22 +57,22 @@ export const SHOWCASE_META: Record<
   vi: {
     title: "Showcase: chuyện thường ngày, kể bằng ba ứng dụng",
     description:
-      "Đi qua giao diện mới nhất của Sổ Trọ, Sổ Tâm và Vững Tay Lái trong ba câu chuyện ngắn. Ảnh chụp từ bản đang phát triển ngày 10/11/2026, dùng dữ liệu mẫu.",
+      "Đi qua giao diện mới nhất của YENLUME, Sổ Tâm và Vững Tay Lái trong ba câu chuyện ngắn. Ảnh chụp từ bản đang phát triển ngày 10/11/2026, dùng dữ liệu mẫu.",
   },
   en: {
     title: "Showcase: three everyday stories, told in three apps",
     description:
-      "Walk through the newest screens of Sổ Trọ, Sổ Tâm and Vững Tay Lái in three short stories. Captured from development builds on 10 November 2026 with sample data.",
+      "Walk through the newest screens of YENLUME, Sổ Tâm and Vững Tay Lái in three short stories. Captured from development builds on 10 November 2026 with sample data.",
   },
   zh: {
     title: "展示：三款应用，讲三个日常故事",
     description:
-      "通过三个小故事查看 Sổ Trọ、Sổ Tâm 和 Vững Tay Lái 的最新界面。截图于 2026 年 11 月 10 日取自开发中的版本，使用示例数据。",
+      "通过三个小故事查看 YENLUME、Sổ Tâm 和 Vững Tay Lái 的最新界面。截图于 2026 年 11 月 10 日取自开发中的版本，使用示例数据。",
   },
   "zh-hant": {
     title: "展示：三款應用，講三個日常故事",
     description:
-      "透過三個小故事檢視 Sổ Trọ、Sổ Tâm 和 Vững Tay Lái 的最新介面。截圖於 2026 年 11 月 10 日取自開發中的版本，使用範例資料。",
+      "透過三個小故事檢視 YENLUME、Sổ Tâm 和 Vững Tay Lái 的最新介面。截圖於 2026 年 11 月 10 日取自開發中的版本，使用範例資料。",
   },
 };
 
@@ -101,12 +101,12 @@ export const SHOWCASE_COPY: Record<
   vi: {
     eyebrow: "Showcase · tháng 11, 2026",
     title: "Chuyện thường ngày, kể bằng ba ứng dụng.",
-    lede: "Một chủ trọ đi thu tiền đầu tháng. Một người ngồi lại viết vài dòng cho mình. Một người sắp thi bằng lái. Mời bạn đi cùng họ qua những màn hình mới nhất của ba ứng dụng chúng tôi đang làm.",
+    lede: "Một chủ nhà đi thu tiền đầu tháng. Một người ngồi lại viết vài dòng cho mình. Một người sắp thi bằng lái. Mời bạn đi cùng họ qua những màn hình mới nhất của ba ứng dụng chúng tôi đang làm.",
     note: "Ảnh chụp ngày 10 tháng 11, 2026 từ bản đang phát triển. Dữ liệu trong ảnh là dữ liệu mẫu.",
     jump: "Đi tới từng câu chuyện",
     chapter: "Chương",
     screenOf: "Màn hình",
-    ownerDeskLabel: "Trên máy tính của chủ trọ",
+    ownerDeskLabel: "Trên máy tính của chủ nhà",
     foldLabel: "Trên màn hình gập mở",
     frameNote: "Khung máy quanh ảnh chỉ là hình minh họa.",
     openProduct: "Xem trang",
@@ -184,24 +184,24 @@ export const SHOWCASE_COPY: Record<
   },
 };
 
-/** The owner's desktop view that closes the Sổ Trọ story (1440x900 CSS px). */
+/** The owner's desktop view that closes the YENLUME story (1440x900 CSS px). */
 export const OWNER_DESK = {
   file: "sotro-owner-desk",
   width: 1920,
   height: 1200,
   body: {
-    vi: "Về đến bàn, chủ trọ gặp lại đúng những con số ấy trên trang tổng quan: còn phải thu bao nhiêu, hôm nay làm gì trước.",
+    vi: "Về đến bàn, chủ nhà gặp lại đúng những con số ấy trên trang tổng quan: còn phải thu bao nhiêu, hôm nay làm gì trước.",
     en: "Back at the desk, the same numbers are waiting on the owner's overview: how much is still to collect, and what to do first today.",
     zh: "回到桌前，同样的数字已经在房东的总览页上等着：还有多少待收，今天先做哪件事。",
     "zh-hant":
       "回到桌前，同樣的數字已經在房東的總覽頁上等著：還有多少待收，今天先做哪件事。",
   },
   alt: {
-    vi: "Trang “Tổng quan quản trị” của Sổ Trọ trên máy tính, với thẻ “Còn phải thu” 12.290.000 đ và danh sách “Hôm nay cần làm gì?”.",
-    en: "Sổ Trọ owner overview “Tổng quan quản trị” on a computer, with a “Còn phải thu” card showing 12.290.000 đ and the list “Hôm nay cần làm gì?”.",
-    zh: "电脑上的 Sổ Trọ 房东总览页“Tổng quan quản trị”，含“Còn phải thu”卡片（12.290.000 đ）和“Hôm nay cần làm gì?”列表。",
+    vi: "Trang “Tổng quan quản trị” của YENLUME trên máy tính, với thẻ “Còn phải thu” 12.290.000 đ và danh sách “Hôm nay cần làm gì?”.",
+    en: "YENLUME owner overview “Tổng quan quản trị” on a computer, with a “Còn phải thu” card showing 12.290.000 đ and the list “Hôm nay cần làm gì?”.",
+    zh: "电脑上的 YENLUME 房东总览页“Tổng quan quản trị”，含“Còn phải thu”卡片（12.290.000 đ）和“Hôm nay cần làm gì?”列表。",
     "zh-hant":
-      "電腦上的 Sổ Trọ 房東總覽頁「Tổng quan quản trị」，含「Còn phải thu」卡片（12.290.000 đ）和「Hôm nay cần làm gì?」清單。",
+      "電腦上的 YENLUME 房東總覽頁「Tổng quan quản trị」，含「Còn phải thu」卡片（12.290.000 đ）和「Hôm nay cần làm gì?」清單。",
   },
 } as const;
 
@@ -231,11 +231,11 @@ export const FOLD_SCREENS: Record<
         "螢幕一展開，水電頁面就分成兩半：左邊是房間清單，右邊是歷史與核對。",
     },
     alt: {
-      vi: "Trang “Nhập điện nước” của Sổ Trọ ở chiều rộng 768 px, hai cột: danh sách phòng và ô “Lịch sử & Đối soát Điện Nước”.",
-      en: "Sổ Trọ meter page “Nhập điện nước” at 768 px wide, in two columns: the room list and the panel “Lịch sử & Đối soát Điện Nước”.",
-      zh: "768 像素宽的 Sổ Trọ 水电页面“Nhập điện nước”，分两栏：房间列表和“Lịch sử & Đối soát Điện Nước”面板。",
+      vi: "Trang “Nhập điện nước” của YENLUME ở chiều rộng 768 px, hai cột: danh sách phòng và ô “Lịch sử & Đối soát Điện Nước”.",
+      en: "YENLUME meter page “Nhập điện nước” at 768 px wide, in two columns: the room list and the panel “Lịch sử & Đối soát Điện Nước”.",
+      zh: "768 像素宽的 YENLUME 水电页面“Nhập điện nước”，分两栏：房间列表和“Lịch sử & Đối soát Điện Nước”面板。",
       "zh-hant":
-        "768 像素寬的 Sổ Trọ 水電頁面「Nhập điện nước」，分兩欄：房間清單和「Lịch sử & Đối soát Điện Nước」面板。",
+        "768 像素寬的 YENLUME 水電頁面「Nhập điện nước」，分兩欄：房間清單和「Lịch sử & Đối soát Điện Nước」面板。",
     },
   },
   sotam: {
@@ -281,13 +281,13 @@ export const SHOWCASE_ACTS: ShowcaseAct[] = [
   {
     slug: "sotro",
     title: {
-      vi: "Đầu tháng, ở một dãy trọ.",
+      vi: "Đầu tháng, ở một ngôi nhà có phòng cho thuê.",
       en: "The start of the month, in a house of rented rooms.",
       zh: "月初，在一栋出租屋里。",
       "zh-hant": "月初，在一棟出租屋裡。",
     },
     intro: {
-      vi: "Dãy trọ trong dữ liệu mẫu có 15 phòng, do ba mẹ trông nom. Việc của cả tháng nằm gọn trong vài màn hình, chữ to, nút lớn.",
+      vi: "Nhà cho thuê trong dữ liệu mẫu có 15 phòng, do ba mẹ trông nom. Việc của cả tháng nằm gọn trong vài màn hình, chữ to, nút lớn.",
       en: "The building in the sample data has 15 rooms, looked after by Mum and Dad. A month of work sits on a few screens, with large type and big buttons.",
       zh: "示例数据里的出租屋有 15 间房，由爸妈照看。一整个月的事，都收在几个大字、大按钮的界面里。",
       "zh-hant":
@@ -304,18 +304,18 @@ export const SHOWCASE_ACTS: ShowcaseAct[] = [
           "zh-hant": "一打開，事情已經排好",
         },
         body: {
-          vi: "Sổ Trọ chào theo buổi, rồi đưa việc cần làm ngay lên đầu. Hôm nay là bốn phòng còn nợ kỳ trước.",
-          en: "Sổ Trọ greets you by the time of day, then puts what cannot wait at the top. Today that is four rooms still owing from the previous period.",
-          zh: "Sổ Trọ 按时段问候，再把不能等的事放到最上面。今天是四间房还欠着上一期的款。",
+          vi: "YENLUME chào theo buổi, rồi đưa việc cần làm ngay lên đầu. Hôm nay là bốn phòng còn nợ kỳ trước.",
+          en: "YENLUME greets you by the time of day, then puts what cannot wait at the top. Today that is four rooms still owing from the previous period.",
+          zh: "YENLUME 按时段问候，再把不能等的事放到最上面。今天是四间房还欠着上一期的款。",
           "zh-hant":
-            "Sổ Trọ 依時段問候，再把不能等的事放到最上面。今天是四間房還欠著上一期的款。",
+            "YENLUME 依時段問候，再把不能等的事放到最上面。今天是四間房還欠著上一期的款。",
         },
         alt: {
-          vi: "Màn hình chính Sổ Trọ trên điện thoại: “Hôm nay cần làm gì?”, mục “Việc cần làm ngay” với thẻ “4 phòng còn nợ kỳ trước”.",
-          en: "Sổ Trọ phone home screen: “Hôm nay cần làm gì?”, with a “Việc cần làm ngay” section and the card “4 phòng còn nợ kỳ trước”.",
-          zh: "Sổ Trọ 手机首页：“Hôm nay cần làm gì?”，“Việc cần làm ngay”栏目及“4 phòng còn nợ kỳ trước”卡片。",
+          vi: "Màn hình chính YENLUME trên điện thoại: “Hôm nay cần làm gì?”, mục “Việc cần làm ngay” với thẻ “4 phòng còn nợ kỳ trước”.",
+          en: "YENLUME phone home screen: “Hôm nay cần làm gì?”, with a “Việc cần làm ngay” section and the card “4 phòng còn nợ kỳ trước”.",
+          zh: "YENLUME 手机首页：“Hôm nay cần làm gì?”，“Việc cần làm ngay”栏目及“4 phòng còn nợ kỳ trước”卡片。",
           "zh-hant":
-            "Sổ Trọ 手機首頁：「Hôm nay cần làm gì?」，「Việc cần làm ngay」欄目及「4 phòng còn nợ kỳ trước」卡片。",
+            "YENLUME 手機首頁：「Hôm nay cần làm gì?」，「Việc cần làm ngay」欄目及「4 phòng còn nợ kỳ trước」卡片。",
         },
       },
       {
@@ -335,11 +335,11 @@ export const SHOWCASE_ACTS: ShowcaseAct[] = [
             "選一間房，輸入本月度數，點「Ghi phòng tiếp theo」（記錄下一間）。還沒抄的房間，卡片上有一枚黃色標籤提醒。",
         },
         alt: {
-          vi: "Màn hình “Nhập điện nước” của Sổ Trọ: nút “Ghi phòng tiếp theo” và phòng P01 có nhãn “Chưa ghi tháng 11/2026”.",
-          en: "Sổ Trọ “Nhập điện nước” screen: a “Ghi phòng tiếp theo” button and room P01 labelled “Chưa ghi tháng 11/2026”.",
-          zh: "Sổ Trọ“Nhập điện nước”界面：“Ghi phòng tiếp theo”按钮，P01 房间标有“Chưa ghi tháng 11/2026”。",
+          vi: "Màn hình “Nhập điện nước” của YENLUME: nút “Ghi phòng tiếp theo” và phòng P01 có nhãn “Chưa ghi tháng 11/2026”.",
+          en: "YENLUME “Nhập điện nước” screen: a “Ghi phòng tiếp theo” button and room P01 labelled “Chưa ghi tháng 11/2026”.",
+          zh: "YENLUME“Nhập điện nước”界面：“Ghi phòng tiếp theo”按钮，P01 房间标有“Chưa ghi tháng 11/2026”。",
           "zh-hant":
-            "Sổ Trọ「Nhập điện nước」介面：「Ghi phòng tiếp theo」按鈕，P01 房間標有「Chưa ghi tháng 11/2026」。",
+            "YENLUME「Nhập điện nước」介面：「Ghi phòng tiếp theo」按鈕，P01 房間標有「Chưa ghi tháng 11/2026」。",
         },
       },
       {
@@ -359,11 +359,11 @@ export const SHOWCASE_ACTS: ShowcaseAct[] = [
             "「Cần thu」（待收）清單把最該先處理的房間排在前面。批次列印收據和交接現金的按鈕也在這裡。",
         },
         alt: {
-          vi: "Màn hình “Thu tiền” của Sổ Trọ: nút “In biên nhận loạt”, “Bàn giao tiền mặt” và danh sách “Cần thu”.",
-          en: "Sổ Trọ “Thu tiền” screen: the buttons “In biên nhận loạt” and “Bàn giao tiền mặt”, and the “Cần thu” list.",
-          zh: "Sổ Trọ“Thu tiền”界面：“In biên nhận loạt”和“Bàn giao tiền mặt”按钮，以及“Cần thu”列表。",
+          vi: "Màn hình “Thu tiền” của YENLUME: nút “In biên nhận loạt”, “Bàn giao tiền mặt” và danh sách “Cần thu”.",
+          en: "YENLUME “Thu tiền” screen: the buttons “In biên nhận loạt” and “Bàn giao tiền mặt”, and the “Cần thu” list.",
+          zh: "YENLUME“Thu tiền”界面：“In biên nhận loạt”和“Bàn giao tiền mặt”按钮，以及“Cần thu”列表。",
           "zh-hant":
-            "Sổ Trọ「Thu tiền」介面：「In biên nhận loạt」和「Bàn giao tiền mặt」按鈕，以及「Cần thu」清單。",
+            "YENLUME「Thu tiền」介面：「In biên nhận loạt」和「Bàn giao tiền mặt」按鈕，以及「Cần thu」清單。",
         },
       },
       {
@@ -383,10 +383,10 @@ export const SHOWCASE_ACTS: ShowcaseAct[] = [
             "夜間暖色是可選的：想用時自己開啟，或者設定從晚上 9 點開始。",
         },
         alt: {
-          vi: "Màn hình chính Sổ Trọ ở chế độ màu ấm ban đêm: nền tối, chữ vàng ấm.",
-          en: "Sổ Trọ home screen in warm night colours: a dark background with warm amber text.",
-          zh: "夜间暖色下的 Sổ Trọ 首页：深色背景，暖黄色文字。",
-          "zh-hant": "夜間暖色下的 Sổ Trọ 首頁：深色背景，暖黃色文字。",
+          vi: "Màn hình chính YENLUME ở chế độ màu ấm ban đêm: nền tối, chữ vàng ấm.",
+          en: "YENLUME home screen in warm night colours: a dark background with warm amber text.",
+          zh: "夜间暖色下的 YENLUME 首页：深色背景，暖黄色文字。",
+          "zh-hant": "夜間暖色下的 YENLUME 首頁：深色背景，暖黃色文字。",
         },
       },
     ],

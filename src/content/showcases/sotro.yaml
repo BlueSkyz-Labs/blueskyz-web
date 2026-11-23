@@ -1,4 +1,4 @@
-# Sổ Trọ showcase — real screens of the running application.
+# YENLUME showcase — real screens of the running application.
 # Captured 2026-10-25 (GMT+7) from a local test build of BlueSkyz-Labs/sotro at the
 # revision below, with the repository's synthetic demo seed (db/seeds): no real
 # tenant, payment or identity data. Phone screens: 390x844 CSS px at 2x,
@@ -56,10 +56,10 @@ screens:
       zh: "只显示需要记住的事，以及本月未收款项。"
       zh-hant: "只顯示需要記住的事，以及本月未收款項。"
     alt:
-      en: Sổ Trọ phone home screen titled “Hôm nay cần làm gì?” with a “Việc cần làm ngay” list of urgent tasks.
-      vi: Màn hình chính Sổ Trọ trên điện thoại với tiêu đề “Hôm nay cần làm gì?” và danh sách “Việc cần làm ngay”.
-      zh: Sổ Trọ 手机首页，标题为“Hôm nay cần làm gì?”，并显示“Việc cần làm ngay”紧急事项列表。
-      zh-hant: Sổ Trọ 手機首頁，標題為「Hôm nay cần làm gì?」，並顯示「Việc cần làm ngay」緊急事項列表。
+      en: YENLUME phone home screen titled “Hôm nay cần làm gì?” with a “Việc cần làm ngay” list of urgent tasks.
+      vi: Màn hình chính YENLUME trên điện thoại với tiêu đề “Hôm nay cần làm gì?” và danh sách “Việc cần làm ngay”.
+      zh: YENLUME 手机首页，标题为“Hôm nay cần làm gì?”，并显示“Việc cần làm ngay”紧急事项列表。
+      zh-hant: YENLUME 手機首頁，標題為「Hôm nay cần làm gì?」，並顯示「Việc cần làm ngay」緊急事項列表。
   - id: utilities
     surface: phone
     src: /products/sotro/showcase/op-03-utilities.webp
@@ -76,10 +76,10 @@ screens:
       zh: "选一间房，输入读数，再到下一间。"
       zh-hant: "選一間房，輸入度數，再到下一間。"
     alt:
-      en: Sổ Trọ phone screen “Nhập điện nước” with a “Ghi phòng tiếp theo” button, an offline preparation card and the list of rooms.
+      en: YENLUME phone screen “Nhập điện nước” with a “Ghi phòng tiếp theo” button, an offline preparation card and the list of rooms.
       vi: Màn hình “Nhập điện nước” trên điện thoại với nút “Ghi phòng tiếp theo”, thẻ chuẩn bị khi mất mạng và danh sách phòng.
-      zh: Sổ Trọ 手机“Nhập điện nước”页面，含“Ghi phòng tiếp theo”按钮、离线准备卡片和房间列表。
-      zh-hant: Sổ Trọ 手機「Nhập điện nước」頁面，含「Ghi phòng tiếp theo」按鈕、離線準備卡片和房間清單。
+      zh: YENLUME 手机“Nhập điện nước”页面，含“Ghi phòng tiếp theo”按钮、离线准备卡片和房间列表。
+      zh-hant: YENLUME 手機「Nhập điện nước」頁面，含「Ghi phòng tiếp theo」按鈕、離線準備卡片和房間清單。
   - id: collect
     surface: phone
     src: /products/sotro/showcase/op-02-payments.webp
@@ -96,10 +96,10 @@ screens:
       zh: "先看谁还欠款，最紧急的排在前面，再记录已收款，或通过 Zalo 发送附转账二维码的消息。"
       zh-hant: "先看誰還欠款，最緊急的排在前面，再記錄已收款，或透過 Zalo 傳送附轉帳 QR 碼的訊息。"
     alt:
-      en: Sổ Trọ phone screen “Thu tiền”; in the “Cần thu” list, Phòng P13 shows an old debt of 5.160.500đ, a “Đã nhận tiền” button and a Zalo send button.
+      en: YENLUME phone screen “Thu tiền”; in the “Cần thu” list, Phòng P13 shows an old debt of 5.160.500đ, a “Đã nhận tiền” button and a Zalo send button.
       vi: Màn hình “Thu tiền” trên điện thoại; trong danh sách “Cần thu”, thẻ Phòng P13 hiện nợ cũ 5.160.500đ, nút “Đã nhận tiền” và nút gửi qua Zalo.
-      zh: Sổ Trọ 手机“Thu tiền”页面，含“Bàn giao tiền mặt”按钮和“Cần thu”列表；第一张卡片 Phòng P13 显示旧欠款 5.160.500đ，并有“Đã nhận tiền”按钮和通过 Zalo 发送的按钮。
-      zh-hant: Sổ Trọ 手機「Thu tiền」頁面，含「Bàn giao tiền mặt」按鈕和「Cần thu」清單；第一張卡片 Phòng P13 顯示舊欠款 5.160.500đ，並有「Đã nhận tiền」按鈕和透過 Zalo 傳送的按鈕。
+      zh: YENLUME 手机“Thu tiền”页面，含“Bàn giao tiền mặt”按钮和“Cần thu”列表；第一张卡片 Phòng P13 显示旧欠款 5.160.500đ，并有“Đã nhận tiền”按钮和通过 Zalo 发送的按钮。
+      zh-hant: YENLUME 手機「Thu tiền」頁面，含「Bàn giao tiền mặt」按鈕和「Cần thu」清單；第一張卡片 Phòng P13 顯示舊欠款 5.160.500đ，並有「Đã nhận tiền」按鈕和透過 Zalo 傳送的按鈕。
   - id: rooms
     surface: phone
     src: /products/sotro/showcase/op-04-rooms.webp
@@ -116,10 +116,10 @@ screens:
       zh: "在租与空房数量，可按状态筛选。"
       zh-hant: "在租與空房數量，可按狀態篩選。"
     alt:
-      en: Sổ Trọ phone screen “Phòng trọ” with occupied and vacant room counts and status filters.
+      en: YENLUME phone screen “Phòng trọ” with occupied and vacant room counts and status filters.
       vi: Màn hình “Phòng trọ” trên điện thoại với số phòng đang thuê, phòng trống và bộ lọc theo trạng thái.
-      zh: Sổ Trọ 手机“Phòng trọ”页面，显示在租与空房数量及状态筛选。
-      zh-hant: Sổ Trọ 手機「Phòng trọ」頁面，顯示在租與空房數量及狀態篩選。
+      zh: YENLUME 手机“Phòng trọ”页面，显示在租与空房数量及状态筛选。
+      zh-hant: YENLUME 手機「Phòng trọ」頁面，顯示在租與空房數量及狀態篩選。
   - id: pair
     surface: phone
     src: /products/sotro/showcase/op-00-pair.webp
@@ -132,14 +132,14 @@ screens:
       zh-hant: "配對手機"
     caption:
       en: "open the owner's link and tap once. No account or password to type."
-      vi: "mở liên kết của chủ trọ, chạm một lần. Không cần tài khoản hay mật khẩu."
+      vi: "mở liên kết của chủ nhà, chạm một lần. Không cần tài khoản hay mật khẩu."
       zh: "打开房东的链接，点一下即可。无需账号或密码。"
       zh-hant: "開啟房東的連結，點一下即可。不需帳號或密碼。"
     alt:
-      en: Sổ Trọ phone screen “Ghép nối điện thoại với Sổ Trọ” with a “Kết nối điện thoại này” button.
+      en: YENLUME phone screen “Ghép nối điện thoại với Sổ Trọ” with a “Kết nối điện thoại này” button.
       vi: Màn hình “Ghép nối điện thoại với Sổ Trọ” trên điện thoại với nút “Kết nối điện thoại này”.
-      zh: Sổ Trọ 手机“Ghép nối điện thoại với Sổ Trọ”页面，含“Kết nối điện thoại này”按钮。
-      zh-hant: Sổ Trọ 手機「Ghép nối điện thoại với Sổ Trọ」頁面，含「Kết nối điện thoại này」按鈕。
+      zh: YENLUME 手机“Ghép nối điện thoại với Sổ Trọ”页面，含“Kết nối điện thoại này”按钮。
+      zh-hant: YENLUME 手機「Ghép nối điện thoại với Sổ Trọ」頁面，含「Kết nối điện thoại này」按鈕。
   - id: candlelight
     surface: phone
     src: /products/sotro/showcase/op-05-candlelight.webp
@@ -156,10 +156,10 @@ screens:
       zh: "可选的暖色夜间显示：可选择晚上 9 点起自动、始终开启或关闭。"
       zh-hant: "可選的暖色夜間顯示：可選擇晚上 9 點起自動、一律開啟或關閉。"
     alt:
-      en: Sổ Trọ phone home screen in the warm, dark candlelight display.
-      vi: Màn hình chính Sổ Trọ ở chế độ đèn nến tối, tông ấm.
-      zh: Sổ Trọ 手机首页的暖色深色烛光显示。
-      zh-hant: Sổ Trọ 手機首頁的暖色深色燭光顯示。
+      en: YENLUME phone home screen in the warm, dark candlelight display.
+      vi: Màn hình chính YENLUME ở chế độ đèn nến tối, tông ấm.
+      zh: YENLUME 手机首页的暖色深色烛光显示。
+      zh-hant: YENLUME 手機首頁的暖色深色燭光顯示。
   - id: property
     surface: desktop
     src: /products/sotro/showcase/mgr-01-property.webp
@@ -167,7 +167,7 @@ screens:
     height: 1200
     title:
       en: "Buildings and rooms"
-      vi: "Dãy trọ và phòng"
+      vi: "Nhà cho thuê và phòng"
       zh: "楼栋与房间"
       zh-hant: "樓棟與房間"
     caption:
@@ -176,10 +176,10 @@ screens:
       zh: "入住情况、空房、电表水表与价格。"
       zh-hant: "入住情況、空房、電表水表與費率。"
     alt:
-      en: Sổ Trọ owner console “Dãy trọ & phòng” showing occupancy badges for a sample building.
-      vi: Khu quản trị Sổ Trọ, trang “Dãy trọ & phòng” với các nhãn tình trạng phòng của một dãy trọ mẫu.
-      zh: Sổ Trọ 房东后台“Dãy trọ & phòng”页面，显示示例楼栋的入住标签。
-      zh-hant: Sổ Trọ 房東後台「Dãy trọ & phòng」頁面，顯示範例樓棟的入住標籤。
+      en: YENLUME owner console “Dãy trọ & phòng” showing occupancy badges for a sample building.
+      vi: Khu quản trị YENLUME, trang “Dãy trọ & phòng” với các nhãn tình trạng phòng của một nhà cho thuê mẫu.
+      zh: YENLUME 房东后台“Dãy trọ & phòng”页面，显示示例楼栋的入住标签。
+      zh-hant: YENLUME 房東後台「Dãy trọ & phòng」頁面，顯示範例樓棟的入住標籤。
   - id: owner-collect
     surface: desktop
     src: /products/sotro/showcase/mgr-02-payments.webp
@@ -196,10 +196,10 @@ screens:
       zh: "欠款房间队列，旁边是所选房间的金额与付款核对。"
       zh-hant: "欠款房間佇列，旁邊是所選房間的金額與付款核對。"
     alt:
-      en: Sổ Trọ owner console “Thu tiền” with the “Cần thu” list and Phòng P13 detail, total 5.160.500đ, with a “Chưa có tài khoản nhận tiền” notice.
-      vi: Khu quản trị Sổ Trọ, trang “Thu tiền” với danh sách “Cần thu” và chi tiết Phòng P13, tổng 5.160.500đ, kèm “Chưa có tài khoản nhận tiền”.
-      zh: Sổ Trọ 房东后台“Thu tiền”页面：左侧为“Cần thu”列表，右侧为 Phòng P13 详情，含合计 5.160.500đ、“Chưa có tài khoản nhận tiền”提示和“Đối soát thanh toán”面板。
-      zh-hant: Sổ Trọ 房東後台「Thu tiền」頁面：左側為「Cần thu」清單，右側為 Phòng P13 詳情，含合計 5.160.500đ、「Chưa có tài khoản nhận tiền」提示和「Đối soát thanh toán」面板。
+      en: YENLUME owner console “Thu tiền” with the “Cần thu” list and Phòng P13 detail, total 5.160.500đ, with a “Chưa có tài khoản nhận tiền” notice.
+      vi: Khu quản trị YENLUME, trang “Thu tiền” với danh sách “Cần thu” và chi tiết Phòng P13, tổng 5.160.500đ, kèm “Chưa có tài khoản nhận tiền”.
+      zh: YENLUME 房东后台“Thu tiền”页面：左侧为“Cần thu”列表，右侧为 Phòng P13 详情，含合计 5.160.500đ、“Chưa có tài khoản nhận tiền”提示和“Đối soát thanh toán”面板。
+      zh-hant: YENLUME 房東後台「Thu tiền」頁面：左側為「Cần thu」清單，右側為 Phòng P13 詳情，含合計 5.160.500đ、「Chưa có tài khoản nhận tiền」提示和「Đối soát thanh toán」面板。
   - id: family
     surface: desktop
     src: /products/sotro/showcase/mgr-03-devices.webp
@@ -212,14 +212,14 @@ screens:
       zh-hant: "家人與裝置"
     caption:
       en: "the owner chooses who uses which paired phone."
-      vi: "chủ trọ chọn ai dùng điện thoại nào."
+      vi: "chủ nhà chọn ai dùng điện thoại nào."
       zh: "由房东决定谁用哪部配对手机。"
       zh-hant: "由房東決定誰用哪支配對手機。"
     alt:
-      en: Sổ Trọ owner console “Gia đình & thiết bị” with family member cards for Ba and Mẹ.
-      vi: Khu quản trị Sổ Trọ, trang “Gia đình & thiết bị” với thẻ người nhà Ba và Mẹ.
-      zh: Sổ Trọ 后台“Gia đình & thiết bị”页面，显示“Ba”和“Mẹ”家人卡片。
-      zh-hant: Sổ Trọ 後台「Gia đình & thiết bị」頁面，顯示「Ba」和「Mẹ」家人卡片。
+      en: YENLUME owner console “Gia đình & thiết bị” with family member cards for Ba and Mẹ.
+      vi: Khu quản trị YENLUME, trang “Gia đình & thiết bị” với thẻ người nhà Ba và Mẹ.
+      zh: YENLUME 后台“Gia đình & thiết bị”页面，显示“Ba”和“Mẹ”家人卡片。
+      zh-hant: YENLUME 後台「Gia đình & thiết bị」頁面，顯示「Ba」和「Mẹ」家人卡片。
   - id: setup
     surface: desktop
     src: /products/sotro/showcase/mgr-04-onboarding.webp
@@ -232,14 +232,14 @@ screens:
       zh-hant: "四步設定"
     caption:
       en: "building, rooms, electricity and water prices."
-      vi: "dãy trọ, phòng, giá điện nước."
+      vi: "nhà cho thuê, phòng, giá điện nước."
       zh: "楼栋、房间、水电价格。"
       zh-hant: "樓棟、房間、水電價格。"
     alt:
-      en: Sổ Trọ owner console setup wizard “Khởi tạo dãy trọ mới”, step 1 of 4.
-      vi: Trình khởi tạo “Khởi tạo dãy trọ mới” trong khu quản trị Sổ Trọ, bước 1/4.
-      zh: Sổ Trọ 后台设置向导“Khởi tạo dãy trọ mới”，第 1/4 步。
-      zh-hant: Sổ Trọ 後台設定精靈「Khởi tạo dãy trọ mới」，第 1/4 步。
+      en: YENLUME owner console setup wizard “Khởi tạo dãy trọ mới”, step 1 of 4.
+      vi: Trình khởi tạo “Khởi tạo dãy trọ mới” trong khu quản trị YENLUME, bước 1/4.
+      zh: YENLUME 后台设置向导“Khởi tạo dãy trọ mới”，第 1/4 步。
+      zh-hant: YENLUME 後台設定精靈「Khởi tạo dãy trọ mới」，第 1/4 步。
 
 # Feature story (v12 S1): a landlord's month told with the screens above, in
 # the order the month runs. Each chapter names one phone screen; `fact` binds
@@ -261,27 +261,27 @@ story:
 
 guide:
   title:
-    en: Getting started with Sổ Trọ
-    vi: Bắt đầu với Sổ Trọ
-    zh: Sổ Trọ 入门指南
-    zh-hant: Sổ Trọ 入門指南
+    en: Getting started with YENLUME
+    vi: Bắt đầu với YENLUME
+    zh: YENLUME 入门指南
+    zh-hant: YENLUME 入門指南
   intro:
-    en: "Sổ Trọ has two sides: the owner sets things up on a computer, and family members do the daily work on a paired phone. These steps follow the screens of the current development build."
-    vi: "Sổ Trọ có hai phía: chủ trọ thiết lập trên máy tính, người nhà làm việc hằng ngày trên điện thoại đã ghép. Các bước dưới đây theo đúng màn hình của bản đang phát triển."
-    zh: Sổ Trọ 分两端：房东在电脑上设置，家人在已配对的手机上处理日常事务。以下步骤按照当前开发版本的界面编写。
-    zh-hant: Sổ Trọ 分兩端：房東在電腦上設定，家人在已配對的手機上處理日常事務。以下步驟依照目前開發版本的介面編寫。
+    en: "YENLUME has two sides: the owner sets things up on a computer, and family members do the daily work on a paired phone. These steps follow the screens of the current release."
+    vi: "YENLUME có hai phía: chủ nhà thiết lập trên máy tính, người nhà làm việc hằng ngày trên điện thoại đã kết nối. Các bước dưới đây theo đúng màn hình của bản đang chạy."
+    zh: YENLUME 分两端：房东在电脑上设置，家人在已配对的手机上处理日常事务。以下步骤按照当前版本的界面编写。
+    zh-hant: YENLUME 分兩端：房東在電腦上設定，家人在已配對的手機上處理日常事務。以下步驟依照目前版本的介面編寫。
   steps:
     - id: create-building
       screen: setup
       role: owner
       title:
         en: Create your building
-        vi: Tạo dãy trọ
+        vi: Tạo nhà cho thuê
         zh: 创建楼栋
         zh-hant: 建立樓棟
       body:
         en: "Sign in to the owner console and follow the four-step setup: name and address, the list of rooms, starting electricity and water prices, then finish."
-        vi: "Đăng nhập khu quản trị và làm theo 4 bước: tên và địa chỉ dãy trọ, danh sách phòng, giá điện nước ban đầu, rồi hoàn tất."
+        vi: "Đăng nhập khu quản trị và làm theo 4 bước: tên và địa chỉ nhà cho thuê, danh sách phòng, giá điện nước ban đầu, rồi hoàn tất."
         zh: 登录房东后台，按四步完成设置：名称与地址、房间列表、初始水电价格，然后完成。
         zh-hant: 登入房東後台，按四步完成設定：名稱與地址、房間列表、初始水電價格，然後完成。
     - id: check-rooms
@@ -306,10 +306,10 @@ guide:
         zh: 为每位家人准备手机
         zh-hant: 為每位家人準備手機
       body:
-        en: Under “Gia đình & thiết bị”, set up each family member who will use Sổ Trọ day to day and create a pairing code or link for their phone.
-        vi: Trong “Gia đình & thiết bị”, thiết lập từng người nhà sẽ dùng Sổ Trọ hằng ngày và tạo mã hoặc liên kết ghép nối cho điện thoại của họ.
-        zh: 在“Gia đình & thiết bị”中设置每位日常使用 Sổ Trọ 的家人，并为其手机创建配对码或链接。
-        zh-hant: 在「Gia đình & thiết bị」中設定每位日常使用 Sổ Trọ 的家人，並為其手機建立配對碼或連結。
+        en: Under “Gia đình & thiết bị”, set up each family member who will use YENLUME day to day and create a pairing code or link for their phone.
+        vi: Trong “Gia đình & thiết bị”, thiết lập từng người nhà sẽ dùng YENLUME hằng ngày và tạo mã hoặc liên kết ghép nối cho điện thoại của họ.
+        zh: 在“Gia đình & thiết bị”中设置每位日常使用 YENLUME 的家人，并为其手机创建配对码或链接。
+        zh-hant: 在「Gia đình & thiết bị」中設定每位日常使用 YENLUME 的家人，並為其手機建立配對碼或連結。
     - id: pair-phone
       screen: pair
       role: family
@@ -320,7 +320,7 @@ guide:
         zh-hant: 連線手機
       body:
         en: The family member opens the link on their own phone and taps “Kết nối điện thoại này”. If the code has expired, the owner simply creates a new one.
-        vi: Người nhà mở liên kết trên điện thoại của mình và bấm “Kết nối điện thoại này”. Nếu mã đã hết hạn, chủ trọ chỉ cần tạo mã mới.
+        vi: Người nhà mở liên kết trên điện thoại của mình và bấm “Kết nối điện thoại này”. Nếu mã đã hết hạn, chủ nhà chỉ cần tạo mã mới.
         zh: 家人在自己的手机上打开链接并点击“Kết nối điện thoại này”。如配对码过期，房东重新创建即可。
         zh-hant: 家人在自己的手機上開啟連結並點選「Kết nối điện thoại này」。如配對碼過期，房東重新建立即可。
     - id: daily
@@ -345,8 +345,8 @@ guide:
         zh: 月底记录水电
         zh-hant: 月底記錄水電
       body:
-        en: Open “Điện nước”, choose an occupied room and enter the readings. After saving, Sổ Trọ can take you straight to the next room. The screen also offers to prepare for working offline.
-        vi: Mở “Điện nước”, chọn phòng đang thuê và nhập chỉ số. Lưu xong, Sổ Trọ có thể chuyển thẳng sang phòng kế tiếp. Màn hình cũng cho phép chuẩn bị để làm việc khi không có mạng.
+        en: Open “Điện nước”, choose an occupied room and enter the readings. After saving, YENLUME can take you straight to the next room. The screen also offers to prepare for working offline.
+        vi: Mở “Điện nước”, chọn phòng đang thuê và nhập chỉ số. Lưu xong, YENLUME có thể chuyển thẳng sang phòng kế tiếp. Màn hình cũng cho phép chuẩn bị để làm việc khi không có mạng.
         zh: 打开“Điện nước”，选择在租房间并录入读数。保存后可直接进入下一间。该页面还可预先准备离线工作。
         zh-hant: 開啟「Điện nước」，選擇在租房間並輸入讀數。儲存後可直接進入下一間。該頁面還可預先準備離線工作。
     - id: collect-rent
@@ -359,7 +359,7 @@ guide:
         zh-hant: 收取房租
       body:
         en: Open “Thu tiền” to see who still owes. Confirm the amount first, then record what was received. Opening the screen does not close anything out by itself.
-        vi: Mở “Thu tiền” để xem ai còn nợ. Chốt số tiền trước rồi mới ghi nhận đã thu; chỉ mở xem thì Sổ Trọ không tự chốt.
+        vi: Mở “Thu tiền” để xem ai còn nợ. Chốt số tiền trước rồi mới ghi nhận đã thu; chỉ mở xem thì YENLUME không tự chốt.
         zh: 打开“Thu tiền”查看谁还欠款。先确认金额再记录已收；仅打开查看不会自动结账。
         zh-hant: 開啟「Thu tiền」檢視誰還欠款。先確認金額再記錄已收；僅開啟檢視不會自動結帳。
     - id: review

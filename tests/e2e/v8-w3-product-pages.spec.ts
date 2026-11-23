@@ -55,7 +55,7 @@ for (const lang of LOCALES) {
         await expect(primary).toHaveAttribute(
           "href",
           slug === "sotro"
-            ? "https://sotro.blueskyzlabs.com/"
+            ? "https://yenlume.blueskyzlabs.com/"
             : "#profile-showcase",
         );
         await expect(page.locator("#profile-showcase")).toHaveCount(1);
