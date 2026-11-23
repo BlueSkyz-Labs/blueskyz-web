@@ -34,3 +34,19 @@
 ## Conformance impact
 
 `docs/brand/BRAND_KIT_CONFORMANCE_2026-10-01.md` row BK-32 records this as DEVIATION(Owner). The kit distribution still lists the blue house; a future kit revision (v5) should adopt this decision so the kit and the website agree.
+
+## Update 2026-11-23: YENLUME mark replaces the red book
+
+**Decision:** brand kit YENLUME 1.3 was approved by the Owner on 2026-11-23 15:17 GMT+7 (kit artifact `https://claude.ai/artifact/K3n4NnjfytkWLaGBVB159v`). The product is shown as YENLUME; the slug `sotro` and the file names stay. This supersedes the red-book decision above for the files below; the kit v4 blue house and the red book are both retired.
+
+| File                                                                                            | Now                                                                                                                                            |
+| ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `public/products/sotro/icon.svg`, `public/brand/blueskyz/v4/products/sotro.svg`                 | Byte copy of Sotro `public/icons/icon.svg` (YENLUME icon), sha256 `e0d4d4823fb110cd50c5999e874f7f178388a724845a56f6262efeb8bcb3a18f`           |
+| `public/products/sotro/icon.png`, `icon-112.png`                                                | 256 and 112 px opaque PNG resampled from the 512 px image inside that icon                                                                     |
+| `public/brand/blueskyz/v4/products/sotro_endorsed_lockup_light.svg`                             | Byte copy of kit 1.3 `yenlume-lockup-endorsed-en-light.svg`, sha256 `6c9cae9646d655708c26c4d3bcc776b4cf04125d80a567ce074d225b129decff`         |
+| `public/brand/blueskyz/v4/products/sotro_endorsed_lockup_dark.svg`                              | Byte copy of kit 1.3 `yenlume-lockup-endorsed-en-dark.svg`, sha256 `50308c05dad2dd6c91d4e909ee44ebb349fddee9e2129b65bb8dd3505a5de29b`          |
+| `public/products/sotro/identity.png`, `identity.webp`, `identity-768.webp`, `identity-480.webp` | The light lockup, scaled to fit 1700 x 454 and centred on `#fffdf7` in a 1800 x 504 canvas (PNG master, WebP derivatives at 1800, 768, 480 px) |
+
+The lockup builder (`docs/brand/sotro-icon/`) is removed: the lockups are no longer derived, they are the kit files. The kit lockups keep the kit's own `aria-label` ("YENLUME by BlueSkyz Labs"); the files are not edited.
+
+**Guard:** `tests/architecture/sotro-redbook-icon.test.mjs` pins the icon and both lockup hashes, requires the word YENLUME and no "Sổ Trọ" label, blue-house glyph or red-book gradient in the lockups, and refuses the kit v4 lockups and the retired red-book icon, icon PNGs, identity PNG and lockups by sha256. The other four products still match kit v4 byte for byte.
