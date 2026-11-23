@@ -245,12 +245,22 @@ for (const lang of LANGS) {
           ? journal.getBoundingClientRect().height +
             parseFloat(getComputedStyle(journal).marginTop)
           : 0;
+        // 2026-11-23: the maker section (Owner decision) is new content
+        // outside the chapters, excluded like the journal link.
+        const maker = document.querySelector<HTMLElement>(
+          "[data-product-maker]",
+        );
+        const makerBox = maker
+          ? maker.getBoundingClientRect().height +
+            parseFloat(getComputedStyle(maker).marginTop)
+          : 0;
         return (
           document.documentElement.scrollHeight -
           excluded -
           doesGap -
           poster -
-          journalBox
+          journalBox -
+          makerBox
         );
       });
       const before = MAIN_HEIGHT[name][lang] - MAIN_ACCESS[name];
