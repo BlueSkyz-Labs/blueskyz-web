@@ -5,6 +5,8 @@ branch: news
 title: "YENLUME: Sổ Trọ cho chủ nhà trọ"
 description: "YENLUME là sổ ghi tiền trọ chữ to cho chủ nhà trọ ở Việt Nam: phiếu thu ghi từng khoản, mã VietQR, gửi qua Zalo, gói Hiên miễn phí đến 15 phòng."
 datePublished: "2026-11-22"
+dateModified: "2026-11-23"
+updateNote: "Cập nhật 23/11/2026: bản web đã mở cho mọi người, không còn ở giai đoạn beta."
 author: tony-nguyen
 aiAssisted: true
 sources:
@@ -50,6 +52,6 @@ Giá sáng lập của gói Sân dành cho 100 khách trả tiền đầu tiên 
 
 ## Hiện trạng
 
-Bản web đang ở giai đoạn beta và mở đăng ký cho chủ trọ mới. Ứng dụng Android và iOS đang phát triển, chưa có trên cửa hàng ứng dụng. Ảnh màn hình chụp từ bản chạy thử, dùng dữ liệu mẫu.
+Bản web đã mở cho mọi người, chủ nhà mới đăng ký là dùng được. Ứng dụng Android và iOS đang phát triển, chưa có trên cửa hàng ứng dụng. Ảnh màn hình chụp từ bản chạy thử với dữ liệu mẫu, lúc sản phẩm còn mang tên Sổ Trọ.
 
-Xem thêm ảnh màn hình tại [trang Sổ Trọ](/vi/products/sotro/).
+Xem thêm ảnh màn hình tại [trang YENLUME](/vi/products/sotro/).

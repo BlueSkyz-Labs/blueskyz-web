@@ -178,7 +178,7 @@ test.describe("decision room", () => {
         "/zh/",
         "BlueSkyz Labs",
         "我们打造智能化产品，赋能个人并提升工作方式。",
-        "BlueSkyz Labs 的两款产品：给越南房东的收租账本 YENLUME 现已开放使用；存在手机上的私密日记 Sổ Tâm 仍在开发中。",
+        "BlueSkyz Labs 的两款产品：给越南房东的收租账本 YENLUME 现已开放给所有人；保存在手机上的私密日记 Sổ Tâm 仍在开发中。",
       ],
       [
         "/zh/about/",

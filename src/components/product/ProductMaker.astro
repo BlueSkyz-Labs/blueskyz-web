@@ -1,0 +1,58 @@
+---
+import type { Language } from "@/data/site";
+import { AUTHORS } from "@/data/authors";
+import { PRODUCT_MAKER_COPY } from "@/components/product/product-maker-copy";
+
+/**
+ * "The maker" on a product profile (Owner decision 2026-11-23): the founder is
+ * named, there is no photograph, the story starts from an everyday scene, and
+ * the last line says whose product it is. The name is read from the author
+ * registry so the page can never name someone who is not registered there.
+ *
+ * A product without an entry in `PRODUCT_MAKER_COPY` renders nothing.
+ */
+interface Props {
+  slug: string;
+  lang: Language;
+}
+
+const { slug, lang } = Astro.props;
+const copy = PRODUCT_MAKER_COPY[slug]?.[lang];
+const author = copy ? AUTHORS[copy.author] : undefined;
+// The registry carries the approved role in vi and en only; other languages
+// show the name and the house without a translated title.
+const role =
+  author && (lang === "vi" || lang === "en") ? author.role[lang] : undefined;
+const HOUSE = "BlueSkyz Labs";
+---
+
+{copy && author ? (
+  <section class="mt-14 max-w-2xl" data-product-maker>
+    <h2
+      id="profile-maker"
+      class="text-xl font-semibold tracking-tight text-[var(--text-primary)] sm:text-2xl"
+    >
+      {copy.heading}
+    </h2>
+    <p class="mt-4 text-base text-[var(--text-primary)]">
+      <strong class="font-semibold" data-product-maker-name>
+        {author.name}
+      </strong>
+      <span class="block text-[var(--text-secondary)]">
+        {role ? `${role}, ${HOUSE}` : HOUSE}
+      </span>
+    </p>
+    {copy.story.map((paragraph) => (
+      <p class="mt-3 text-base text-[var(--text-secondary)]">{paragraph}</p>
+    ))}
+    <p class="mt-3 text-base text-[var(--text-secondary)]">
+      <a
+        href={`/${lang}/about/`}
+        class="inline-flex min-h-11 items-center font-semibold text-[var(--action-primary)] underline underline-offset-4 hover:no-underline"
+        data-product-maker-house
+      >
+        {copy.house}
+      </a>
+    </p>
+  </section>
+) : null}

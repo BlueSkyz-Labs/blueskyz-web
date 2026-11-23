@@ -106,8 +106,8 @@ const OLD_SHOWCASE = {
 const GUIDE_STATUS = {
   en: "Steps may change in later updates.",
   vi: "Các bước có thể thay đổi ở những bản cập nhật sau.",
-  zh: "后续更新中步骤可能会有调整。",
-  "zh-hant": "後續更新中步驟可能會有調整。",
+  zh: "步骤可能会在后续更新中调整。",
+  "zh-hant": "步驟可能會在後續更新中調整。",
 } as const;
 const GUIDE_NOTE = {
   en: "when the product was still named Sổ Trọ.",
