@@ -38,7 +38,7 @@ for (const lang of ["en", "vi", "zh", "zh-hant"] as const) {
     await expect(gallery.locator("[data-capture-inspect]")).toBeVisible();
 
     await expect(page.locator("[data-showcase-disclosure]")).toContainText(
-      /sample|mẫu|示例|範例/,
+      /sample|mẫu|示例|範例/i,
     );
   });
 }

@@ -43,6 +43,9 @@ const COPY = {
     back: `Back to ${product.data.name}`,
     status: "In development. Steps may change before release.",
     statusPreview: "Preview. Steps may change before the full release.",
+    statusOpen: "Steps may change in later updates.",
+    disclosureOpen:
+      "Screens captured on a test build with sample data, when the product was still named Sổ Trọ.",
     disclosure: `Screens captured from a development build with sample data.`,
     owner: "Owner · computer",
     family: "Family · phone",
@@ -57,8 +60,11 @@ const COPY = {
     status: "Đang phát triển. Các bước có thể thay đổi trước khi phát hành.",
     statusPreview:
       "Bản xem trước. Các bước có thể thay đổi trước khi phát hành chính thức.",
+    statusOpen: "Các bước có thể thay đổi ở những bản cập nhật sau.",
+    disclosureOpen:
+      "Màn hình chụp từ bản thử với dữ liệu mẫu, khi sản phẩm còn tên Sổ Trọ.",
     disclosure: `Màn hình chụp từ bản đang phát triển với dữ liệu mẫu.`,
-    owner: "Chủ trọ · máy tính",
+    owner: "Chủ nhà · máy tính",
     family: "Người nhà · điện thoại",
     step: "Bước",
     steps: "Bước",
@@ -70,6 +76,8 @@ const COPY = {
     back: `返回 ${product.data.name}`,
     status: "开发中——正式发布前步骤可能会有变化。",
     statusPreview: "预览版——正式发布前步骤可能会有变化。",
+    statusOpen: "后续更新中步骤可能会有调整。",
+    disclosureOpen: "界面截图来自测试版本，使用示例数据，当时产品名为 Sổ Trọ。",
     disclosure: `界面截图来自开发版本，使用示例数据。`,
     owner: "房东 · 电脑",
     family: "家人 · 手机",
@@ -83,6 +91,8 @@ const COPY = {
     back: `返回 ${product.data.name}`,
     status: "開發中——正式推出前步驟可能會有變化。",
     statusPreview: "預覽版——正式推出前步驟可能會有變化。",
+    statusOpen: "後續更新中步驟可能會有調整。",
+    disclosureOpen: "介面截圖來自測試版本，使用範例資料，當時產品名為 Sổ Trọ。",
     disclosure: `介面截圖來自開發版本，使用範例資料。`,
     owner: "房東 · 電腦",
     family: "家人 · 手機",
@@ -94,6 +104,7 @@ const COPY = {
   },
 } as const satisfies Record<Language, Record<string, string>>;
 const t = COPY[lang];
+const isOpen = product.data.availability === "public";
 
 type Step = (typeof guide.steps)[number];
 interface Chapter {
@@ -154,7 +165,11 @@ const roleHeading = (role: Step["role"]) => {
   <Container>
     <header class="guide__hero">
       <p class="guide__status">
-        {webPreviewOpen(product.data) ? t.statusPreview : t.status}
+        {isOpen
+          ? t.statusOpen
+          : webPreviewOpen(product.data)
+            ? t.statusPreview
+            : t.status}
       </p>
       <h1 class="type-d1 guide__title text-[var(--text-primary)]">
         {guide.title[lang]}
@@ -165,7 +180,7 @@ const roleHeading = (role: Step["role"]) => {
         data-showcase-disclosure
         data-capture-revision={showcase.capture.sourceRevision}
       >
-        {t.disclosure}
+        {isOpen ? t.disclosureOpen : t.disclosure}
       </p>
     </header>
   </Container>
