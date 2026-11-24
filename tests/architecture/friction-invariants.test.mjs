@@ -92,12 +92,20 @@ test("motion: the route transition stays within 400 ms and is removed under redu
   );
   // Cross-document CSS transitions only: no script may hold navigation
   // feedback behind a scripted transition (feature detection is fine).
+  // The one exception is the theme wash (Owner 2026-11-24): it runs on a
+  // theme press, never on navigation, and is checked below.
   assert.deepEqual(
-    SOURCES.filter(({ text }) => /startViewTransition\s*\(/.test(text)).map(
-      ({ path }) => path,
-    ),
+    SOURCES.filter(
+      ({ path, text }) =>
+        /startViewTransition\s*\(/.test(text) &&
+        !path.endsWith("src/lib/theme-wash.ts"),
+    ).map(({ path }) => path),
     [],
   );
+  const wash = readFileSync("src/lib/theme-wash.ts", "utf8");
+  // The wash must step aside for reduced motion and must not navigate.
+  assert.match(wash, /prefers-reduced-motion: reduce/);
+  assert.doesNotMatch(wash, /location|history\.|navigate|href/);
 });
 
 test("negative proof: a spinner, an uncovered dialog and a slow transition are rejected", () => {
