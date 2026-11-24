@@ -1,0 +1,5 @@
+---
+description: SGPS harness-first default (SGPS-HFD-1)
+alwaysApply: true
+---
+Read and follow AGENTS.md in the repository root, in particular the "Harness-first default (SGPS-HFD-1)" section. It is mandatory for every agent.
