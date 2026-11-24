@@ -85,6 +85,11 @@ for (const index of INDEXES) {
       await expect(
         dialog.getByRole("button", { name: index.close }),
       ).toBeFocused();
+      // Audit the settled dialog: where motion is allowed it fades in, and a
+      // half-transparent frame is not what a reader sees once it is open.
+      await dialog.evaluate((el) =>
+        Promise.all(el.getAnimations({ subtree: true }).map((a) => a.finished)),
+      );
       const results = await new AxeBuilder({ page })
         .withTags(AXE_TAGS)
         .analyze();
