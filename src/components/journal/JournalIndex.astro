@@ -2,9 +2,10 @@
 import Dateline from "@/components/shared/Dateline.astro";
 import { getCollection } from "astro:content";
 import type { Language } from "@/data/site";
-import { JOURNAL_COPY } from "@/data/journal-copy";
+import JOURNAL_ART from "@/data/journal-art.json";
+import { JOURNAL_COPY, JOURNAL_RAIL_COPY } from "@/data/journal-copy";
 import { JOURNAL_BRANCHES, type JournalEntry } from "@/lib/journal-schema";
-import { journalPostPath } from "@/lib/journal-posts";
+import { journalArtVariant, journalPostPath } from "@/lib/journal-posts";
 
 /**
  * v11 J1: the journal index. Lists published posts of this language by
@@ -13,6 +14,14 @@ import { journalPostPath } from "@/lib/journal-posts";
  * Audit IX-09: only branches that hold a post render; a language with no post
  * at all shows the one honest empty state instead of an empty heading per
  * branch.
+ *
+ * Journey card rail (Owner 2026-11-24, after the Aceternity "Apple Cards
+ * Carousel"): each branch is a horizontal row of post cards in the Portfolio
+ * card material. Static-first: every card is server-rendered with its title
+ * link, date, description and lead illustration, so the row is crawlable and
+ * works as a native swipe/scroll row without JS. The script only adds the
+ * scroll buttons and a preview dialog (native <dialog>: focus trap, Escape,
+ * inert page); the post page stays the canonical destination.
  */
 interface Props {
   lang: Language;
@@ -20,6 +29,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const copy = JOURNAL_COPY[lang];
+const rail = lang === "vi" || lang === "en" ? JOURNAL_RAIL_COPY[lang] : null;
 const entries: JournalEntry[] = (await getCollection("journal"))
   .map((entry: { data: JournalEntry }) => entry.data)
   .filter((entry: JournalEntry) => !entry.draft && entry.lang === lang)
@@ -34,6 +44,29 @@ const branches = JOURNAL_BRANCHES.filter((branch) =>
 );
 const lead = entries[0];
 const heading = { news: copy.news, product: copy.product } as const;
+
+/** Card art: the stamped hero, offered at its 800 / 1200 / full widths. */
+const artSize = (src: string) => {
+  const meta = (
+    JOURNAL_ART as Record<string, { width: number; height: number }>
+  )[src];
+  if (!meta) throw new Error(`${src} is not in src/data/journal-art.json`);
+  return meta;
+};
+const cardArt = (entry: JournalEntry) => {
+  if (!entry.hero) return null;
+  const phone = journalArtVariant(entry.hero.src, "800");
+  const small = journalArtVariant(entry.hero.src, "1200");
+  const full = artSize(entry.hero.src);
+  return {
+    src: phone,
+    srcset: `${phone} ${artSize(phone).width}w, ${small} ${artSize(small).width}w, ${entry.hero.src} ${full.width}w`,
+    width: artSize(phone).width,
+    height: artSize(phone).height,
+    alt: entry.hero.alt,
+    caption: entry.hero.caption,
+  };
+};
 ---
 
 <div class="journal-index" data-journal-index>
@@ -66,40 +99,129 @@ const heading = { news: copy.news, product: copy.product } as const;
         <h2 id={`journal-${branch}`} class="journal-branch__heading">
           {heading[branch]}
         </h2>
-        <ul class="journal-list">
-          {items.map((entry) => (
-            <li
-              class:list={[
-                "journal-item",
-                entry === lead && "journal-item--lead",
-              ]}
-              data-journal-item={entry.id}
-              data-journal-lead={entry === lead ? "" : undefined}
+        <div class="journal-rail" data-journal-rail>
+          <ul class="journal-list" role="list">
+            {items.map((entry, index) => {
+              const art = cardArt(entry);
+              return (
+                <li
+                  class:list={[
+                    "journal-item",
+                    entry === lead && "journal-item--lead",
+                  ]}
+                  style={`--card-index: ${index}`}
+                  data-journal-item={entry.id}
+                  data-journal-lead={entry === lead ? "" : undefined}
+                >
+                  <div class="journal-item__text">
+                    <p class="journal-item__eyebrow">
+                      <Dateline iso={entry.datePublished} lang={lang} />
+                    </p>
+                    <h3 class="journal-item__title">
+                      <a
+                        href={journalPostPath(entry.lang, entry.id)}
+                        data-journal-card-link
+                      >
+                        {entry.title}
+                      </a>
+                    </h3>
+                    <p class="journal-item__description">{entry.description}</p>
+                  </div>
+                  {art ? (
+                    <div
+                      class="journal-item__art"
+                      data-journal-card-art
+                      data-caption={art.caption}
+                    >
+                      <img
+                        src={art.src}
+                        srcset={art.srcset}
+                        sizes="(min-width: 48rem) 32rem, 18rem"
+                        alt={art.alt}
+                        width={art.width}
+                        height={art.height}
+                        loading={index < 2 ? "eager" : "lazy"}
+                        decoding="async"
+                      />
+                    </div>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        {rail ? (
+          <div class="journal-rail__controls" data-journal-rail-controls hidden>
+            <button
+              type="button"
+              class="journal-rail__button"
+              aria-label={rail.previous}
+              data-journal-rail-prev
             >
-              <p class="journal-item__eyebrow">
-                <Dateline iso={entry.datePublished} lang={lang} />
-              </p>
-              <h3 class="journal-item__title">
-                <a href={journalPostPath(entry.lang, entry.id)}>
-                  {entry.title}
-                </a>
-              </h3>
-              <p class="journal-item__description">{entry.description}</p>
-            </li>
-          ))}
-        </ul>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h14M5 12l4 4M5 12l4-4" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="journal-rail__button"
+              aria-label={rail.next}
+              data-journal-rail-next
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h14M19 12l-4 4M19 12l-4-4" />
+              </svg>
+            </button>
+          </div>
+        ) : null}
       </section>
     );
   })}
+  {rail && entries.length > 0 ? (
+    <dialog
+      class="journal-preview"
+      aria-labelledby="journal-preview-title"
+      data-journal-preview
+    >
+      <div class="journal-preview__panel" data-journal-preview-panel>
+        <button
+          type="button"
+          class="journal-preview__close"
+          aria-label={rail.close}
+          data-journal-preview-close
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+        <p class="journal-preview__eyebrow" data-journal-preview-date></p>
+        <h2 id="journal-preview-title" class="journal-preview__title"></h2>
+        <figure class="journal-preview__figure" data-journal-preview-figure>
+          <figcaption data-journal-preview-caption></figcaption>
+        </figure>
+        <p class="journal-preview__description" data-journal-preview-text></p>
+        <a class="journal-preview__read" href="./" data-journal-preview-read>
+          {rail.read}
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 12h14M19 12l-4 4M19 12l-4-4" />
+          </svg>
+        </a>
+      </div>
+    </dialog>
+  ) : null}
 </div>
 
+<script>
+  import { enhanceJournalRails } from "@/scripts/journal-rail";
+  enhanceJournalRails();
+</script>
+
 <style>
-  /* Wave G1: an edition page, not an archive. One lead, then hairline rows.
-     Only existing tokens; no colour, no motion, no client script. */
+  /* Wave G1 eyebrow voice: small, tracked, one cobalt hairline before the
+     label. Only existing tokens. */
   .journal-branch {
     margin-block-start: var(--space-12);
   }
-  /* C4 eyebrow voice: small, tracked, one cobalt hairline before the label. */
   .journal-branch__heading {
     display: flex;
     align-items: center;
@@ -120,17 +242,100 @@ const heading = { news: copy.news, product: copy.product } as const;
     border-block-start: 1px solid var(--action-primary);
     flex: none;
   }
+
+  /* ---- The rail: a native horizontal scroll row. It bleeds to the
+     container's outer edge (the viewport edge below --site-max) so cards
+     swipe in from the side, and snaps each card to the text column. */
+  .journal-rail {
+    margin-inline: calc(var(--site-gutter) * -1);
+    padding-inline: var(--site-gutter);
+    padding-block: var(--space-6) var(--space-8);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--site-gutter);
+  }
+  /* The scrollbar is hidden only once the buttons exist (script-enhanced);
+     without JS it stays as the visible way to move the row with a mouse. */
+  .journal-rail[data-enhanced] {
+    scrollbar-width: none;
+  }
+  .journal-rail[data-enhanced]::-webkit-scrollbar {
+    display: none;
+  }
+  /* Cards that run past an edge fade out there, a cue that the row goes on
+     (the source's edge gradient). Set by the script from the scroll position. */
+  .journal-rail[data-more-end] {
+    mask-image: linear-gradient(
+      to right,
+      #000 calc(100% - var(--space-12)),
+      transparent
+    );
+  }
+  .journal-rail[data-more-start] {
+    mask-image: linear-gradient(to right, transparent, #000 var(--space-12));
+  }
+  .journal-rail[data-more-start][data-more-end] {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--space-12),
+      #000 calc(100% - var(--space-12)),
+      transparent
+    );
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .journal-rail {
+      scroll-behavior: smooth;
+    }
+  }
   .journal-list {
-    margin: var(--space-6) 0 0;
+    display: flex;
+    gap: var(--space-4);
+    margin: 0;
     padding: 0;
     list-style: none;
   }
+
+  /* ---- Card: the Portfolio card material (cobalt wash over the raised
+     surface, a soft cobalt glow in the upper corner), text on the surface,
+     the post's lead illustration anchored at the foot. */
   .journal-item {
-    padding-block: var(--space-6);
-    border-block-start: 1px solid var(--c4-hairline);
+    position: relative;
+    flex: 0 0 min(18rem, 78vw);
+    display: flex;
+    flex-direction: column;
+    min-block-size: 26rem;
+    overflow: hidden;
+    scroll-snap-align: start;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-media);
+    background: linear-gradient(
+      160deg,
+      color-mix(in srgb, var(--brand-cobalt) 10%, var(--surface-raised)),
+      var(--surface-raised) 55%
+    );
   }
-  .journal-item--lead {
-    padding-block-end: var(--space-8);
+  .journal-item::after {
+    content: "";
+    position: absolute;
+    top: -4rem;
+    right: -4rem;
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--brand-cobalt) 22%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+  .journal-item__text {
+    position: relative;
+    z-index: 1;
+    padding: var(--space-6) var(--space-6) 1.25rem;
+    margin-block-end: var(--space-4);
   }
   .journal-item__eyebrow {
     display: flex;
@@ -138,36 +343,323 @@ const heading = { news: copy.news, product: copy.product } as const;
     gap: 0 var(--space-2);
     margin: 0;
     font-size: var(--c4-type-meta);
+    font-weight: 500;
     font-variant-numeric: tabular-nums;
     color: var(--text-secondary);
   }
   .journal-item__title {
     margin: var(--space-2) 0 0;
-    font-size: var(--c4-type-evidence);
+    font-size: var(--size-5);
     font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
     text-wrap: balance;
-  }
-  .journal-item--lead .journal-item__title {
-    font-size: var(--c4-type-section);
-    line-height: 1.2;
   }
   .journal-item__title a {
     color: var(--text-primary);
     text-decoration: none;
+  }
+  /* The title link covers the whole card, so the card is one target and the
+     page keeps exactly one link per post. */
+  .journal-item__title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border-radius: inherit;
   }
   .journal-item__title a:hover,
   .journal-item__title a:focus-visible {
     text-decoration: underline;
     text-underline-offset: 0.25em;
   }
+  .journal-item__title a:focus-visible {
+    outline: none;
+  }
+  .journal-item:has(a:focus-visible) {
+    outline: 2px solid var(--action-primary);
+    outline-offset: 3px;
+  }
+  /* Full description, no line clamp: a clamp hides text, which fails WCAG
+     1.4.12 under text spacing (a11y-wcag22-sweep). Descriptions are capped at
+     160 characters by the schema, so the card stays short. */
   .journal-item__description {
-    max-width: var(--c4-reading-measure);
     margin: var(--space-3) 0 0;
+    font-size: var(--size-2);
+    line-height: 1.55;
     color: var(--text-secondary);
   }
-  .journal-item--lead .journal-item__description {
+  .journal-item__art {
+    position: relative;
+    margin-block-start: auto;
+    margin-inline: var(--space-4);
+    overflow: hidden;
+    border: 1px solid var(--c4-hairline);
+    border-block-end: 0;
+    border-start-start-radius: var(--radius-card);
+    border-start-end-radius: var(--radius-card);
+    background: var(--surface-raised);
+  }
+  .journal-item__art img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  @media (min-width: 48rem) {
+    .journal-list {
+      gap: 1.25rem;
+    }
+    .journal-item {
+      flex-basis: 24rem;
+      min-block-size: 30rem;
+    }
+    .journal-item--lead {
+      flex-basis: 32rem;
+    }
+    .journal-item__text {
+      padding: var(--space-8) var(--space-8) var(--space-6);
+    }
+    .journal-item__title {
+      font-size: var(--size-6);
+    }
+    .journal-item--lead .journal-item__title {
+      font-size: var(--size-7);
+      line-height: 1.15;
+    }
+    .journal-item__description {
+      font-size: var(--size-3);
+    }
+    .journal-item__art {
+      margin-inline: var(--space-6);
+    }
+  }
+
+  /* A fine pointer lifts the card and draws the illustration up a little. */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .journal-item {
+      transition:
+        transform var(--motion-quick, 180ms) var(--ease-standard, ease),
+        border-color var(--motion-quick, 180ms) var(--ease-standard, ease),
+        box-shadow var(--motion-quick, 180ms) var(--ease-standard, ease);
+    }
+    .journal-item__art img {
+      transition: transform 500ms var(--ease-emphasized, ease);
+    }
+    .journal-item:hover {
+      transform: translateY(-2px);
+      border-color: color-mix(
+        in srgb,
+        var(--brand-cobalt) 45%,
+        var(--border-subtle)
+      );
+      box-shadow: 0 18px 40px -26px
+        color-mix(in srgb, var(--brand-cobalt) 60%, transparent);
+    }
+    .journal-item:hover .journal-item__art img {
+      transform: scale(1.03);
+    }
+  }
+
+  /* Entrance, as the source: each card rises and fades in over 0.5 s, 0.2 s
+     after the one before (the shared `view-rise-text` keyframes, reveal.css). Motion-allowed only; the resting state is the
+     visible card, so no-JS, reduced motion and forced colours see it at once. */
+  @media (prefers-reduced-motion: no-preference) {
+    .journal-item {
+      animation: view-rise-text 500ms ease-out both;
+      animation-delay: calc(var(--card-index, 0) * 200ms);
+    }
+  }
+
+  /* Dark keeps the quieter hairline, as the Portfolio cards do. */
+  :global([data-theme="dark"]) .journal-item {
+    border-color: var(--border-hairline);
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .journal-item {
+      border-color: var(--border-hairline);
+    }
+  }
+
+  /* ---- Controls: below the row, aligned to its end, as the source. */
+  .journal-rail__controls {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+  }
+  .journal-rail__controls[hidden] {
+    display: none;
+  }
+  .journal-rail__button,
+  .journal-preview__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--border-subtle);
+    border-radius: 50%;
+    background: var(--surface-raised);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .journal-rail__button:hover:not(:disabled) {
+    border-color: var(--action-primary);
+  }
+  .journal-rail__button:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .journal-rail__button svg,
+  .journal-preview__close svg,
+  .journal-preview__read svg {
+    inline-size: 1.25rem;
+    block-size: 1.25rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ---- Preview dialog: the expanded card. Native modal dialog, so focus
+     stays inside, Escape closes and the page behind is inert. */
+  .journal-preview {
+    position: fixed;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    max-inline-size: none;
+    max-block-size: none;
+    margin: 0;
+    padding: 2.5rem var(--site-gutter);
+    border: 0;
+    background: transparent;
+    color: var(--text-primary);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .journal-preview::backdrop {
+    background: color-mix(in srgb, var(--brand-ink) 80%, transparent);
+  }
+  .journal-preview__panel {
+    position: relative;
+    max-inline-size: 64rem;
+    margin-inline: auto;
+    padding: var(--space-4);
+    border-radius: var(--radius-media);
+    background: var(--surface-raised);
+  }
+  .journal-preview__close {
+    position: sticky;
+    top: var(--space-4);
+    z-index: 1;
+    margin-inline-start: auto;
+    display: flex;
+    border-color: transparent;
+    background: var(--text-primary);
+    color: var(--surface-raised);
+  }
+  .journal-preview__eyebrow {
+    margin: 0;
+    font-size: var(--size-3);
+    font-weight: 500;
+    color: var(--text-secondary);
+  }
+  .journal-preview__title {
+    margin: var(--space-4) 0 0;
+    max-inline-size: 22em;
+    font-size: var(--size-6);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .journal-preview__figure {
+    margin: var(--space-8) 0 0;
+  }
+  /* The image is created by the script, so it carries no scope attribute. */
+  .journal-preview__figure :global(img) {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    border: 1px solid var(--c4-hairline);
+    border-radius: var(--radius-card);
+  }
+  .journal-preview__figure figcaption {
+    margin-block-start: var(--space-3);
+    font-size: var(--size-2);
+    color: var(--text-secondary);
+  }
+  .journal-preview__figure figcaption:empty {
+    display: none;
+  }
+  .journal-preview__description {
+    max-inline-size: var(--c4-reading-measure);
+    margin: var(--space-6) 0 0;
     font-size: var(--c4-type-reading);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .journal-preview__read {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: 2.75rem;
+    margin-block-start: var(--space-6);
+    padding: 0.5rem 1.25rem;
+    border-radius: var(--radius-pill);
+    background: var(--action-fill);
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .journal-preview__read:hover {
+    background: var(--action-primary-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  @media (min-width: 48rem) {
+    .journal-preview__panel {
+      padding: 2.5rem;
+    }
+    .journal-preview__title {
+      font-size: var(--size-8);
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .journal-preview,
+    .journal-preview::backdrop {
+      opacity: 0;
+      transition:
+        opacity 300ms ease-out,
+        overlay 300ms allow-discrete,
+        display 300ms allow-discrete;
+    }
+    .journal-preview[open],
+    .journal-preview[open]::backdrop {
+      opacity: 1;
+    }
+    @starting-style {
+      .journal-preview[open],
+      .journal-preview[open]::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+  @media (forced-colors: active) {
+    .journal-item::after {
+      display: none;
+    }
+    .journal-item:hover {
+      transform: none;
+    }
+    .journal-preview__close,
+    .journal-preview__read {
+      border: 1px solid ButtonText;
+    }
   }
 </style>
