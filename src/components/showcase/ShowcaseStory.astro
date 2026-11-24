@@ -406,7 +406,11 @@ const frameRatio = (width: number, height: number) =>
       const bw = Math.round(w * 0.32);
       const bh = Math.round(h * 0.17);
       const x = Math.min(Math.max(goal[0]! - bw / 2, 12), w - bw - 12);
-      const y = Math.min(Math.max(goal[1]! - bh / 2, h * 0.14), h * 0.78 - bh);
+      // Keep both frames above the card's sentence so it stays legible.
+      const y = Math.min(
+        Math.max(goal[1]! - bh / 2, h * 0.2),
+        h * 0.62 - bh * 1.62,
+      );
       const target = [
         [x, y, bw, bh],
         [x + bw * 0.74, y + bh * 1.2, bw * 0.34, bh * 0.42],
@@ -451,9 +455,11 @@ const frameRatio = (width: number, height: number) =>
       const r = card.getBoundingClientRect();
       aim(event.clientX - r.left, event.clientY - r.top);
     });
-    card.addEventListener("pointerleave", () =>
-      card.removeAttribute("data-lit"),
-    );
+    const dim = (): void => {
+      if (!card.matches(":focus-visible")) card.removeAttribute("data-lit");
+    };
+    card.addEventListener("pointerleave", dim);
+    card.addEventListener("pointercancel", dim);
     card.addEventListener("focus", () => {
       if (!card.matches(":focus-visible")) return;
       now = null;
