@@ -14,7 +14,7 @@ import type { Language } from "@/lib/i18n";
 export const STORY_COPY = {
   en: {
     title: (name: string) => `A landlord’s month in ${name}`,
-    lead: "From today’s list to the owner’s computer, in the order the month runs.",
+    lead: "Follow a landlord through one month, from today’s list on the phone to the owner’s computer.",
     desktop: "On the owner’s computer",
     inspect: "View larger image (sample data)",
     inspectOpens: "opens the image in a new tab",
@@ -22,7 +22,7 @@ export const STORY_COPY = {
   },
   vi: {
     title: (name: string) => `Một tháng của chủ nhà cùng ${name}`,
-    lead: "Từ việc cần làm hôm nay đến máy tính của chủ nhà, lần lượt từ đầu tháng đến cuối tháng.",
+    lead: "Theo chân chủ nhà suốt một tháng: từ việc cần làm hôm nay trên điện thoại đến máy tính.",
     desktop: "Trên máy tính của chủ nhà",
     inspect: "Xem ảnh lớn (dữ liệu mẫu)",
     inspectOpens: "mở ảnh trong thẻ mới",
@@ -30,7 +30,7 @@ export const STORY_COPY = {
   },
   zh: {
     title: (name: string) => `房东的一个月，在 ${name} 里`,
-    lead: "从今天的待办到房东的电脑，按一个月的节奏展开。",
+    lead: "跟着房东走过一个月，从手机上今天的待办，到房东的电脑。",
     desktop: "房东电脑",
     inspect: "查看大图（示例数据）",
     inspectOpens: "在新标签页打开图片",
@@ -38,7 +38,7 @@ export const STORY_COPY = {
   },
   "zh-hant": {
     title: (name: string) => `房東的一個月，在 ${name} 裡`,
-    lead: "從今天的待辦到房東的電腦，按一個月的節奏展開。",
+    lead: "跟著房東走過一個月，從手機上今天的待辦，到房東的電腦。",
     desktop: "房東電腦",
     inspect: "查看大圖（範例資料）",
     inspectOpens: "在新分頁開啟圖片",

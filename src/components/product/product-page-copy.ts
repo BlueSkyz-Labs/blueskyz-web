@@ -27,7 +27,7 @@ const DECK: Record<
   sotro: {
     en: {
       oneLiner:
-        "Record rent for each room or home, count each payment once, send a receipt on Zalo. Made for landlords in Vietnam.",
+        "The landlord’s rent book, now on a phone. Each payment is recorded once, with a receipt to send the tenant on Zalo.",
       whatItDoes: [
         "See at a glance who still owes this month and what needs doing today",
         "Review, then confirm: each payment is recorded once",
@@ -38,7 +38,7 @@ const DECK: Record<
     },
     vi: {
       oneLiner:
-        "Ghi tiền thu từng phòng, từng căn, mỗi khoản chỉ ghi một lần, có biên nhận gửi qua Zalo. Làm cho người có nhà cho thuê ở Việt Nam.",
+        "Cuốn sổ thu tiền của chủ nhà, giờ nằm trong điện thoại. Mỗi khoản thu ghi một lần, có biên nhận để gửi người thuê qua Zalo.",
       whatItDoes: [
         "Nhìn một lần là biết tháng này phòng trọ, căn hộ nào còn nợ và hôm nay cần làm gì",
         "Xem lại rồi mới xác nhận: mỗi khoản thu chỉ ghi một lần",
@@ -49,7 +49,7 @@ const DECK: Record<
     },
     zh: {
       oneLiner:
-        "逐间、逐套记下租金，每笔只记一次，收据可发到 Zalo。为越南房东打造。",
+        "房东的收租账本，现在放进了手机。每笔收款只记一次，收据可以在 Zalo 上发给租客。",
       whatItDoes: [
         "本月谁还欠租、今天要做什么",
         "先核对再确认：每笔收款只记一次",
@@ -60,7 +60,7 @@ const DECK: Record<
     },
     "zh-hant": {
       oneLiner:
-        "逐間、逐戶記下房租，每筆只記一次，收據可傳到 Zalo。為越南房東打造。",
+        "房東的收租帳本，現在放進了手機。每筆收款只記一次，收據可以用 Zalo 傳給房客。",
       whatItDoes: [
         "本月誰還欠租、今天要做什麼",
         "先核對再確認：每筆收款只記一次",

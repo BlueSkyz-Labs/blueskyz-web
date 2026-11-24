@@ -1,6 +1,6 @@
 slug: sotro
 name: YENLUME
-shortDescription: "For people who rent out rooms, apartments or a house in Vietnam: see who still owes this month and what needs doing today."
+shortDescription: "A rent book for landlords in Vietnam: open it to see who still owes this month and what needs doing today."
 lifecycle: active
 availability: public
 publicLabel: Available
@@ -74,7 +74,7 @@ lastReviewedAt: 2026-11-23
 # is an Owner feedback checkpoint (plan v5 W3.4).
 i18n:
   vi:
-    shortDescription: "Dành cho người có phòng, căn hộ hay nhà cho thuê ở Việt Nam: xem tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì."
+    shortDescription: "Sổ thu tiền cho chủ nhà ở Việt Nam: mở ra là biết tháng này còn ai chưa đóng tiền và hôm nay cần lo việc gì."
     jobs:
       - "Nhìn một lần là biết tháng này phòng hay căn nào chưa đóng tiền và hôm nay cần làm gì"
       - "Thu tiền và ghi nhận mỗi khoản đúng một lần, không cần sổ tay hay bảng tính"
@@ -85,7 +85,7 @@ i18n:
       - "Màn hình sẵn sàng cuối tháng: ai còn nợ, việc gì đến hạn, kèm bảng C06 tạm trú tải về ngay"
     primaryActionLabel: "Xem YENLUME"
   zh:
-    shortDescription: "给在越南出租房间、公寓或整栋房子的房东：查看本月还有谁没交租、今天要处理什么。"
+    shortDescription: "越南房东的收租账本：打开就知道本月还有谁没交租、今天要处理什么。"
     jobs:
       - "一眼看清本月谁还欠租、今天要处理什么"
       - "收租并把每笔款项准确记录一次，不再需要表格"
@@ -97,11 +97,11 @@ i18n:
     primaryActionLabel: "了解 YENLUME"
   # zh-Hant copy: machine-assisted (OpenCC s2twp), pending native review.
   zh-hant:
-    shortDescription: "給在越南出租房間、套房或整棟房子的房東：查看本月還有誰沒繳租、今天要處理什麼。"
+    shortDescription: "越南房東的收租帳本：打開就知道本月還有誰沒繳租、今天要處理什麼。"
     jobs:
       - "一眼看清本月誰還欠租、今天要處理什麼"
       - "收租並把每筆款項準確記錄一次，不再需要試算表"
-      - "把房間和套房、房客和他們的暫住登記、水電表度數都放在同一個地方"
+      - "把房間和公寓、房客和他們的暫住登記、水電表度數都放在同一個地方"
     capabilities:
       - "收租先核對再確認，提供銀行轉帳 QR 碼，收據可複製到 Zalo"
       - "為年長房東設計的大字級與大按鈕；家人的手機掃描 QR 碼即可加入"
