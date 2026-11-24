@@ -380,13 +380,11 @@ const cardArt = (entry: JournalEntry) => {
     outline: 2px solid var(--action-primary);
     outline-offset: 3px;
   }
+  /* Full description, no line clamp: a clamp hides text, which fails WCAG
+     1.4.12 under text spacing (a11y-wcag22-sweep). Descriptions are capped at
+     160 characters by the schema, so the card stays short. */
   .journal-item__description {
-    display: -webkit-box;
     margin: var(--space-3) 0 0;
-    overflow: hidden;
-    -webkit-line-clamp: 3;
-    line-clamp: 3;
-    -webkit-box-orient: vertical;
     font-size: var(--size-2);
     line-height: 1.55;
     color: var(--text-secondary);
