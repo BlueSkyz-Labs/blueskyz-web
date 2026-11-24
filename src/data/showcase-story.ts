@@ -84,6 +84,7 @@ export const SHOWCASE_COPY: Record<
     lede: string;
     note: string;
     jump: string;
+    readStory: string;
     chapter: string;
     screenOf: string;
     ownerDeskLabel: string;
@@ -104,6 +105,7 @@ export const SHOWCASE_COPY: Record<
     lede: "Một chủ nhà đi thu tiền đầu tháng. Một người ngồi lại viết vài dòng cho mình. Một người sắp thi bằng lái. Mời bạn đi cùng họ qua những màn hình mới nhất của ba ứng dụng chúng tôi đang làm.",
     note: "Ảnh chụp ngày 10 tháng 11, 2026 từ bản đang phát triển. Dữ liệu trong ảnh là dữ liệu mẫu.",
     jump: "Đi tới từng câu chuyện",
+    readStory: "Đọc câu chuyện",
     chapter: "Chương",
     screenOf: "Màn hình",
     ownerDeskLabel: "Trên máy tính của chủ nhà",
@@ -125,6 +127,7 @@ export const SHOWCASE_COPY: Record<
     lede: "A landlord doing the rounds at the start of the month. Someone sitting down to write a few lines for themselves. Someone with a driving test coming up. Walk with them through the newest screens of the three apps we are building.",
     note: "Captured on 10 November 2026 from development builds. The data in the images is sample data.",
     jump: "Go to each story",
+    readStory: "Read the story",
     chapter: "Chapter",
     screenOf: "Screen",
     ownerDeskLabel: "On the owner's computer",
@@ -146,6 +149,7 @@ export const SHOWCASE_COPY: Record<
     lede: "一位房东在月初挨间收租。一个人坐下来，为自己写几行字。一个人快要考驾照了。请跟着他们，看看我们正在开发的三款应用的最新界面。",
     note: "截图于 2026 年 11 月 10 日取自开发中的版本。图中的数据是示例数据。",
     jump: "前往各个故事",
+    readStory: "阅读这个故事",
     chapter: "第",
     screenOf: "界面",
     ownerDeskLabel: "在房东的电脑上",
@@ -167,6 +171,7 @@ export const SHOWCASE_COPY: Record<
     lede: "一位房東在月初挨間收租。一個人坐下來，為自己寫幾行字。一個人快要考駕照了。請跟著他們，看看我們正在開發的三款應用的最新介面。",
     note: "截圖於 2026 年 11 月 10 日取自開發中的版本。圖中的資料是範例資料。",
     jump: "前往各個故事",
+    readStory: "閱讀這個故事",
     chapter: "第",
     screenOf: "介面",
     ownerDeskLabel: "在房東的電腦上",

@@ -284,7 +284,9 @@ export function auditThemeSwitcher(source, shared = SHARED) {
 
   // Runtime contract: a press goes to nextTheme, then applies and repaints.
   if (
-    !/mode = nextTheme\(mode, osDark\.matches\);\s*applyTheme\(mode\);\s*paint\(\);/.test(
+    // Plain switch, or the theme wash (Owner 2026-11-24) wrapping the same
+    // two steps: the wash only decides how the switch is revealed.
+    !/mode = nextTheme\(mode, osDark\.matches\);\s*(?:washTheme\(event, \(\) => \{\s*)?applyTheme\(mode\);\s*paint\(\);/.test(
       source,
     ) ||
     !/initTheme\(\)/.test(source)

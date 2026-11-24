@@ -231,6 +231,7 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
     nextTheme,
     type ThemeMode,
   } from "@/lib/theme";
+  import { washTheme } from "@/lib/theme-wash";
 
   let mode: ThemeMode = initTheme();
   const osDark = window.matchMedia("(prefers-color-scheme: dark)");
@@ -253,10 +254,12 @@ const triggerName = `${L.label}: ${L[DEFAULT_MODE]}`;
   }
 
   for (const trigger of triggers) {
-    trigger.addEventListener("click", () => {
+    trigger.addEventListener("click", (event) => {
       mode = nextTheme(mode, osDark.matches);
-      applyTheme(mode);
-      paint();
+      washTheme(event, () => {
+        applyTheme(mode);
+        paint();
+      });
     });
   }
 
