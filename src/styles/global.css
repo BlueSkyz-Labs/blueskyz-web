@@ -690,6 +690,44 @@ html[data-intent="evaluate-product"] [data-journey-bar] a[href$="/products/"] {
     animation: maison-room-out var(--motion-continuity-duration)
       var(--motion-ease-standard) both;
   }
+
+  /* Theme wash (Owner 2026-11-24, src/lib/theme-wash.ts): when the theme
+     icon is pressed, the new theme grows as a soft-edged circle from the
+     press point. These rules outrank the room sweep above while
+     html[data-theme-wash] is set; the radius is animated once from script.
+     Reduced motion never sets the attribute (the script switches at once). */
+  html[data-theme-wash]::view-transition-old(root),
+  html[data-theme-wash]::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+
+  html[data-theme-wash]::view-transition-old(root) {
+    z-index: 0;
+  }
+
+  html[data-theme-wash]::view-transition-new(root) {
+    z-index: 1;
+    -webkit-mask-image: radial-gradient(
+      circle at var(--theme-wash-x) var(--theme-wash-y),
+      #000 calc(var(--theme-wash-radius) * 0.7),
+      transparent var(--theme-wash-radius)
+    );
+    mask-image: radial-gradient(
+      circle at var(--theme-wash-x) var(--theme-wash-y),
+      #000 calc(var(--theme-wash-radius) * 0.7),
+      transparent var(--theme-wash-radius)
+    );
+    -webkit-mask-size: auto;
+    mask-size: auto;
+  }
+}
+
+/* Theme wash radius, animated by src/lib/theme-wash.ts. */
+@property --theme-wash-radius {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
 }
 
 @keyframes maison-horizon-in {
