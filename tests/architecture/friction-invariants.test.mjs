@@ -38,6 +38,8 @@ export function findBusyStates(sources) {
 export const DIALOGS_WITH_ESCAPE_TEST = {
   "src/components/experience/CommandNavigator.astro":
     "tests/e2e/s-plus-command.spec.ts",
+  "src/components/journal/JournalIndex.astro":
+    "tests/e2e/journal-card-rail.spec.ts",
 };
 
 export function uncoveredDialogs(sources, covered, readSpec) {

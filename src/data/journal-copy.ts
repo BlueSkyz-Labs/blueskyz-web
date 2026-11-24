@@ -94,3 +94,34 @@ export const JOURNAL_POST_COPY: Record<"vi" | "en", JournalPostCopy> = {
     rss: "RSS",
   },
 };
+
+/**
+ * Journey card rail (Owner 2026-11-24): control labels for the swipeable
+ * card row and its preview dialog. Only vi and en list posts, so zh / zh-Hant
+ * never render the rail. Descriptive UI labels only, no product claim.
+ */
+export interface JournalRailCopy {
+  /** Accessible name of the "scroll back" control. */
+  previous: string;
+  /** Accessible name of the "scroll on" control. */
+  next: string;
+  /** Accessible name of the preview dialog's close control. */
+  close: string;
+  /** Link from the preview to the full post. */
+  read: string;
+}
+
+export const JOURNAL_RAIL_COPY: Record<"vi" | "en", JournalRailCopy> = {
+  vi: {
+    previous: "Xem bài trước",
+    next: "Xem bài sau",
+    close: "Đóng",
+    read: "Đọc bài viết",
+  },
+  en: {
+    previous: "Previous posts",
+    next: "More posts",
+    close: "Close",
+    read: "Read the post",
+  },
+};
