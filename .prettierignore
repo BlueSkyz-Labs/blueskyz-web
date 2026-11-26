@@ -16,3 +16,6 @@ public/brand/blueskyz/v4/tokens/
 # Published web manifests must stay byte-identical to their source projection.
 public/icons/site.webmanifest
 public/site.webmanifest
+
+# SGPS shared runner (GP-80): copied byte-for-byte from sgps-core, never reformatted.
+scripts/sgps-pdv-run.mjs
