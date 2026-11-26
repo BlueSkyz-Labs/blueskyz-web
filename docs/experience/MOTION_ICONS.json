@@ -1,0 +1,48 @@
+{
+  "schema": "sgps.motion-icons/1",
+  "standard": "sgps-core standards/experience/MOTION_ICONOGRAPHY_STANDARD.md (MIC 1.0)",
+  "motion": {
+    "token_file": "TODO path to the token file (CSS :root block or the app tokens module)",
+    "durations": {
+      "press": "--ui-motion-press",
+      "fast": "--ui-motion-fast",
+      "enter": "--ui-motion-enter",
+      "dialog": "--ui-motion-dialog",
+      "signature": "--ui-motion-signature",
+      "reveal": "--ui-motion-reveal"
+    },
+    "easings": {
+      "ease-out": "--ui-motion-ease-out",
+      "ease-in-out": "--ui-motion-ease-in-out"
+    },
+    "reduced_motion": {
+      "file": "TODO file with the prefers-reduced-motion rule or the native reduce-motion call; or set no_motion true with a reason"
+    }
+  },
+  "scan": {
+    "roots": [
+      "src"
+    ],
+    "extensions": [
+      ".tsx",
+      ".ts",
+      ".css"
+    ]
+  },
+  "allowlist": {},
+  "icons": {
+    "family": "hugeicons-stroke-rounded",
+    "version": "4.4.0",
+    "license": "MIT",
+    "license_file": "TODO path to HUGEICONS_LICENSE.md",
+    "data_file": "TODO path to icon-data.ts",
+    "component": "TODO path to the Icon component",
+    "stroke_width": 1.5
+  },
+  "patterns": [
+    {
+      "id": "menu-morph",
+      "file": "TODO path to the menu icon component, or remove when the app has no menu button"
+    }
+  ]
+}

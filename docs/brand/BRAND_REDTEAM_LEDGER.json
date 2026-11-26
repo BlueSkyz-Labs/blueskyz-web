@@ -1,0 +1,118 @@
+{
+  "schema": "sgps.brand-redteam-ledger/1",
+  "project": "<project>",
+  "project_head": null,
+  "sgps_head": null,
+  "mode": "RESEARCH",
+  "subject": {
+    "candidate": null,
+    "version": null,
+    "status": "CONDITIONAL"
+  },
+  "alternative": "KEEP_CURRENT",
+  "review": {
+    "maker": null,
+    "independent_reviewer": null,
+    "state": "NOT_VERIFIED"
+  },
+  "lenses": [
+    {
+      "id": "market",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "name_language",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "rights",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "namespaces",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "customer_truth",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "visual_verbal",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "technical",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "migration_commercial",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    },
+    {
+      "id": "process",
+      "state": "NOT_VERIFIED",
+      "severity": null,
+      "evidence": [],
+      "disconfirming_hypothesis": "",
+      "limits": "",
+      "next_actor": "agent",
+      "next_action": ""
+    }
+  ],
+  "queries": [],
+  "decision": {
+    "recommendation": null,
+    "readiness": "INCOMPLETE",
+    "public_release": "HOLD",
+    "owner_decision_ref": null
+  },
+  "next_actions": []
+}

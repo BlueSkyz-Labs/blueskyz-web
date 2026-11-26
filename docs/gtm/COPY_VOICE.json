@@ -1,0 +1,60 @@
+{
+  "schema": "sgps.copy-voice/1",
+  "project": "TODO: project id",
+  "author": "TODO: lane or person who wrote the lines",
+  "default_locale": "vi",
+  "locales": [
+    "vi",
+    "en"
+  ],
+  "voice": {
+    "one_line": "TODO: the voice in one sentence (how it sounds, what it never does)",
+    "reader": "TODO: the one person this copy is written to, and the moment they are in",
+    "address": {
+      "vi": "TODO: how the reader is addressed in Vietnamese advertisements and in the app",
+      "en": "TODO: how the reader is addressed in English"
+    }
+  },
+  "banned": {
+    "vi": [],
+    "en": []
+  },
+  "lines": [
+    {
+      "id": "hook-1",
+      "role": "hook",
+      "surfaces": [
+        "TODO: where this line appears"
+      ],
+      "source_locale": "vi",
+      "meaning": "TODO: one sentence on what this line must make the reader understand",
+      "image": "TODO: the one concrete image the line holds",
+      "truth": "TODO: claims register id or path to the product evidence",
+      "text": {
+        "vi": "TODO: the line in the source language",
+        "en": "TODO: the line written fresh in English"
+      },
+      "adaptation": {
+        "en": {
+          "method": "transcreated",
+          "note": "TODO: what changed for this language and why (rhythm, image, address)",
+          "back_meaning": "TODO: plain gloss in the default language of what the adapted line says",
+          "confidence": "MACHINE_CHECKED"
+        }
+      },
+      "owner_approved": {
+        "by": "TODO: Owner",
+        "date": "YYYY-MM-DD",
+        "text_before_render": false
+      }
+    }
+  ],
+  "review": {
+    "reviewer": "TODO: independent lane or Owner",
+    "date": "YYYY-MM-DD",
+    "reader_kind": "MODEL",
+    "read_aloud": false,
+    "locales_read": [],
+    "verdict": "FAIL"
+  }
+}
