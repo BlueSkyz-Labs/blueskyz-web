@@ -56,7 +56,7 @@
     "automatic": false,
     "command": "wrangler rollback --name web, run by the Owner or an agent with Workers access when the post-deploy run fails",
     "rerun_after": true,
-    "deviation": "PDV-R7 open: AGENTS.md keeps GitHub Actions free of Cloudflare secrets and deploy commands, so the read-only job cannot roll back. Owner decision pending (2026-11-26)."
+    "deviation": "PDV-R7 open: AGENTS.md keeps GitHub Actions free of Cloudflare secrets and deploy commands, so the read-only job cannot roll back. Decided 2026-11-26: keep Actions read-only; a FAIL emails the Owner and the rollback is run by hand."
   },
   "schedule": {
     "every_minutes": 1440,
