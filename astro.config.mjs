@@ -38,6 +38,24 @@ function buildStamp() {
         } catch {
           // Filesystem write failed: do not fail the build.
         }
+        // PDV 1.0 (sgps-core POST_DEPLOY_VERIFICATION_STANDARD): a Workers
+        // Builds deploy serves /version.json = {"commit": sha} so the
+        // post-deploy check can confirm the served build. Only the commit
+        // sha (already public on GitHub); GitHub CI builds do not emit it.
+        if (process.env.WORKERS_CI) {
+          const served = (process.env.WORKERS_CI_COMMIT_SHA || commit).trim();
+          if (/^[0-9a-f]{7,40}$/i.test(served)) {
+            try {
+              writeFileSync(
+                fileURLToPath(new URL("version.json", dir)),
+                JSON.stringify({ commit: served }) + "\n",
+                "utf8",
+              );
+            } catch {
+              // Filesystem write failed: do not fail the build.
+            }
+          }
+        }
         if (
           commit !== "unknown" &&
           !process.env.CI &&

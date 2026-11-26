@@ -1,0 +1,81 @@
+name: Post-deploy verification
+
+# PDV 1.0 (sgps-core standards/testing/POST_DEPLOY_VERIFICATION_STANDARD.md).
+# Read-only: no Cloudflare secret, no deploy or rollback command (AGENTS.md:
+# GitHub Actions is source assurance only). Workers Builds deploys main; this
+# job waits until /version.json serves the pushed commit, then checks the live
+# site. A FAIL fails the run; rollback is done outside GitHub Actions.
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "17 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: post-deploy-verification
+  cancel-in-progress: false
+
+jobs:
+  pdv:
+    name: PDV live check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Node 24.20.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 24.20.0
+      - name: Wait until the live site serves this commit
+        id: wait
+        env:
+          EVENT: ${{ github.event_name }}
+          SHA: ${{ github.sha }}
+        run: |
+          served=""
+          for i in $(seq 1 80); do
+            served=$(curl -fsS --max-time 15 https://blueskyzlabs.com/version.json | sed -n 's/.*"commit":"\([0-9a-f]*\)".*/\1/p' || true)
+            if [ "${EVENT}" != "push" ] && [ -n "${served}" ]; then break; fi
+            if [ "${served}" = "${SHA}" ]; then break; fi
+            sleep 15
+          done
+          if [ "${EVENT}" = "push" ] && [ "${served}" != "${SHA}" ]; then
+            echo "::error::Workers Builds has not served ${SHA} after 20 minutes (served: ${served:-nothing}). Check the Workers Builds run."
+            exit 1
+          fi
+          if [ -z "${served}" ]; then echo "::error::/version.json serves no commit"; exit 1; fi
+          echo "commit=${served}" >> "${GITHUB_OUTPUT}"
+      - name: Install Playwright Chromium outside the workspace
+        run: |
+          mkdir -p "${RUNNER_TEMP}/pdv"
+          cd "${RUNNER_TEMP}/pdv"
+          echo '{"private":true}' > package.json
+          npm install --no-audit --no-fund --ignore-scripts playwright@1.64.1
+          npx playwright install --with-deps chromium
+      - name: Run the shared PDV runner
+        env:
+          COMMIT: ${{ steps.wait.outputs.commit }}
+        run: |
+          cd "${RUNNER_TEMP}/pdv"
+          node "${GITHUB_WORKSPACE}/scripts/sgps-pdv-run.mjs" \
+            --commit "${COMMIT}" \
+            --record "${GITHUB_WORKSPACE}/docs/operations/POST_DEPLOY_VERIFICATION.json" \
+            --out "${RUNNER_TEMP}/pdv-out"
+      - name: Keep the report and screenshots
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: pdv-${{ steps.wait.outputs.commit || github.sha }}
+          path: ${{ runner.temp }}/pdv-out
+          retention-days: 7
+          if-no-files-found: ignore

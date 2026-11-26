@@ -1,0 +1,66 @@
+{
+  "schema": "sgps.post-deploy/1",
+  "standard": "sgps-core standards/testing/POST_DEPLOY_VERIFICATION_STANDARD.md (PDV 1.0)",
+  "updated": "2026-11-26",
+  "base_url": "https://blueskyzlabs.com",
+  "deploy_command": "Workers Builds deploys main; .github/workflows/post-deploy.yml (read-only) waits until /version.json serves the pushed commit, then runs scripts/sgps-pdv-run.mjs",
+  "identity": {
+    "endpoint": "/version.json",
+    "commit_field": "commit",
+    "tries": 8,
+    "interval_seconds": 5,
+    "split_samples": 10
+  },
+  "rollout": "single_version",
+  "public": {
+    "pages": ["/", "/vi/", "/en/", "/zh/", "/products/"],
+    "viewports": [
+      {
+        "name": "320",
+        "width": 320,
+        "height": 640,
+        "scheme": "light"
+      },
+      {
+        "name": "390-dark",
+        "width": 390,
+        "height": 844,
+        "scheme": "dark"
+      },
+      {
+        "name": "1280",
+        "width": 1280,
+        "height": 800,
+        "scheme": "light"
+      }
+    ],
+    "languages": ["en", "vi", "zh"]
+  },
+  "closed_doors": [
+    {
+      "path": "/_e",
+      "expect": [403, 405]
+    }
+  ],
+  "signed_in": {
+    "method": "none",
+    "reason": "Public organisational site: no account or signed-in surface."
+  },
+  "evidence": {
+    "report": "sgps.pdv-report/1",
+    "screenshots": true,
+    "store": "ci_artifact_private",
+    "retention_days": 7
+  },
+  "rollback": {
+    "automatic": false,
+    "command": "wrangler rollback --name web, run by the Owner or an agent with Workers access when the post-deploy run fails",
+    "rerun_after": true,
+    "deviation": "PDV-R7 open: AGENTS.md keeps GitHub Actions free of Cloudflare secrets and deploy commands, so the read-only job cannot roll back. Decided 2026-11-26: keep Actions read-only; a FAIL emails the Owner and the rollback is run by hand."
+  },
+  "schedule": {
+    "every_minutes": 1440,
+    "where": "post-deploy.yml on every push to main and daily",
+    "alert": "failed GitHub Actions run (owner email)"
+  }
+}
