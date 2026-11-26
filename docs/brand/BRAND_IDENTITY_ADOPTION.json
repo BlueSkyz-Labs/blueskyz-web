@@ -1,0 +1,161 @@
+{
+  "schema": "sgps.brand-identity-adoption/1",
+  "standard": "sgps.standard.brand-identity",
+  "project": "<replace-with-project-slug>",
+  "profile": "app_product",
+  "scope_channels": [
+    "web"
+  ],
+  "mode": "RESEARCH",
+  "house_kit": {
+    "name": "BlueSkyz_Brand_Kit_v5",
+    "version": "5.0.0",
+    "sha256": null,
+    "color_decision": "NOT_EVALUATED",
+    "color_reason": ""
+  },
+  "source": {
+    "selected_concept": null,
+    "approved_source_path": null,
+    "approved_source_sha256": null,
+    "editable_vector_path": null,
+    "export_parity": "NOT_VERIFIED"
+  },
+  "tier": "L0_DISCOVERY",
+  "governance": {
+    "brand_architecture": "ENDORSED_PRODUCT_HOUSE",
+    "public_truth_ref": null,
+    "product_truth_ref": null,
+    "sgps_pin": null,
+    "project_head": null
+  },
+  "gates": {
+    "B0": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B1": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B2": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B3": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B4": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B5": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B6": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B7": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B8": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    },
+    "B9": {
+      "state": "NOT_VERIFIED",
+      "evidence": [],
+      "note": ""
+    }
+  },
+  "ip": {
+    "state": "NOT_VERIFIED",
+    "territories": [],
+    "search_evidence": [],
+    "legal_disposition_ref": null,
+    "name_clearance": {
+      "VN_IPO": {
+        "state": "NOT_SEARCHED",
+        "result": "UNKNOWN",
+        "evidence": [],
+        "note": ""
+      },
+      "WIPO": {
+        "state": "NOT_SEARCHED",
+        "result": "UNKNOWN",
+        "evidence": [],
+        "note": ""
+      },
+      "APP_STORES": {
+        "state": "NOT_SEARCHED",
+        "result": "UNKNOWN",
+        "evidence": [],
+        "note": ""
+      },
+      "DOMAINS": {
+        "state": "NOT_SEARCHED",
+        "result": "UNKNOWN",
+        "evidence": [],
+        "note": ""
+      }
+    }
+  },
+  "runtime": {
+    "state": "NOT_VERIFIED",
+    "project_pr": null,
+    "merged_commit": null,
+    "device_evidence": []
+  },
+  "release": {
+    "state": "HOLD",
+    "owner_decision_ref": null,
+    "production_evidence_ref": null
+  },
+  "identity_score": {
+    "score": null,
+    "method": "BIGP_WEIGHTED_100",
+    "evidence_ref": null
+  },
+  "adoption_score": {
+    "score": null,
+    "method": "RUNTIME_EVIDENCE_ONLY",
+    "evidence_ref": null
+  },
+  "next_actions": [],
+  "creative_workflow": {
+    "schema": "sgps.brand-creative-workflow/1",
+    "stage": "STRATEGY",
+    "strategy": {
+      "state": "PENDING",
+      "revision": null,
+      "decision_ref": null
+    },
+    "directions": {
+      "state": "PENDING",
+      "options": [],
+      "selected_id": null,
+      "selected_revision": null,
+      "decision_ref": null
+    },
+    "master": {
+      "state": "PENDING",
+      "direction_id": null,
+      "source_sha256": null,
+      "decision_ref": null,
+      "direction_revision": null
+    }
+  }
+}
